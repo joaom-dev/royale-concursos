@@ -10,7 +10,10 @@
 
 package com.royaleconcursos.controller;
 
-public class UsuarioControl {
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class UsuarioControl {
+    
     
 }
