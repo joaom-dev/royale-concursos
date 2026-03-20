@@ -1,29 +1,35 @@
-// CADASTRO, AUTENTICACAO
+const form = document.querySelector("form");
 
-//validar o formulario tanto email como senha
-function validarFormulario(){
-    const email = document.getElementById("email").value
-    const erroemail = document.getElementById("erro-email")
-    const senha = document.getElementById("senha").value
-    const errosenha = document.getElementById("erro-senha")
-    const cpf = document.getElementById("cpf").value
-    const nome = document.getElementById("nome").value
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    //e uma expressao que serve para verificar textos, neste caso esta regex e para validar emails
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ 
+    const email = document.querySelector("#email").value;
+    const password = document.querySelector("#senha").value;
 
-    if(!regex.test(email)) {
-        erro.innerText = "Email Valido"
-        return false
+    try {
+        const response = await fetch("http://localhost:8080/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            localStorage.setItem("token", data.token);
+
+            window.location.href = "../telainicial/index.html";
+        } else {
+            alert("Email ou senha inválidos");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Erro ao fazer login");
     }
-
-    erroemail.innerText = "" // serve para apagar a mensagem de erro depois de estar certo
-
-    if(senha.legth < 8) {
-        errosenha.innerText = "A senha deve conter no minimo 8 caracteres"
-        return false
-    }
-
-    errosenha.innerText = ""
-    return true
-}
+});
