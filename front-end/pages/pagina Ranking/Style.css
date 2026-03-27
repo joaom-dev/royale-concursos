@@ -1,0 +1,355 @@
+/* Reset simplificado */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: hsl(0, 100%, 98%);
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background-color: #0f0f0f;
+  align-items: center;
+}
+
+.logo {
+  color: #d4af37;
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+nav ul li a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #d4af37;
+}
+
+.account-btn {
+  background-color: #d4af37;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.account-btn:hover {
+  background-color: #b29419;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto 60px;
+  padding: 0 20px;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+h1 {
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #d4af37;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.user-input-section {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 15px 25px;
+  margin-bottom: 30px;
+}
+
+.user-input-section h2 {
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #000000;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 4px;
+  border: 2px solid rgb(133, 133, 133);
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.form-group input::placeholder {
+  color: #777;
+}
+
+/* RANKING */
+.ranking-section {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: #d4af37;
+  border-radius: 6px;
+  width: 70%;
+  color: #fffefe;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+thead {
+  background-color: #d4af37;
+  color: #121212;
+  font-weight: 700;
+}
+
+thead th {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+tbody tr {
+  border-top: 1px solid #333;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #242424;
+}
+
+tbody tr:hover {
+  background-color: #333;
+}
+
+tbody td {
+  padding: 10px 15px;
+  vertical-align: middle;
+}
+
+/* Posição e medalhas */
+.medal {
+  font-size: 1.1rem;
+  margin-right: 6px;
+}
+.position-1 .medal {
+  color: #ffd700; /* dourado */
+}
+.position-2 .medal {
+  color: #c0c0c0; /* prata */
+}
+.position-3 .medal {
+  color: #cd7f32; /* bronze */
+}
+
+.avatar-circle {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #d4af37;
+  color: #121212;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 32px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Pontuação destaque */
+.score {
+  font-weight: 700;
+  color: #d4af37;
+}
+
+/* SIDEBAR TOP3 */
+.top-3-month {
+  width: 28%;
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  padding: 20px 18px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  color: #ddd;
+}
+
+.top-3-month h2 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #d4af37;
+  text-align: center;
+}
+
+.top-user {
+  text-align: center;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+.top-user .medal {
+  font-size: 1.7rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.avatar-large {
+  background-color: #d4af37;
+  color: #121212;
+  display: inline-block;
+  width: 62px;
+  height: 62px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 62px;
+  border-radius: 50%;
+  margin: 10px auto 8px;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.user-score {
+  font-weight: 700;
+  color: #d4af37;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background-color: #333;
+  height: 6px;
+  border-radius: 6px;
+  width: 90%;
+  margin: 0 auto 7px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #d4af37;
+  border-radius: 6px 0 0 6px;
+}
+
+.top-3-month small {
+  color: #aaa;
+}
+
+/* RESUMO */
+.summary-cards {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #1c1c1c;
+  flex: 1;
+  min-width: 180px;
+  padding: 20px 15px;
+  border-radius: 8px;
+  color: #aaa;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
+
+.card small {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.card h3 {
+  font-size: 2rem;
+  color: #d4af37;
+  font-weight: 700;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 60px;
+  padding: 24px 40px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  background-color: #0f0f0f;
+}
+
+footer a {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 7px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* Responsive */
+@media(max-width: 900px){
+  .ranking-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  table {
+    width: 100%;
+  }
+  .top-3-month {
+    width: 100%;
+    margin-top: 30px;
+  }
+  .summary-cards {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
