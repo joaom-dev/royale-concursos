@@ -16,7 +16,7 @@ header {
 }
 
 #nome{
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 40px;
     padding-bottom: 25px;
     padding-top: 15px;
@@ -42,7 +42,7 @@ header {
 #nome-usuario{
     font-size: 25px;
     color: #ffffff;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 main{
@@ -128,7 +128,7 @@ main{
 }
 
 .quad h2{
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 40px;
     color: white;
    
@@ -180,7 +180,7 @@ main{
 
 .menu-lateral ul li{
     padding: 15px 30px;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .menu-lateral ul li a{
@@ -274,7 +274,7 @@ footer{
 }
 
 #footer-contatos p{
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 2rem;
     padding-bottom: 1rem;
 }
@@ -337,7 +337,7 @@ footer{
 
 #info{
     font-size: 2rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     padding-bottom: 8px;
 }
 
@@ -359,7 +359,7 @@ footer{
 
 #sug{
     font-size: 2rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     padding-bottom: 8px;
     
 }

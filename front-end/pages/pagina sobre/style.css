@@ -18,7 +18,7 @@ header {
 }
 
 .logo {
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 32px;
 }
 
@@ -125,13 +125,10 @@ section {
 }
 
 .container-text h2{
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 43px;
 }
 
-.container-text span{
-    color: blue;
-}
 
 .container-text{
     width: 900px;
@@ -144,7 +141,7 @@ section {
 
 .title h1{
     margin: 0.3rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 65px;
 }
 
@@ -157,7 +154,7 @@ section {
 
 .timeline h2{
     margin-bottom: 0.5rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 40px;
     color: white;
 }
