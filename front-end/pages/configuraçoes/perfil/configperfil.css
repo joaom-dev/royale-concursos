@@ -16,7 +16,7 @@ header {
 }
 
 #nome {
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 40px;
     padding-bottom: 25px;
     padding-top: 15px;
@@ -44,7 +44,7 @@ header {
 #nome-usuario {
     font-size: 25px;
     color: #ffffff;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 :root {
@@ -79,7 +79,7 @@ header {
 
 .menu-lateral ul li {
     padding: 15px 30px;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .menu-lateral ul li a {
@@ -173,7 +173,7 @@ main {
 }
 
 h2 {
-    font-family: "Jersey 25", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 35px;
     font-style: normal;
