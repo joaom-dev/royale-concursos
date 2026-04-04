@@ -1,4 +1,4 @@
-/* Reset simplificado */
+
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +8,31 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: hsl(0, 100%, 98%);
-  color: #ffffff;
+color: #000000;
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+button {
+    text-rendering: auto;
+    color:rgb(255, 255, 255);
+    background-color: #d4af37;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    margin: 0em 0em 0em 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-image: initial;
 }
 
 .container-header {
@@ -126,7 +148,9 @@ h1 {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
+
 
 table {
   border-collapse: collapse;
@@ -337,11 +361,9 @@ footer a:hover {
 }
 
 /* Responsive */
-.container {
+.layout {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
 }
 
 .container-header{
@@ -359,7 +381,6 @@ font-weight: 100;
   border-radius: 10px;
 }
 
-/* TABLET */
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
@@ -371,14 +392,12 @@ font-weight: 100;
   }
 }
 
-/* NOTEBOOK */
 @media (min-width: 1024px) {
   .box {
     width: 30%;
   }
 }
 
-/* TELAS GRANDES (TV, etc) */
 @media (min-width: 1440px) {
   .container {
     max-width: 1200px;
