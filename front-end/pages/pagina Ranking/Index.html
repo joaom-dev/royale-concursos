@@ -19,7 +19,7 @@
           <li><a href="#">Sobre</a></li>
         </ul>
       </nav>
-      <button class="account-btn">Minha Conta</button>
+      <button class="minha-conta">Minha Conta</button>
     </div>
   </header>
 
@@ -29,12 +29,12 @@
     <h1>Ranking Geral</h1>
 
     <!-- FORMULARIO PARA INSERÇÃO -->
-    <section class="user-input-section">
+    <section class="formulario">
       <h2>Adicionar Notas ao Ranking</h2>
       <form id="userForm">
 
 
-        <div class="form-group">
+        <div class="formulario-grupo">
           <label for="contest">Concurso:</label>
           <select id="contest" name="contest" required>
             <option value="">Selecione</option>
@@ -47,12 +47,12 @@
           </select>
 
         </div>
-        <button type="submit" class="account-btn">Adicionar ao Ranking</button>
+        <button type="submit" class="add-ranking">Adicionar ao Ranking</button>
       </form>
     </section>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <section class="ranking-section">
+    <section class="ranking-cont">
       <table id="rankingTable">
         <thead>
           <tr>
@@ -68,7 +68,7 @@
         </tbody>
       </table>
 
-      <aside class="top-3-month">
+      <aside class="top-3">
         <h2>Top 3 do Mês</h2>
         <div id="top3Users">
           <!-- Top 3 gerados pelo JS -->

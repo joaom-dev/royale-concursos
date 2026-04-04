@@ -10,6 +10,7 @@ body {
   background-color: hsl(0, 100%, 98%);
   color: #ffffff;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .container-header {
@@ -45,7 +46,7 @@ nav ul li a:hover {
   color: #d4af37;
 }
 
-.account-btn {
+.add-ranking {
   background-color: #d4af37;
   color: #ffffff;
   border: none;
@@ -56,7 +57,7 @@ nav ul li a:hover {
   transition: background-color 0.3s ease;
 }
 
-.account-btn:hover {
+.add-ranking:hover {
   background-color: #b29419;
 }
 
@@ -82,31 +83,31 @@ h1 {
   padding-bottom: 5px;
 }
 
-.user-input-section {
+.formulario {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 15px 25px;
   margin-bottom: 30px;
 }
 
-.user-input-section h2 {
+.formulario h2 {
   color: #000000;
   margin-bottom: 15px;
 }
 
-.form-group {
+.formulario-grupo{
   margin-bottom: 12px;
 }
 
-.form-group label {
+.formulario-grupo label {
   display: block;
   margin-bottom: 5px;
   font-size: 0.9rem;
   color: #000000;
 }
 
-.form-group input,
-.form-group select {
+.formulario-grupo input,
+.formulario-grupo select {
   width: 100%;
   padding: 9px 12px;
   border-radius: 4px;
@@ -116,12 +117,12 @@ h1 {
   color: #000000;
 }
 
-.form-group input::placeholder {
+.formulario-grupo input::placeholder {
   color: #777;
 }
 
 /* RANKING */
-.ranking-section {
+.ranking-cont {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
@@ -205,7 +206,7 @@ tbody td {
 }
 
 /* SIDEBAR TOP3 */
-.top-3-month {
+.top-3{
   width: 28%;
   background-color: #1c1c1c;
   border-radius: 8px;
@@ -214,7 +215,7 @@ tbody td {
   color: #ddd;
 }
 
-.top-3-month h2 {
+.top-3 h2 {
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 25px;
@@ -275,7 +276,7 @@ tbody td {
   border-radius: 6px 0 0 6px;
 }
 
-.top-3-month small {
+.top-3 small {
   color: #aaa;
 }
 
@@ -336,20 +337,55 @@ footer a:hover {
 }
 
 /* Responsive */
-@media(max-width: 900px){
-  .ranking-section {
-    flex-direction: column;
-    align-items: center;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.container-header{
+display: flex;
+width: auto;
+font-weight: 100;
+
+}
+
+.box {
+  width: 100%;
+  padding: 20px;
+  background: lightblue;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  table {
-    width: 100%;
+
+  .box {
+    width: 48%;
   }
-  .top-3-month {
-    width: 100%;
-    margin-top: 30px;
+}
+
+/* NOTEBOOK */
+@media (min-width: 1024px) {
+  .box {
+    width: 30%;
   }
-  .summary-cards {
-    flex-direction: column;
-    gap: 20px;
+}
+
+/* TELAS GRANDES (TV, etc) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    width: 30%;
   }
 }
