@@ -1,45 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ranking Geral - Royale</title>
   <link rel="stylesheet" href="Style.css">
 </head>
-
 <body>
   <header>
-    <button class="botao-menu">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-
-    <nav class="menu-lateral">
-
-      <div class="perfil">
-        <img src="./imgs/lebron bb.jpg" alt="logo-usuario">
-        <p id="nome-usuario">Lebron BB</p>
-      </div>
-
-
-      <ul>
-        <li class="nomes-categorias">Sistema</li>
-        <li class="header-list"><a href="../configuraçoes/perfil/configperfil.html"><i
-              class="fa-solid fa-gears"></i>Configuracoes</a></li>
-        <li class="header-list"><a href="../pagina sobre/index.html"><i
-              class="fa-solid fa-circle-exclamation"></i>Sobre</a></li>
-        <li class="header-list"><a href="/front-end/pages/telaInicial/index.html"><i
-              class="fa-solid fa-house"></i>Inicio</a></li>
-
-
-        <li class="nomes-categorias">Salvos</li>
-        <li class="header-list"><a href="#"><i class="fa-solid fa-book-open"></i>Minhas Provas</a></li>
-
-
-      </ul>
-    </nav>
-
-    <p id="nome">royale concursos</p>
+    <div class="container-header">
+      <div class="logo">ROYALE</div>
+      <nav>
+        <ul>
+          <li><a href="#">Início</a></li>
+          <li><a href="#">Concursos</a></li>
+          <li><a href="#">Ranking</a></li>
+          <li><a href="#">Resultados</a></li>
+          <li><a href="#">Sobre</a></li>
+        </ul>
+      </nav>
+      <button class="minha-conta">Minha Conta</button>
+    </div>
   </header>
 
   <main class="container">
@@ -48,12 +29,12 @@
     <h1>Ranking Geral</h1>
 
     <!-- FORMULARIO PARA INSERÇÃO -->
-    <section class="user-input-section">
+    <section class="formulario">
       <h2>Adicionar Notas ao Ranking</h2>
       <form id="userForm">
 
 
-        <div class="form-group">
+        <div class="formulario-grupo">
           <label for="contest">Concurso:</label>
           <select id="contest" name="contest" required>
             <option value="">Selecione</option>
@@ -66,12 +47,12 @@
           </select>
 
         </div>
-        <button type="submit" class="account-btn">Adicionar ao Ranking</button>
+        <button type="submit" class="add-ranking">Adicionar ao Ranking</button>
       </form>
     </section>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <section class="ranking-section">
+    <section class="ranking-cont">
       <table id="rankingTable">
         <thead>
           <tr>
@@ -87,7 +68,7 @@
         </tbody>
       </table>
 
-      <aside class="top-3-month">
+      <aside class="top-3">
         <h2>Top 3 do Mês</h2>
         <div id="top3Users">
           <!-- Top 3 gerados pelo JS -->
@@ -125,5 +106,4 @@
 
   <script src="Script.js"></script>
 </body>
-
 </html>

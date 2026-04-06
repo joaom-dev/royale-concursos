@@ -1,4 +1,4 @@
-/* Reset simplificado */
+
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +8,31 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: hsl(0, 100%, 98%);
-  color: #ffffff;
+color: #000000;
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+button {
+    text-rendering: auto;
+    color:rgb(255, 255, 255);
+    background-color: #d4af37;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    margin: 0em 0em 0em 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-image: initial;
 }
 
 .container-header {
@@ -45,7 +68,7 @@ nav ul li a:hover {
   color: #d4af37;
 }
 
-.account-btn {
+.add-ranking {
   background-color: #d4af37;
   color: #ffffff;
   border: none;
@@ -56,7 +79,7 @@ nav ul li a:hover {
   transition: background-color 0.3s ease;
 }
 
-.account-btn:hover {
+.add-ranking:hover {
   background-color: #b29419;
 }
 
@@ -82,31 +105,31 @@ h1 {
   padding-bottom: 5px;
 }
 
-.user-input-section {
+.formulario {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 15px 25px;
   margin-bottom: 30px;
 }
 
-.user-input-section h2 {
+.formulario h2 {
   color: #000000;
   margin-bottom: 15px;
 }
 
-.form-group {
+.formulario-grupo{
   margin-bottom: 12px;
 }
 
-.form-group label {
+.formulario-grupo label {
   display: block;
   margin-bottom: 5px;
   font-size: 0.9rem;
   color: #000000;
 }
 
-.form-group input,
-.form-group select {
+.formulario-grupo input,
+.formulario-grupo select {
   width: 100%;
   padding: 9px 12px;
   border-radius: 4px;
@@ -116,16 +139,18 @@ h1 {
   color: #000000;
 }
 
-.form-group input::placeholder {
+.formulario-grupo input::placeholder {
   color: #777;
 }
 
 /* RANKING */
-.ranking-section {
+.ranking-cont {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
+
 
 table {
   border-collapse: collapse;
@@ -205,7 +230,7 @@ tbody td {
 }
 
 /* SIDEBAR TOP3 */
-.top-3-month {
+.top-3{
   width: 28%;
   background-color: #1c1c1c;
   border-radius: 8px;
@@ -214,7 +239,7 @@ tbody td {
   color: #ddd;
 }
 
-.top-3-month h2 {
+.top-3 h2 {
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 25px;
@@ -275,7 +300,7 @@ tbody td {
   border-radius: 6px 0 0 6px;
 }
 
-.top-3-month small {
+.top-3 small {
   color: #aaa;
 }
 
@@ -336,20 +361,50 @@ footer a:hover {
 }
 
 /* Responsive */
-@media(max-width: 900px){
-  .ranking-section {
-    flex-direction: column;
-    align-items: center;
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-header{
+display: flex;
+width: auto;
+font-weight: 100;
+
+}
+
+.box {
+  width: 100%;
+  padding: 20px;
+  background: lightblue;
+  text-align: center;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  table {
-    width: 100%;
+
+  .box {
+    width: 48%;
   }
-  .top-3-month {
-    width: 100%;
-    margin-top: 30px;
+}
+
+@media (min-width: 1024px) {
+  .box {
+    width: 30%;
   }
-  .summary-cards {
-    flex-direction: column;
-    gap: 20px;
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    width: 30%;
   }
 }
