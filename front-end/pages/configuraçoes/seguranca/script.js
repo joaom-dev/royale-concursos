@@ -4,7 +4,7 @@ const menuLateral = document.querySelector('.menu-lateral')
 const conteudo = document.querySelector('body')
 const background = document.querySelector('.background')
 
-botao.addEventListener('click', ()=> {
+botao.addEventListener('click', () => {
     menuLateral.classList.toggle('ativo')
     conteudo.classList.toggle('ativo')
     background.classList.toggle('ativo')
@@ -15,27 +15,33 @@ background.addEventListener('click', () => {
     menuLateral.classList.remove('ativo')
     conteudo.classList.remove('ativo')
     background.classList.remove('ativo')
-    botao.classList.remove('ativo')                       
+    botao.classList.remove('ativo')
 })
 
-//ativar autenticacao de duas etapas
-let trilho = document.getElementById('trilho')
+// toggle 2FA
+const toggle2FA = document.getElementById("toggle-2fa")
 
-trilho.addEventListener('click', ()=>{
-    trilho.classList.toggle('ativado')
+window.addEventListener("load", () => {
+    toggle2FA.checked = localStorage.getItem("2fa") === "true"
 })
 
-//mostrar senha
-const eyeIcon = document.querySelector('.eye-icon')
-const senhaInput = document.getElementById('senha')
+document.getElementById("salvar").addEventListener("click", () => {
+    localStorage.setItem("2fa", toggle2FA.checked)
+    alert("Configurações de segurança salvas!")
+})
 
-eyeIcon.addEventListener('click', () => {
-    const type = senhaInput.type === 'password' ? 'text' : 'password';
-    senhaInput.type = type;
-    eyeIcon.classList.toggle('fa-eye-slash');
-});
+// mostrar/ocultar todas as senhas
+const eyeIcons = document.querySelectorAll(".eye-icon")
 
-//modal
+eyeIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+        const input = icon.previousElementSibling
+        const type = input.type === "password" ? "text" : "password"
+        input.type = type
+        icon.classList.toggle("fa-eye-slash")
+    })
+})
+
 const modal = document.getElementById('modal')
 const openModal = document.getElementById('openModal')
 const closeModal = document.getElementById('closeModal')
@@ -48,5 +54,4 @@ openModal.addEventListener('click', ()=>{
 closeModal.addEventListener('click', ()=>{
     modal.close()
     document.body.classList.remove('modal-open')
-    
 })

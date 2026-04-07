@@ -78,74 +78,66 @@
         </ul>
 
         <div class="security">
-            <div class="senhas">
-                <p class="titulo">Segurança</p>
+            <div class="security-card">
+                <h2><i class="fa-solid fa-lock"></i> Alterar senha</h2>
 
                 <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="senha" placeholder="Senha" required>
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" id="senha-atual" placeholder="Senha atual">
                     <i class="fa-solid fa-eye eye-icon"></i>
                 </div>
 
                 <div class="input-group">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="senha" placeholder="Nova Senha" required>
+                    <input type="password" id="nova-senha" placeholder="Nova senha">
                     <i class="fa-solid fa-eye eye-icon"></i>
                 </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="confirmar-senha" placeholder="Confirmar nova senha">
+                    <i class="fa-solid fa-eye eye-icon"></i>
+                </div>
+            </div>
+
+            <div class="security-card">
+                <h2><i class="fa-solid fa-shield-halved"></i> Verificação em dois fatores</h2>
+
+                <div class="preference-item">
+                    <span>Ativar autenticação 2FA</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-2fa">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <p class="descricao">
+                    Adicione uma camada extra de proteção exigindo um código de verificação ao fazer login.
+                </p>
+            </div>
+
+            <div class="danger-card">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> Excluir conta</h2>
+                <p>Essa ação é permanente e não poderá ser desfeita.</p>
+                <button id="openModal">Excluir conta</button>
             </div>
 
             <div class="saves">
-                <button id="salvar">Salvar alteraçoes</button>
-            </div>
-
-            <div class="verification">
-                <p class="titulo" id="titulo2">Verificaçao de dois fatores</p>
-
-                <div class="btn-ativa">
-
-                    <div class="trilho" id="trilho">
-                        <div class="indicador">
-                        </div>
-                    </div>
-
-                    <p>Ativar 2FA</p>
-                </div>
-
-                <div class="text-2fa">
-                    <p>A autenticação de dois fatores (2FA) serve para adicionar uma camada extra de segurança à sua
-                        conta, exigindo uma segunda forma de verificação além da sua senha, como um código enviado para
-                        seu celular ou aplicativo, um PIN ou biometria, protegendo-a contra acessos não autorizados.</p>
-                </div>
+                <button id="salvar">Salvar alterações</button>
             </div>
 
 
-            <div class="excluir">
-                <p class="titulo">Excluir conta<i class="fa-solid fa-circle-exclamation"></i></p>
-                <p id="text-excluir">Esta açao nao pode ser revertida!</p>
-
-                <div class="btn-ex">
-                    <button id="openModal"> Excluir conta!</button>
-                </div>
-            </div>
         </div>
 
-        <div class="security2"></div>
+        <dialog id="modal">
+            <div class="modal-header">
+                <p>Excluir Conta!</p>
+                <p id="text">Tem certeza que deseja continuar com esta açao?</p>
+            </div>
 
-
-
-
-
-    </div>
-
-    <dialog id="modal">
-        <div class="modal-header">
-            <p>Excluir Conta!</p>
-            <p id="text">Tem certeza que deseja continuar com esta açao?</p>
-        </div>
-
-        <div class="modal-body">
-            <button id="sim"> Sim !</button>
-            <button id="closeModal" class="nao""> Nao !</button>
+            <div class="modal-body">
+                <button id="sim"> Sim !</button>
+                <button id="closeModal" class="nao""> Nao !</button>
         </div>
     </dialog>
 
