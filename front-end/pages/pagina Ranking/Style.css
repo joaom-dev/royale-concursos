@@ -8,9 +8,24 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: hsl(0, 100%, 98%);
-color: #000000;
+  color: #000000;
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+header {
+  width: 100%;
+  display: block;
+  background-color: #000000;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+header, footer {
+  width: 100%;
+  padding: 15px 20px; 
 }
 
 button {
@@ -38,9 +53,24 @@ button {
 .container-header {
   display: flex;
   justify-content: space-between;
-  padding: 15px 40px;
-  background-color: #0f0f0f;
   align-items: center;
+  padding: 15px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  }
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.minha-conta {
+  background-color: #d4af37;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .logo {
@@ -48,12 +78,6 @@ button {
   font-weight: 900;
   font-size: 1.6rem;
   letter-spacing: 2px;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
 }
 
 nav ul li a {
@@ -146,7 +170,7 @@ h1 {
 /* RANKING */
 .ranking-cont {
   display: flex;
-  gap: 25px;
+  gap: 20px;
   flex-wrap: wrap;
   align-items: flex-start;
 }
@@ -156,10 +180,16 @@ table {
   border-collapse: collapse;
   background-color: #d4af37;
   border-radius: 6px;
-  width: 70%;
   color: #fffefe;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   overflow: hidden;
+  flex: 1;
+  min-width: 300px;
+  width: 100%;
+  }
+
+img, table, input, select, button {
+  max-width: 100%;
 }
 
 thead {
@@ -237,6 +267,8 @@ tbody td {
   padding: 20px 18px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
   color: #ddd;
+  flex: 1;
+  min-width: 250px;
 }
 
 .top-3 h2 {
@@ -340,37 +372,30 @@ tbody td {
 
 /* FOOTER */
 footer {
-  margin-top: 60px;
-  padding: 24px 40px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: #666;
   background-color: #0f0f0f;
+  color: #aaa;
+  padding: 30px 20px;
+  text-align: center;
 }
 
-footer a {
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
   color: #d4af37;
   text-decoration: none;
-  font-weight: 600;
-  margin: 0 7px;
-  transition: color 0.3s ease;
+  margin: 0 10px;
+  font-size: 0.9rem;
 }
 
-footer a:hover {
+.footer-links a:hover {
   color: #fff;
 }
-
 /* Responsive */
 .layout {
   display: flex;
   flex-direction: column;
-}
-
-.container-header{
-display: flex;
-width: auto;
-font-weight: 100;
-
 }
 
 .box {
@@ -381,15 +406,25 @@ font-weight: 100;
   border-radius: 10px;
 }
 
-@media (min-width: 768px) {
-  .container {
-    flex-direction: row;
-    flex-wrap: wrap;
+@media (max-width: 768px) {
+
+  nav ul {
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 10px;
   }
 
-  .box {
-    width: 48%;
+  nav ul li a {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    background: none; 
   }
+
+  .minha-conta {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
 }
 
 @media (min-width: 1024px) {
