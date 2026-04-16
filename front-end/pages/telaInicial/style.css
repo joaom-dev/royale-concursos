@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    outline: 1px solid red;
+    font-family: "DM Sans", sans-serif;
 }
 
 body{
@@ -28,7 +28,7 @@ header {
 }
 
 #nome{
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 40px;
     padding-bottom: 25px;
     padding-top: 15px;
@@ -54,13 +54,13 @@ header {
 #nome-usuario{
     font-size: 25px;
     color: #ffffff;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 main{
     color: white;
     background-color: black;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -145,7 +145,7 @@ main{
 }
 
 .quad h2{
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 40px;
     color: white;
 }
@@ -195,7 +195,7 @@ main{
 
 .menu-lateral ul li{
     padding: 15px 30px;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .menu-lateral ul li a{
@@ -276,7 +276,7 @@ body.ativo{
 
 footer{
     width: 100%;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-top: 70px;
     flex-wrap: wrap;
 }
@@ -290,7 +290,7 @@ footer{
 }
 
 #footer-contatos p{
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 2rem;
     padding-bottom: 1rem;
 }
@@ -355,12 +355,12 @@ footer{
 
 #info{
     font-size: 2rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-bottom: 8px;
 }
 
 .footer-links{
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     text-decoration: none;
     font-size: 1.2rem;
     color: white;
@@ -379,7 +379,7 @@ footer{
 
 #sug{
     font-size: 2rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-bottom: 8px;
     
 }

@@ -17,7 +17,7 @@ body {
 }
 
 .img-login img {
-    width: 800px;
+    width: 700px;
     height: 730px;
 }
 
@@ -35,8 +35,12 @@ body {
 }
 
 h1 {
-    font-family: "Roboto";
-    font-size: 38px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 43px;
+    font-weight: 1100;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 input {
@@ -47,7 +51,16 @@ input {
     border-radius: 8px;
     outline: none;
     transition: border-color 0.5s;
+    font-family: "DM Sans", sans-serif;
 
+}
+
+input[type="password"] {
+    font-size: 20px;
+}
+
+input[type="email"] {
+    font-size: 20px;
 }
 
 .input-group {
@@ -78,21 +91,27 @@ input:focus { /*focus serve para estilizar apenas quando o usuario clina, dando 
 }
 
 button {
-    width: 348px;
+    width: 318px;
     height: 48px;
-    background-color: black;
     color: white;
     border-radius: 8px;
     border: none;
     font-size: 20px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    box-shadow: 0 0 9px #415a77;
+}
+
+button:hover {
+    transform: scale(1.1);
 }
 
 a {
     color: #888;
     text-decoration: none;
     font-size: 20px;
-    font-family: "Inria Sans";
+    font-family: "DM Sans", sans-serif;
 }
 
 a:hover {

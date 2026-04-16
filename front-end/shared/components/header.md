@@ -60,7 +60,7 @@ header {
 main{
     color: white;
     background-color: black;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -74,7 +74,7 @@ main{
 }
 
 #nome{
-    font-family: "Jersey 25", sans-serif;
+font-family: "DM Sans", sans-serif;
     font-size: 40px;
     padding-bottom: 25px;
     padding-top: 15px;
@@ -100,7 +100,7 @@ main{
 #nome-usuario{
     font-size: 25px;
     color: #ffffff;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 :root{
@@ -135,7 +135,7 @@ main{
 
 .menu-lateral ul li{
     padding: 15px 30px;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .menu-lateral ul li a{

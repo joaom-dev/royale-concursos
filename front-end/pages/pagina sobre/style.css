@@ -5,7 +5,7 @@
 }
 
 header {
-    background-color: #000;
+    background-color: white;
     color: white;
     width: 100%;
     top: 0;
@@ -18,18 +18,22 @@ header {
 }
 
 .logo {
-    font-family: "Roboto", sans-serif;
-    font-size: 32px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 43px;
+    font-weight: 1100;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-nav a{
-     color: white;
+nav a {
+    color: white;
     text-decoration: none;
     font-size: 20px;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     position: relative;
     transition: color 0.3s ease;
-    
+
 }
 
 nav {
@@ -42,7 +46,7 @@ nav a {
     color: white;
     text-decoration: none;
     font-size: 20px;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     position: relative;
     transition: transform 0.3s ease;
 }
@@ -71,9 +75,12 @@ nav a:hover::after {
     height: 45px;
     border-radius: 30px;
     border: none;
-    background-color: rgba(26, 26, 26, 0.149);    
+    background-color: transparent;
     cursor: pointer;
     transition: transform 0.3s ease;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    box-shadow: 0 0 9px #415a77;
+
 }
 
 .header-btn:hover {
@@ -89,6 +96,8 @@ nav a:hover::after {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "DM Sans", sans-serif;
+
 }
 
 
@@ -99,7 +108,7 @@ nav a:hover::after {
     justify-content: center;
 }
 
-.sobre-top{
+.sobre-top {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -110,63 +119,78 @@ nav a:hover::after {
 
 
 section {
-    min-height: 100vh; 
+    min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 80px; 
+    padding-top: 80px;
 }
 
 
-#logo-img{
-    height: 650px;
+#logo-img {
+    height: 680px;
     width: 680px;
 }
 
-.container-text h2{
-    font-family: "Roboto", sans-serif;
-    font-size: 43px;
+.container-text h2 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 52px;
 }
 
 
-.container-text{
+
+.container-text {
     width: 900px;
 }
 
-#motivacional{
-    font-family: "Inria Sans", sans-serif;
+#motivacional {
+    font-family: "DM Sans", sans-serif;
     font-size: 29px;
 }
 
-.title h1{
+.title h1 {
     margin: 0.3rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 65px;
+    font-weight: 1100;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.title p{
+.title span {
+    background: rgb(0, 0, 0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title p {
     color: black;
-    font-size: 1,4rem;
+    font-size: 1, 4rem;
     letter-spacing: 4px;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
 .timeline h2{
     margin-bottom: 0.5rem;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 40px;
     color: white;
 }
 
 .timeline p{
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 30px;
 }
 
-.title{
-    text-align: center;
-}
 
 
 .timeline{
@@ -227,4 +251,246 @@ section {
 .fuctions:nth-child(even)::before{
     right: 0;
 }
+*/
+.carrossel {
+    width: 90%;
+    max-width: 1100px;
+    margin: 1px auto 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.slides {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 32px;
+    border: 1px solid #bec0c2;
+}
+
+.card {
+    display: none;
+    background: #ffffff;
+    padding: 70px 80px;
+    min-height: 520px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.card.ativo {
+    display: flex;
+}
+
+.texto h1 {
+    font-size: 110px;
+    line-height: 1;
+    font-weight: 900;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 10px 0;
+    font-family: "DM Sans", sans-serif;
+
+}
+
+.texto h2 {
+    font-size: 58px;
+    margin: 0 0 16px 0;
+    color: #111827;
+    font-weight: 700;
+    font-family: "DM Sans", sans-serif;
+}
+
+.texto p {
+    font-size: 26px;
+    color: #6b7280;
+    max-width: 480px;
+    line-height: 1.4;
+    font-family: "DM Sans", sans-serif;
+
+}
+
+.imagem img {
+    width: 380px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.navegacao {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    justify-content: center;
+}
+
+.seta {
+    width: 58px;
+    height: 58px;
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.seta:hover {
+    background: #e5e7eb;
+    transform: scale(1.08);
+    color: #1f2937;
+}
+
+.bolinhas {
+    display: flex;
+    gap: 14px;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background: #d1d5db;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.ativo {
+    background: #374151;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.15);
+}
+
+
+
+
+
+
+footer {
+    width: 100%;
+    font-family: "DM Sans", sans-serif;
+    padding-top: 70px;
+}
+
+#content-footer {
+    background-color: #070707;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 3rem 3.5rem;
+}
+
+#footer-contatos p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+#social-links {
+    padding-top: 1.2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+#social-links .footer-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+
+}
+
+#social-links .footer-link:hover {
+    transform: translateX(5px) rotate(5deg);
+}
+
+#inta {
+    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
+}
+
+#zapp {
+    background: linear-gradient(#01820e, #19ff57, #6fff1c);
+}
+
+#linkedin {
+    background: linear-gradient(#00065f, #034365, #030033);
+}
+
+#github {
+    background: linear-gradient(#0b0b0b, #121212, #100f0f);
+}
+
+#tutube {
+    background: linear-gradient(#ff0000, #690808, #9a4242);
+}
+
+#footer-copyright {
+    background-color: #070707;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.footer-list {
+    list-style: none;
+
+}
+
+#info {
+    font-size: 2rem;
+    font-family: "DM Sans", sans-serif;
+    padding-bottom: 8px;
+}
+
+.footer-links {
+    font-family: "DM Sans", sans-serif;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.footer-links:hover {
+    text-decoration: underline;
+}
+
+#footer-sugestoes {
+    font-size: 1.2rem;
+    font-family: "DM Sans", sans-serif;
+}
+
+#sug {
+    font-size: 2rem;
+    font-family: "DM Sans", sans-serif;
+    padding-bottom: 8px;
+
+}
+
+#email {
+    text-decoration: underline;
+    padding-top: 5px;
+    color: white;
+
+}
+
+#email:hover {
+    color: #00065f;
+}
+
+.nomes-categorias {
+    font-size: 2rem;
+    border-bottom: 1px solid #333;
+}

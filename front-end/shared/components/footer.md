@@ -73,7 +73,7 @@
 
 footer{
     width: 100%;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-top: 70px;
 }
 
@@ -86,7 +86,7 @@ footer{
 }
 
 #footer-contatos p{
-    font-family: "Jersey 25", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 2rem;
     padding-bottom: 1rem;
 }
@@ -149,12 +149,12 @@ footer{
 
 #info{
     font-size: 2rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-bottom: 8px;
 }
 
 .footer-links{
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
     text-decoration: none;
     font-size: 1.2rem;
     color: white;
@@ -171,7 +171,7 @@ footer{
 
 #sug{
     font-size: 2rem;
-    font-family: "Jersey 25", sans-serif;
+    font-family: "DM Sans", sans-serif;
     padding-bottom: 8px;
     
 }
