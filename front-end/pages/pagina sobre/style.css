@@ -265,22 +265,32 @@ section {
     position: relative;
     overflow: hidden;
     width: 100%;
+    min-height: 520px;
     border-radius: 32px;
     border: 1px solid #bec0c2;
 }
 
 .card {
-    display: none;
+    position: absolute;
+    inset: 0;
     background: #ffffff;
     padding: 70px 80px;
     min-height: 520px;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 60px;
+    opacity: 0;
+    transform: translateX(80px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
 }
 
 .card.ativo {
-    display: flex;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    z-index: 2;
 }
 
 .texto h1 {
