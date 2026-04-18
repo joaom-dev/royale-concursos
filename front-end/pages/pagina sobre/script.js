@@ -25,4 +25,4 @@ function slideAnterior() {
 document.getElementById("next").addEventListener("click", proximoSlide);
 document.getElementById("prev").addEventListener("click", slideAnterior);
 
-setInterval(proximoSlide, 4500);
+//setInterval(proximoSlide, 4500);
