@@ -179,6 +179,7 @@ section {
 }
 
 /*
+VERSAO ANTIGA
 .timeline h2{
     margin-bottom: 0.5rem;
     font-family: "DM Sans", sans-serif;
@@ -385,122 +386,117 @@ section {
 
 
 footer {
-    width: 100%;
     font-family: "DM Sans", sans-serif;
-    padding-top: 70px;
 }
 
 #content-footer {
-    background-color: #070707;
+    background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
     color: white;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 3rem 3.5rem;
+    gap: 2rem;
 }
 
 #footer-contatos p {
-    font-family: "DM Sans", sans-serif;
-    font-size: 2rem;
-    padding-bottom: 1rem;
+    font-size: 1.1rem;
+    padding-bottom: 0.3rem;
+    color: #a0aec0;
+}
+
+#footer-contatos p:first-child {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
 }
 
 #social-links {
     padding-top: 1.2rem;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
+    flex-wrap: wrap;
 }
 
 #social-links .footer-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
     color: white;
     text-decoration: none;
-
+    font-size: 1rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 #social-links .footer-link:hover {
-    transform: translateX(5px) rotate(5deg);
+    transform: translateY(-3px);
+    opacity: 0.85;
 }
 
-#inta {
-    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
-}
-
-#zapp {
-    background: linear-gradient(#01820e, #19ff57, #6fff1c);
-}
-
-#linkedin {
-    background: linear-gradient(#00065f, #034365, #030033);
-}
-
-#github {
-    background: linear-gradient(#0b0b0b, #121212, #100f0f);
-}
-
-#tutube {
-    background: linear-gradient(#ff0000, #690808, #9a4242);
-}
-
-#footer-copyright {
-    background-color: #070707;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
+#inta   { background: linear-gradient(#7f37c9, #ff2992, #ff9807); }
+#zapp   { background: linear-gradient(#01820e, #19ff57, #6fff1c); }
+#linkedin { background: linear-gradient(#00065f, #034365, #030033); }
+#github { background: #1a1a1a; border: 1px solid #333; }
+#tutube { background: linear-gradient(#ff0000, #690808); }
 
 .footer-list {
     list-style: none;
-
 }
 
 #info {
-    font-size: 2rem;
-    font-family: "DM Sans", sans-serif;
-    padding-bottom: 8px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    padding-bottom: 1rem;
 }
 
 .footer-links {
-    font-family: "DM Sans", sans-serif;
     text-decoration: none;
-    font-size: 1.2rem;
-    color: white;
+    font-size: 1rem;
+    color: #a0aec0;
+    display: block;
+    padding: 3px 0;
+    transition: color 0.2s ease;
 }
 
 .footer-links:hover {
-    text-decoration: underline;
+    color: #ffffff;
 }
 
 #footer-sugestoes {
-    font-size: 1.2rem;
-    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    color: #a0aec0;
+    line-height: 1.6;
 }
 
 #sug {
-    font-size: 2rem;
-    font-family: "DM Sans", sans-serif;
-    padding-bottom: 8px;
-
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    padding-bottom: 1rem;
 }
 
 #email {
+    display: inline-block;
+    margin-top: 8px;
+    color: #93c5fd;
     text-decoration: underline;
-    padding-top: 5px;
-    color: white;
-
+    transition: color 0.2s ease;
 }
 
 #email:hover {
-    color: #00065f;
+    color: #ffffff;
 }
 
-.nomes-categorias {
-    font-size: 2rem;
-    border-bottom: 1px solid #333;
+#footer-copyright {
+    background: #07111c;
+    color: #6b7280;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }

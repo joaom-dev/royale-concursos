@@ -7,196 +7,172 @@
     <title>Royale Concursos</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
-
 </head>
 
 <body>
+    <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+        </div>
+
+        <div class="menu-itens">
+            <a href="../telaInicial/index.html">
+                <i class="fa-solid fa-house ativo"></i>
+                <span class="tooltip-texto">Página inicial</span>
+            </a>
+            <a href="../pagina sobre/index.html">
+                <i class="fa-regular fa-compass"></i>
+                <span class="tooltip-texto">Sobre</span>
+            </a>
+            <a href="">
+                <i class="fa-solid fa-trophy"></i>
+                <span class="tooltip-texto">Ranking</span>
+            </a>
+            <a href="">
+                <i class="fa-regular fa-calendar"></i>
+                <span class="tooltip-texto">Calendário</span>
+            </a>
+            <a href="">
+                <i class="fa-solid fa-bookmark"></i>
+                <span class="tooltip-texto">Salvos</span>
+            </a>
+            <a href="">
+                <i class="fa-solid fa-credit-card"></i>
+                <span class="tooltip-texto">Assinaturas</span>
+            </a>
+        </div>
+
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+    </div>
+
     <header>
-        <button class="botao-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <nav class="menu-lateral">
-
-            <div class="perfil">
-                <img src="/front-end/assets/images/lebron bb.jpg" alt="logo-usuario">
-                <p id="nome-usuario">Lebron BB</p>
-            </div>
-
-
-            <ul>
-                <li class="nomes-categorias">Sistema</li>
-                <li class="header-list"><a href="../configuraçoes/perfil/configperfil.html"><i
-                            class="fa-solid fa-gears"></i>Configuracoes</a></li>
-                <li class="header-list"><a href="../pagina sobre/index.html"><i
-                            class="fa-solid fa-circle-exclamation"></i>Sobre</a></li>
-            </ul>
-        </nav>
-
-
-        <p id="nome">royale concursos</p>
-
-
+        <p id="nome">Royale Concursos</p>
     </header>
 
     <main>
-        <h2 id="tt">Encontre seus concursos ideais!</h2>
+        <p id="tt">Encontre seus <span id="span-main">concursos</span> ideais!</p>
     </main>
 
-    <div class="background "></div>
+    <div class="cards-grid">
 
-    <div class="container">
-
-        <div class="quad">
+        <div class="card card-ranking">
             <a href="">
-                <i class="fa-solid fa-trophy"></i>
+                <div class="icon-wrap"><i class="fa-solid fa-ranking-star"></i></div>
                 <h2>Ranking</h2>
-                <p>Acompanhe suas notas e compare com as de outros usuarios</p>
+                <p>Acompanhe suas notas e compare com as de outros usuários</p>
+                <div class="blob"></div>
             </a>
         </div>
 
-        <div class="quad">
+        <div class="card card-calendario">
             <a href="">
-                <i class="fa-regular fa-calendar"></i>
-                <h2>Calendario</h2>
-                <p>Acompanhe as datas importantes das incscriçoes</p>
+                <div class="icon-wrap"><i class="fa-regular fa-calendar"></i></div>
+                <h2>Calendário</h2>
+                <p>Acompanhe as datas importantes das inscrições</p>
+                <div class="blob"></div>
             </a>
         </div>
 
-    </div>
-
-    </div>
-    </div>
-
-    <div class="container2">
-
-        <div class="quad">
+        <div class="card card-concursos">
             <a href="">
-                <i class="fa-regular fa-address-card"></i>
+                <div class="icon-wrap"><i class="fa-regular fa-clipboard"></i></div>
                 <h2>Meus concursos</h2>
                 <p>Veja os concursos que você participou</p>
+                <div class="blob"></div>
             </a>
         </div>
 
-        <div class="quad">
+        <div class="card card-assinaturas">
             <a href="../pagina assinatura/index.html">
-                <i class="fa-solid fa-credit-card"></i>
+                <div class="icon-wrap"><i class="fa-solid fa-crown"></i></div>
                 <h2>Assinaturas</h2>
-                <p>Aqui voce podera ter acessos a materiais exclusivos</p>
+                <p>Aqui você poderá ter acesso a materiais exclusivos</p>
+                <div class="blob"></div>
             </a>
+        </div>
+
+    </div>
+
+</body>
+
+<footer>
+    <div id="content-footer">
+        <div id="footer-contatos">
+            <p>royale concursos</p>
+            <p>Contato</p>
+
+            <div id="social-links">
+                <a href="https://www.instagram.com/" class="footer-link" id="inta">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+
+                <a href="https://www.linkedin.com/feed/?trk=sem-ga_campid.12619604099_asid.149519181115_crid.725790844702_kw.linkedin_d.c_tid.kwd-148086543_n.g_mt.e_geo.9214449"
+                    class="footer-link" id="linkedin">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+
+                <a href="#" class="footer-link" id="zapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
+                <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+
+        <ul class="footer-list">
+            <li id="info">
+                informaçao
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Política de privacidade</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Termos de uso</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Política de cookies</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Suporte / Ajuda</a>
+            </li>
+        </ul>
+
+        <div id="footer-sugestoes">
+            <p id="sug">Sugestões</p>
+
+            <p>Nos mande por email sugestoes e dicas para adições no nosso site.</p>
+
+            <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" id="email">royaleconcursosJPL@gmail.com</a>
         </div>
     </div>
 
+    <div id="footer-copyright">
+        &#169 2026 all rights reserved
+    </div>
 
+</footer>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <footer>
-
-        <div id="content-footer">
-            <div id="footer-contatos">
-                <p>royale concursos</p>
-                <h2>Contato</h2>
-
-                <div id="social-links">
-                    <a href="https://www.instagram.com/" class="footer-link" id="inta">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-
-                    <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-
-                    <a href="https://www.linkedin.com/feed/?trk=sem-ga_campid.12619604099_asid.149519181115_crid.725790844702_kw.linkedin_d.c_tid.kwd-148086543_n.g_mt.e_geo.9214449"
-                        class="footer-link" id="linkedin">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="footer-link" id="zapp">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-
-                    <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-
-            <ul class="footer-list">
-                <li id="info">
-                    informaçao
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Política de privacidade</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Termos de uso</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Política de cookies</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Suporte / Ajuda</a>
-                </li>
-            </ul>
-
-            <div id="footer-sugestoes">
-                <p id="sug">Sugestoes</p>
-
-                <p>Nos mande por email sugestoes e dicas para adicoes no nosso site.</p>
-
-                <a href="https://mail.google.com/mail/u/1/#inbox?compose=new"
-                    id="email">royaleconcursosJPL@gmail.com</a>
-            </div>
-        </div>
-
-        <div id="footer-copyright">
-            &#169 2026 all rights reserved
-        </div>
-
-    </footer>
-
-
-
-</body>
 
 <script src="scrip.js"></script>
 
