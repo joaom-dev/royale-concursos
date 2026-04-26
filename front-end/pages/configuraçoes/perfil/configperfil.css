@@ -72,6 +72,7 @@ h2 {
     font-style: normal;
 }
 
+/* VERSAO ANTIGA
 .links-category {
     display: flex;
     flex-direction: column;
@@ -81,7 +82,7 @@ h2 {
     height: 800px;
     border-right: 1px solid black;
     list-style: none;
-
+    margin-left: 80px;
 }
 
 .links-category a {
@@ -100,7 +101,7 @@ h2 {
 
 .links-category li :hover{
     background-color: #3333334b;
-}
+} */
 
 .config-layout {
     display: flex;
@@ -220,16 +221,22 @@ h2 {
 .saves {
     display: flex;
     justify-content: center;
+    
 }
 
 #salvar {
-    background: #000;
     color: white;
     border: none;
     padding: 14px 35px;
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    transition: all 0.3s ease;
+}
+
+#salvar:hover{
+    transform: scale(1.08);
 }
 
 .perfil-container span {
@@ -264,7 +271,7 @@ h2 {
 }
 
 .menu-itens i {
-    font-size: 30px;
+    font-size: 25px;
     color: #000000;
     cursor: pointer;
     position: relative;
@@ -283,7 +290,7 @@ h2 {
 }
 
 .menu-inferior i {
-    font-size: 30px;
+    font-size: 25px;
     cursor: pointer;
     transition: 0.2s;
 }
