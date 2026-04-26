@@ -15,131 +15,133 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-            <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
-    <header>
-        <button class="botao-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
 
-        <nav class="menu-lateral">
-
-            <div class="perfil">
-                <img src="/front-end/assets/images/lebron bb.jpg" alt="logo-usuario">
-                <p id="nome-usuario">Lebron BB</p>
-            </div>
-
-
-            <ul>
-                <li class="nomes-categorias">Sistema</li>
-                <li class="header-list"><a href=""><i class="fa-solid fa-gears"></i>Configuracoes</a></li>
-                <li class="header-list"><a href="/front-end/pagina sobre/index.html"><i
-                            class="fa-solid fa-circle-exclamation"></i>Sobre</a></li>
-                <li class="header-list"><a href="/front-end/pages/telaInicial/index.html"><i
-                            class="fa-solid fa-house"></i>Inicio</a>
-                </li>
-            </ul>
-        </nav>
-
-        <a href="../telaInicial/" id="nome">
-            <p>royale concursos</p>
-        </a>
-
-
-    </header>
-
-
-    <main>
-        <h2>Configurações</h2>
-    </main>
-
-    <div class="background "></div>
-
-    <div class="config-layout">
-
-        <ul class="links-category">
-            <li>
-                <a href="../perfil/configperfil.html">
-                    <i class="fa-solid fa-user"></i>
-                    Perfil
-                </a>
-            </li>
-
-            <li>
-                <a href="../seguranca/configsecu.html">
-                    <i class="fa-solid fa-shield"></i>
-                    Privacidade e segurança
-                </a>
-            </li>
-
-
-
-        </ul>
-
-        <div class="security">
-            <div class="security-card">
-                <h2><i class="fa-solid fa-lock"></i> Alterar senha</h2>
-
-                <div class="input-group">
-                    <i class="fa-solid fa-key"></i>
-                    <input type="password" id="senha-atual" placeholder="Senha atual">
-                    <i class="fa-solid fa-eye eye-icon"></i>
-                </div>
-
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="nova-senha" placeholder="Nova senha">
-                    <i class="fa-solid fa-eye eye-icon"></i>
-                </div>
-
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="confirmar-senha" placeholder="Confirmar nova senha">
-                    <i class="fa-solid fa-eye eye-icon"></i>
-                </div>
-            </div>
-
-            <div class="security-card">
-                <h2><i class="fa-solid fa-shield-halved"></i> Verificação em dois fatores</h2>
-
-                <div class="preference-item">
-                    <span>Ativar autenticação 2FA</span>
-                    <label class="switch">
-                        <input type="checkbox" id="toggle-2fa">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <p class="descricao">
-                    Adicione uma camada extra de proteção exigindo um código de verificação ao fazer login.
-                </p>
-            </div>
-
-            <div class="danger-card">
-                <h2><i class="fa-solid fa-triangle-exclamation"></i> Excluir conta</h2>
-                <p>Essa ação é permanente e não poderá ser desfeita.</p>
-                <button id="openModal">Excluir conta</button>
-            </div>
-
-            <div class="saves">
-                <button id="salvar">Salvar alterações</button>
-            </div>
-
-
+    <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
         </div>
 
-        <dialog id="modal">
-            <div class="modal-header">
-                <p>Excluir Conta!</p>
-                <p id="text">Tem certeza que deseja continuar com esta açao?</p>
+        <div class="menu-itens">
+            <a href="/front-end/pages/telaInicial/index.html">
+                <i class="fa-solid fa-house ativo"></i>
+                <span class="tooltip-texto">Página inicial</span>
+            </a>
+            <a href="../pagina sobre/index.html">
+                <i class="fa-regular fa-compass"></i>
+                <span class="tooltip-texto">Sobre</span>
+            </a>
+            <a href="../perfil/configperfil.html">
+                <i class="fa-solid fa-user"></i>
+                <span class="tooltip-texto">Perfil</span>
+            </a>
+            <a href="../seguranca/configsecu.html">
+                <i class="fa-solid fa-shield"></i>
+                <span class="tooltip-texto">Privacidade e Segurança</span>
+            </a>
+        </div>
+
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+    </div>
+    <header>
+        <p id="nome">Configuraçoes</p>
+    </header>
+
+    <!-- VERSAO ANTIGA
+    <ul class="links-category">
+        <li>
+            <a href="../perfil/configperfil.html">
+                <i class="fa-solid fa-user"></i>
+                Perfil
+            </a>
+        </li>
+
+        <li>
+            <a href="../seguranca/configsecu.html">
+                <i class="fa-solid fa-shield"></i>
+                Privacidade e segurança
+            </a>
+        </li>
+
+
+
+    </ul> -->
+
+    <div class="security">
+        <div class="security-card">
+            <h2><i class="fa-solid fa-lock"></i> Alterar senha</h2>
+
+            <div class="input-group">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="senha-atual" placeholder="Senha atual">
+                <i class="fa-solid fa-eye eye-icon"></i>
             </div>
 
-            <div class="modal-body">
-                <button id="sim"> Sim !</button>
-                <button id="closeModal" class="nao""> Nao !</button>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="nova-senha" placeholder="Nova senha">
+                <i class="fa-solid fa-eye eye-icon"></i>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="confirmar-senha" placeholder="Confirmar nova senha">
+                <i class="fa-solid fa-eye eye-icon"></i>
+            </div>
+        </div>
+
+        <div class="security-card">
+            <h2><i class="fa-solid fa-shield-halved"></i> Verificação em dois fatores</h2>
+
+            <div class="preference-item">
+                <span>Ativar autenticação 2FA</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-2fa">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <p class="descricao">
+                Adicione uma camada extra de proteção exigindo um código de verificação ao fazer login.
+            </p>
+        </div>
+
+        <div class="danger-card">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Excluir conta</h2>
+            <p>Essa ação é permanente e não poderá ser desfeita.</p>
+            <button id="openModal">Excluir conta</button>
+        </div>
+
+        <div class="saves">
+            <button id="salvar">Salvar alterações</button>
+        </div>
+
+
+    </div>
+
+    <dialog id="modal">
+        <div class="modal-header">
+            <p>Excluir Conta!</p>
+            <p id="text">Tem certeza que deseja continuar com esta açao?</p>
+        </div>
+
+        <div class="modal-body">
+            <button id="sim"> Sim !</button>
+            <button id="closeModal" class="nao""> Nao !</button>
         </div>
     </dialog>
 

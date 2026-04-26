@@ -54,17 +54,6 @@ header {
     border-bottom: 1px solid #333;
 }
 
-main {
-    color: white;
-    background-color: black;
-    font-family: "DM Sans", sans-serif;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 140px;
-}
-
 h2 {
     font-family: "DM Sans", sans-serif;
     font-weight: 400;

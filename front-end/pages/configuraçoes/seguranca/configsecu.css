@@ -5,180 +5,36 @@
 }
 
 header {
-    background-color: #000;
-    color: white;
     padding: 15px 40px;
-    border-bottom: 1px solid #333;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 
 }
 
 #nome {
-    font-family: "Roboto", sans-serif;
-    font-size: 40px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 53px;
+    font-weight: 900;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
     padding-top: 15px;
-    text-decoration: none;
-    color: white;
-}
-
-
-.perfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding-top: 20px;
-}
-
-.perfil img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 8px
-}
-
-#nome-usuario {
-    font-size: 25px;
-    color: #ffffff;
-    font-family: "Roboto", sans-serif;
-}
-
-:root {
-    --primary-color: rgb(14, 14, 14);
-    --secondary-color: rgb(34, 33, 33);
-    --text-color: white;
-    --background-color: rgb(8, 8, 8);
-}
-
-.menu-lateral {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background-color: var(--background-color);
-    z-index: 5;
-    box-shadow: 0 0 3px rgb(37, 37, 37);
-    transition: 0.5s ease;
-}
-
-.menu-lateral.ativo {
-    left: 0;
-}
-
-.menu-lateral ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 30px;
 
 }
 
-.menu-lateral ul li {
-    padding: 15px 30px;
-    font-family: "Roboto", sans-serif;
-}
 
-.menu-lateral ul li a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.menu-lateral ul li a i {
-    font-size: 24px;
-}
-
-.header-list:hover {
-    background-color: var(--secondary-color);
-}
-
-.menu-lateral ul li a i:hover {
-    transform: translateX(5px) rotate(5deg);
-}
-
-.botao-menu {
-    background-color: var(--primary-color);
-    left: 25px;
-    top: 25px;
-    z-index: 6;
-    border-radius: 5px;
-    border: none;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--text-color);
-    transition: all 0.5s ease;
-    position: absolute;
-
-}
-
-.botao-menu:hover {
-    background-color: white;
-    color: black;
-}
-
-.botao-menu.ativo {
-    left: 380px;
-}
-
-body {
-    transition: 0.5s ease;
-}
-
-body.ativo {
-    margin-left: 300px;
-    transition: 0.5s ease;
-
-}
-
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 4;
-}
-
-.background.ativo {
-    opacity: 2;
-    visibility: visible;
-
-}
-
-.nomes-categorias {
-    font-size: 2rem;
-    border-bottom: 1px solid #333;
-}
-
-main {
-    color: white;
-    background-color: black;
-    font-family: "Inria Sans", sans-serif;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 140px;
-}
 
 h2 {
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-weight: 400;
     font-size: 35px;
     font-style: normal;
 }
 
+/* VERSAO ANTIGA
 .links-category {
     display: flex;
     flex-direction: column;
@@ -192,7 +48,8 @@ h2 {
 }
 
 .links-category a {
-    font-family: "Inria Sans", sans-serif;
+        font-family: "DM Sans", sans-serif;
+
     color: black;
     text-decoration: none;
     font-size: 20px;
@@ -207,7 +64,7 @@ h2 {
 
 .links-category li :hover {
     background-color: #3333334b;
-}
+} */
 
 .config-layout {
     display: flex;
@@ -231,7 +88,7 @@ h2 {
 }
 
 .security-card h2, .danger-card h2 {
-    font-family: "Roboto", sans-serif;
+    font-family: "DM sans", sans-serif;
     font-size: 25px;
     margin-bottom: 20px;
 }
@@ -261,7 +118,8 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
+
 }
 
 .switch {
@@ -306,7 +164,8 @@ h2 {
     margin-top: 15px;
     color: #555;
     line-height: 1.6;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
+
 }
 
 .btn-secundario, #openModal {
@@ -321,7 +180,8 @@ h2 {
 
 .danger-card {
     border: 1px solid #c70000;
-    font-family: "Inria Sans", sans-serif;
+    font-family: "DM Sans", sans-serif;
+
 }
 
 .danger-card h2 {
@@ -335,8 +195,7 @@ h2 {
     padding: 0;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    font-family: "Roboto", sans-serif;
-
+    font-family: "DM Sans", sans-serif;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -381,7 +240,7 @@ h2 {
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    font-family: "Roboto", sans-serif;
+    font-family: "DM Sans", sans-serif;
     transition: 0.3s;
 }
 
@@ -413,11 +272,108 @@ body.modal-open {
 }
 
 #salvar {
-    background: #000;
+    background: linear-gradient(to left, #1b263b, #415a77);
     color: white;
     border: none;
     padding: 14px 35px;
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#salvar:hover {
+    transform: scale(1.08);
+
+}
+
+.menu-lateral {
+    position: fixed;
+    width: 80px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.menu-topo img {
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-itens {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.menu-itens i {
+    font-size: 25px;
+    color: #000000;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+
+}
+
+.menu-itens i:hover {
+    transform: scale(1.2);
+    color: #000;
+}
+
+.menu-inferior i:hover {
+    transform: scale(1.2);
+    color: #000;
+}
+
+.menu-inferior i {
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-inferior a {
+    color: black;
+}
+
+.menu-itens a,
+.menu-inferior a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15px;
+    text-decoration: none;
+}
+
+.tooltip-texto {
+    visibility: hidden;
+    opacity: 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    position: absolute;
+    left: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    background: black;
+    color: white;
+}
+
+.menu-itens a:hover .tooltip-texto,
+.menu-inferior a:hover .tooltip-texto {
+    visibility: visible;
+    opacity: 1;
 }
