@@ -16,118 +16,185 @@
         href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
+    <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+        </div>
+
+        <div class="menu-itens">
+            <a href="../telaInicial/index.html">
+                <p>Inicial</p>
+                <!-- <i class="fa-solid fa-house ativo"></i> -->
+                <!-- <span class="tooltip-texto">Página inicial</span> -->
+            </a>
+            <a href="../pagina sobre/index.html">
+                <p>Sobre</p>
+                <!-- <i class="fa-regular fa-compass"></i> -->
+                <!-- <span class="tooltip-texto">Sobre</span> -->
+            </a>
+            <a href="">
+                <p>Ranking</p>
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                <!-- <span class="tooltip-texto">Ranking</span> -->
+            </a>
+            <a href="">
+                <p>Calendario</p>
+                <!-- <i class="fa-regular fa-calendar"></i> -->
+                <!-- <span class="tooltip-texto">Calendário</span> -->
+            </a>
+            <a href="">
+                <p>Salvos</p>
+                <!-- <i class="fa-solid fa-bookmark"></i> -->
+                <!-- <span class="tooltip-texto">Salvos</span> -->
+            </a>
+            <a href="">
+                <p>Assinatura</p>
+                <!-- <i class="fa-solid fa-credit-card"></i> -->
+                <!-- <span class="tooltip-texto">Assinaturas</span> -->
+            </a>
+        </div>
+
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+    </div>
+
     <header>
-        <button class="botao-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <nav class="menu-lateral">
-
-            <div class="perfil">
-                <img src="/front-end/assets/images/lebron bb.jpg" alt="logo-usuario">
-                <p id="nome-usuario">Lebron BB</p>
-            </div>
-
-
-            <ul>
-                <li class="nomes-categorias">Sistema</li>
-                <li class="header-list"><a href="../configuraçoes/perfil/configperfil.html"><i
-                            class="fa-solid fa-gears"></i>Configuracoes</a></li>
-                <li class="header-list"><a href="../pagina sobre/index.html"><i
-                            class="fa-solid fa-circle-exclamation"></i>Sobre</a></li>
-                <li class="header-list"><a href="/front-end/pages/telaInicial/index.html"><i
-                            class="fa-solid fa-house"></i>Inicio</a></li>
-
-
-                <li class="nomes-categorias">Salvos</li>
-                <li class="header-list"><a href="#"><i class="fa-solid fa-book-open"></i>Minhas Provas</a></li>
-
-
-            </ul>
-        </nav>
-
-        <p id="nome">royale concursos</p>
+        <p id="nome">Assinaturas</p>
     </header>
-
-    <section>
-        <h2 id="tt">Assinaturas</h2>
-    </section>
-
-    <div class="background "></div>
 
 
     <div class="centralizar">
+        <div class="plans-wrapper">
 
-        <div class="container" id="container">
-            <div class="main-container mensal">
-                <main>
-                    <h1>Plano mensal!</h1>
-                    <h2>R$12,90</h2>
-
-                    <div class="list-preference">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-check"></i>
-                                <p>remover anuncios</p>
-                            </li>
-
-                            <li>
-                                <i class="fa-solid fa-xmark"></i>
-                                <p>conteudos de estudo</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button>Adquirir plano!</button>
-                </main>
-            </div>
-
-            <div class="main-container vitalicio">
-                <main>
-                    <h1>Plano vitalicio!</h1>
-                    <h2>R$24,90</h2>
-
-                    <div class="list-preference">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-check"></i>
-                                <p>remover anuncios</p>
-                            </li>
-
-                            <li>
-                                <i class="fa-solid fa-check"></i>
-                                <p>conteudos de estudo</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button>Adquirir plano!</button>
-                </main>
-            </div>
-
-            <div class="toggle-container">
-                <div class="toggle">
-                    <div class="toggle-panel left">
-                        <h1>Ir para plano mensal!</h1>
-
-                        <button class="hidden" id="mensal">clique aqui!</button>
-                    </div>
-
-                    <div class="toggle-panel right">
-                        <h1>Ir para plano vitalicio!</h1>
-
-                        <button class="hidden" id="vitalicio">clique aqui!</button>
-                    </div>
+            <div class="plan-card light">
+                <span class="plan-badge badge-light">Mensal</span>
+                <h2 class="plan-name">Plano mensal</h2>
+                <p class="plan-desc">Ideal para quem quer experimentar a plataforma sem compromisso de longo prazo.</p>
+                <div class="plan-price-block">
+                    <p class="plan-price">R$12,90</p>
+                    <p class="plan-price-sub">/mês · cancele quando quiser</p>
                 </div>
-
+                <div class="plan-divider"></div>
+                <ul class="plan-features">
+                    <li>
+                        <span class="feat-icon feat-yes"><i class="fa-solid fa-check"></i></span>
+                        Remover anúncios
+                    </li>
+                    <li class="feat-disabled">
+                        <span class="feat-icon feat-no"><i class="fa-solid fa-xmark"></i></span>
+                        Conteúdos de estudo
+                    </li>
+                </ul>
+                <button class="plan-btn btn-light">Adquirir plano</button>
             </div>
+
+            <div class="plan-card dark">
+                <span class="plan-badge badge-dark">Mais completo</span>
+                <h2 class="plan-name">Plano vitalício</h2>
+                <p class="plan-desc">Acesso completo para sempre com um único pagamento. A melhor relação
+                    custo-benefício.</p>
+                <div class="plan-price-block">
+                    <p class="plan-price">R$24,90</p>
+                    <p class="plan-price-sub">único pagamento · acesso vitalício</p>
+                </div>
+                <div class="plan-divider dark-divider"></div>
+                <ul class="plan-features">
+                    <li>
+                        <span class="feat-icon feat-yes"><i class="fa-solid fa-check"></i></span>
+                        Remover anúncios
+                    </li>
+                    <li>
+                        <span class="feat-icon feat-yes"><i class="fa-solid fa-check"></i></span>
+                        Conteúdos de estudo
+                    </li>
+                </ul>
+                <button class="plan-btn btn-dark">Adquirir plano</button>
+            </div>
+
         </div>
     </div>
+
+    <footer>
+        <div id="content-footer">
+            <div id="footer-contatos">
+                <p>royale concursos</p>
+                <p>Contato</p>
+
+                <div id="social-links">
+                    <a href="https://www.instagram.com/" class="footer-link" id="inta">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/feed/?trk=sem-ga_campid.12619604099_asid.149519181115_crid.725790844702_kw.linkedin_d.c_tid.kwd-148086543_n.g_mt.e_geo.9214449"
+                        class="footer-link" id="linkedin">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="footer-link" id="zapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                    <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <ul class="footer-list">
+                <li id="info">
+                    informaçao
+                </li>
+
+                <li>
+                    <a href="#" class="footer-links">Política de privacidade</a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer-links">Termos de uso</a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer-links">Política de cookies</a>
+                </li>
+
+                <li>
+                    <a href="#" class="footer-links">Suporte / Ajuda</a>
+                </li>
+            </ul>
+
+            <div id="footer-sugestoes">
+                <p id="sug">Sugestões</p>
+
+                <p>Nos mande por email sugestoes e dicas para adições no nosso site.</p>
+
+                <a href="https://mail.google.com/mail/u/1/#inbox?compose=new"
+                    id="email">royaleconcursosJPL@gmail.com</a>
+            </div>
+        </div>
+
+        <div id="footer-copyright">
+            &#169 2026 all rights reserved
+        </div>
+
+    </footer>
 
 </body>
 
