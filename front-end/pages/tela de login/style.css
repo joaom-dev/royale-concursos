@@ -6,20 +6,31 @@
 
 body {
     display: flex;
-    align-items: center;
     justify-content: center;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 30px;
+    height: 100vh;
 }
 
-.img-login img {
+/*.img-login img {
     width: 700px;
     height: 730px;
+}*/
+
+.img-login img {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
 }
+
+
 
 .login-container {
     display: flex;
@@ -116,4 +127,64 @@ a {
 
 a:hover {
     text-decoration: underline
+}
+.img-mobile {
+  display: none;
+}
+
+.img-mobile img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 150px;
+  width: 100%;
+  height: auto;
+}
+
+/* Responsividade*/
+@media (max-width: 768px) {
+    
+    .img-mobile {
+    display: block;
+    width: 100%;
+    display: none;
+  }
+    }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+ /* img{
+    display: none;
+  }*/
+
+  body {
+    align-items: flex-start;
+  }
+
+.img-login img {
+  max-width: 300px;
+  max-height: 300px;
+  display: none;
+}
+
+
+@media (min-width: 1024px) {
+  .box {
+    width: 30%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    width: 30%;
+  }
 }
