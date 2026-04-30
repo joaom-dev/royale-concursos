@@ -97,7 +97,7 @@ input[type="email"] {
     cursor: pointer;
 }
 
-input:focus { /*focus serve para estilizar apenas quando o usuario clina, dando foco ao iten*/
+input:focus { /*focus serve para estilizar apenas quando o usuario clica, dando foco ao iten*/
     border-color: #000000;
 }
 
