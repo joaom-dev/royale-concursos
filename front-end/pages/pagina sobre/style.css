@@ -584,6 +584,17 @@ footer {
     max-width: 250px;
     }
 
+    #ffoter_content{
+        grid-template-columns: repeat(2,1fr);
+        gap:2rem;
+    }
+}
+
+@media screen and (max-width: 426px){
+    #footer_content{
+        grid-template-columns: repeat(1, 1fr) ;
+        padding: 3rem 2rem;    
+    }
 }
 
 @media (min-width: 1024px) {
