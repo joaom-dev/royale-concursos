@@ -1,0 +1,26 @@
+# Maven
+target/
+*.class
+
+# Spring Boot
+application-local.properties
+
+# Variáveis de ambiente
+.env
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+back-end/target/
+front-end/target/
+target/

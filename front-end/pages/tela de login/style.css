@@ -19,11 +19,6 @@ body {
     height: 100vh;
 }
 
-/*.img-login img {
-    width: 700px;
-    height: 730px;
-}*/
-
 .img-login img {
   max-width: 700px;
   width: 100%;
@@ -37,10 +32,12 @@ body {
     flex-direction: column;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     width: 410px;
-    height: 500px;
+    height: auto;
+    min-height: 500px;
     background-color: white;
     border-radius: 17px;
-    gap: 30px;
+    gap: 20px;
+    padding: 40px 0;
 }
 
 h1 {
@@ -61,17 +58,10 @@ input {
     outline: none;
     transition: border-color 0.5s;
     font-family: "DM Sans", sans-serif;
-
 }
 
-input[type="password"] {
-    font-size: 20px;
-}
-
-input[type="email"] {
-    font-size: 20px;
-}
-
+input[type="password"],
+input[type="email"],
 input[type="text"] {
     font-size: 20px;
 }
@@ -79,10 +69,10 @@ input[type="text"] {
 .input-group {
     position: relative;
     width: 85%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
-.input-group i:not(.eye-icon) { /*calculo para deixar o icones centralizados*/
+.input-group i:not(.eye-icon) {
     position: absolute;
     left: 15px;
     top: 50%;
@@ -99,7 +89,7 @@ input[type="text"] {
     cursor: pointer;
 }
 
-input:focus { /*focus serve para estilizar apenas quando o usuario clica, dando foco ao iten*/
+input:focus {
     border-color: #000000;
 }
 
@@ -120,6 +110,52 @@ button:hover {
     transform: scale(1.1);
 }
 
+/* Divisor "ou" */
+.divider {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    gap: 12px;
+    color: #aaa;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* Botão Google */
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 318px;
+    height: 48px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    color: #3c3c3c;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.btn-google:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
 a {
     color: #888;
     text-decoration: none;
@@ -128,43 +164,21 @@ a {
 }
 
 a:hover {
-    text-decoration: underline
-}
-/*
-.img-mobile{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 150px;
-  width: 100%;
-  height: auto;
+    text-decoration: underline;
 }
 
-.img-mobile {
-  display: none;
-}
-*/
-/* Responsividade*/
+/* Responsividade */
 @media (max-width: 768px) {
-/*
-  .img-desktop {
+  img {
     display: none;
   }
 
-  .img-mobile {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+  .btn-google {
+    width: 85%;
   }
 
-  .img-mobile img {
-    max-width: 150px;
-    width: 100%;
-    height: auto;
-  }
-  */
-  img{
-    display: none;
+  button {
+    width: 85%;
   }
 }
 
