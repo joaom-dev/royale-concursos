@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 header {
@@ -11,10 +10,11 @@ header {
     align-items: center;
     justify-content: center;
     width: 100%;
-
+    margin-left: 80px;
 }
 
-#nome {
+
+/*#nome {
     font-family: "DM Sans", sans-serif;
     font-size: 53px;
     font-weight: 900;
@@ -23,7 +23,17 @@ header {
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
     padding-top: 15px;
+}*/
 
+#nome {
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(24px, 5vw, 53px);
+    font-weight: 900;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 25px;
+    padding-top: 15px;
 }
 
 
@@ -95,6 +105,7 @@ h2 {
 .config-layout {
     display: flex;
     align-items: flex-start;
+    margin-left: 80px;
 }
 
 .perfil-container {
@@ -321,5 +332,32 @@ h2 {
 .menu-inferior a:hover .tooltip-texto {
     visibility: visible;
     opacity: 1;
+}
+
+    @media(max-width: 768px){
+        /*.menu-lateral{
+            display: block;
+        }*/
+         .texto p {
+            font-size: clamp(14px, 2.5vw, 26px);
+        }
+        .perfil-card{
+            max-width: 320px;
+        }
+
+        header {
+            margin-left: 60px;
+        }
+
+        .config-layout {
+            margin-left: 60px;
+        }
+
+        .menu-lateral {
+            width: 60px;
+        }
+        .input-foto{
+                
+        }
 }
 
