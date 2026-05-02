@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 header {
     background-color: white;
     color: white;
@@ -116,10 +123,7 @@ nav a:hover::after {
     gap: 40px;
 }
 
-
-
 section {
-    min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -127,18 +131,22 @@ section {
     padding-top: 80px;
 }
 
-
+/*
 #logo-img {
     height: 680px;
     width: 680px;
+}*/
+
+#logo-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }
 
 .container-text h2 {
     font-family: "DM Sans", sans-serif;
     font-size: 52px;
 }
-
-
 
 .container-text {
     width: 900px;
@@ -254,7 +262,7 @@ VERSAO ANTIGA
 }
 */
 .carrossel {
-    width: 90%;
+    width: 100%;
     max-width: 1100px;
     margin: 1px auto 80px;
     display: flex;
@@ -269,6 +277,11 @@ VERSAO ANTIGA
     min-height: 520px;
     border-radius: 32px;
     border: 1px solid #bec0c2;
+}
+
+.carrossel .slides {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .card {
@@ -327,6 +340,20 @@ VERSAO ANTIGA
     width: 380px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container-img {
+  display: flex;
+  justify-content: center;
 }
 
 .navegacao {
@@ -380,17 +407,12 @@ VERSAO ANTIGA
     box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.15);
 }
 
-
-
-
-
-
 footer {
     font-family: "DM Sans", sans-serif;
+    background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
 }
 
 #content-footer {
-    background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
     color: white;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -499,4 +521,84 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+}
+
+@media (max-width: 768px){
+    container-img{
+        max-width: 350px;
+    }
+
+    .card{
+        max-width: 900px;
+    }
+    .container-text{
+        font-size: clamp(22px, 5vw, 36px);
+    }
+    h2{
+        font-size: clamp(22px, 5vw, 36px);
+    }
+
+    footer{
+        width: 100%;
+        height: 100%;
+    }
+    .footer-links{
+        width: 100%;
+        height: 100%;
+    }
+
+    .footer-list{
+        width: 100%;
+        height: 100%;
+    }
+
+    #content-footer{
+        max-width: 100%;
+    }
+
+    .title h1 {
+        font-size: clamp(28px, 5vw, 65px);
+    }
+
+    .container-text h2 {
+        font-size: clamp(22px, 4vw, 52px);
+    }
+
+    #motivacional {
+        font-size: clamp(16px, 2.5vw, 29px);
+    }
+
+    .texto h1 {
+        font-size: clamp(40px, 8vw, 110px);
+    }
+
+    .texto h2 {
+        font-size: clamp(22px, 5vw, 58px);
+    }
+
+    .texto p {
+        font-size: clamp(14px, 2.5vw, 26px);
+    }
+
+    #logo-img {
+    max-width: 250px;
+    }
+
+}
+
+@media (min-width: 1024px) {
+  .box {
+    width: 30%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    width: 30%;
+  }
 }
