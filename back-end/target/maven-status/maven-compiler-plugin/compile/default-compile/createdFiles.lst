@@ -1,5 +1,0 @@
-com\royaleconcursos\RoyaleConcursosApplication.class
-com\royaleconcursos\service\UsuarioService.class
-com\royaleconcursos\controller\UsuarioControl.class
-com\royaleconcursos\model\Usuario.class
-com\royaleconcursos\repository\UsuarioRepository.class
