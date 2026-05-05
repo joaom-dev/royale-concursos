@@ -6,7 +6,23 @@ const initialUsers = [
     contest: "Concursos do Banco do Brasil",
     score: 9850,
     corrects: "98/100",
-  }
+  },
+  {
+    initials: "AC",
+    username: "Ana Carolina",
+    contest: "Concursos do Banco do Brasil",
+    score: 9850,
+    corrects: "98/100",
+  },
+  
+  {
+    initials: "AC",
+    username: "Ana Carolina",
+    contest: "Concursos do Banco do Brasil",
+    score: 9850,
+    corrects: "98/100",
+  },
+  
 
 ];
 
