@@ -72,9 +72,8 @@
 # CSS
 
 footer {
-    margin-left: 80px;
-    width: calc(100% - 80px);
-    font-family: "DM Sans", sans-serif;
+    margin-left: 0;
+    width: 100%;
     margin-top: 110px;
 }
 
@@ -125,11 +124,26 @@ footer {
     opacity: 0.85;
 }
 
-#inta   { background: linear-gradient(#7f37c9, #ff2992, #ff9807); }
-#zapp   { background: linear-gradient(#01820e, #19ff57, #6fff1c); }
-#linkedin { background: linear-gradient(#00065f, #034365, #030033); }
-#github { background: #1a1a1a; border: 1px solid #333; }
-#tutube { background: linear-gradient(#ff0000, #690808); }
+#inta {
+    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
+}
+
+#zapp {
+    background: linear-gradient(#01820e, #19ff57, #6fff1c);
+}
+
+#linkedin {
+    background: linear-gradient(#00065f, #034365, #030033);
+}
+
+#github {
+    background: #1a1a1a;
+    border: 1px solid #333;
+}
+
+#tutube {
+    background: linear-gradient(#ff0000, #690808);
+}
 
 .footer-list {
     list-style: none;

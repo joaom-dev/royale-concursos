@@ -6,28 +6,56 @@
   <title>Ranking</title>
   <link rel="stylesheet" href="Style.css">
   <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <div class="container-header">
-      <div class="logo">ROYALE</div>
-      <nav>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Concursos</a></li>
-          <li><a href="#">Ranking</a></li>
-          <li><a href="#">Resultados</a></li>
-          <li><a href="#">Sobre</a></li>
-        </ul>
-      </nav>
-      <button class="minha-conta">Minha Conta</button>
-    </div>
-  </header>
+  <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+        </div>
+
+        <div class="menu-itens">
+            <a href="../telaInicial/index.html">
+                <p>Inicial</p>
+                <!-- <i class="fa-solid fa-house ativo"></i> -->
+                <!-- <span class="tooltip-texto">Página inicial</span> -->
+            </a>
+            <a href="../pagina sobre/index.html">
+                <p>Sobre</p>
+                <!-- <i class="fa-regular fa-compass"></i> -->
+                <!-- <span class="tooltip-texto">Sobre</span> -->
+            </a>
+            <a href="/front-end/pages/pagina Ranking/Index.html">
+                <p>Ranking</p>
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                <!-- <span class="tooltip-texto">Ranking</span> -->
+            </a>
+            <a href="/front-end/pages/pagina de calendario/index.html">
+                <p>Calendario</p>
+                <!-- <i class="fa-regular fa-calendar"></i> -->
+                <!-- <span class="tooltip-texto">Calendário</span> -->
+            </a>
+            <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
+                <p>Salvos</p>
+                <!-- <i class="fa-solid fa-bookmark"></i> -->
+                <!-- <span class="tooltip-texto">Salvos</span> -->
+            </a>
+            <a href="../pagina assinatura/index.html">
+                <p>Assinatura</p>
+                <!-- <i class="fa-solid fa-credit-card"></i> -->
+                <!-- <span class="tooltip-texto">Assinaturas</span> -->
+            </a>
+        </div>
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+</div>
 
   <main class="container">
-    <div class="breadcrumb">Início &gt; Ranking</div>
 
-    <h1>Ranking Geral</h1>
 
     <!-- FORMULARIO PARA INSERÇÃO -->
     <section class="formulario">
@@ -70,9 +98,9 @@
       </table>
 
       <aside class="top-3">
-        <h2>Top 3 do Mês</h2>
+        <h2>TOP 3 DO MÊS</h2>
         <div id="top3Users">
-          <!-- Top 3 gerados pelo JS -->
+          
         </div>
       </aside>
     </section>
@@ -97,13 +125,71 @@
   </main>
 
   <footer>
-    <p>© 2024 Royale Concursos. Todos os direitos reservados.</p>
-    <p>
-      <a href="#">Política de Privacidade</a> |
-      <a href="#">Termos de Serviço</a> |
-      <a href="#">Contato</a>
-    </p>
-  </footer>
+    <div id="content-footer">
+        <div id="footer-contatos">
+            <p>royale concursos</p>
+            <p>Contato</p>
+
+            <div id="social-links">
+                <a href="https://www.instagram.com/" class="footer-link" id="inta">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+
+                <a href="https://www.linkedin.com/feed/?trk=sem-ga_campid.12619604099_asid.149519181115_crid.725790844702_kw.linkedin_d.c_tid.kwd-148086543_n.g_mt.e_geo.9214449"
+                    class="footer-link" id="linkedin">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+
+                <a href="#" class="footer-link" id="zapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
+                <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+
+        <ul class="footer-list">
+            <li id="info">
+                informaçao
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Política de privacidade</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Termos de uso</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Política de cookies</a>
+            </li>
+
+            <li>
+                <a href="#" class="footer-links">Suporte / Ajuda</a>
+            </li>
+        </ul>
+
+        <div id="footer-sugestoes">
+            <p id="sug">Sugestões</p>
+
+            <p>Nos mande por email sugestoes e dicas para adições no nosso site.</p>
+
+            <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" id="email">royaleconcursosJPL@gmail.com</a>
+        </div>
+    </div>
+
+    <div id="footer-copyright">
+        &#169 2026 all rights reserved
+    </div>
+
+</footer>
 
   <script src="Script.js"></script>
 </body>
