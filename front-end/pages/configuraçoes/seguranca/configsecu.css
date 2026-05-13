@@ -69,6 +69,7 @@ h2 {
 .config-layout {
     display: flex;
     align-items: flex-start;
+    min-height: 100vh;
 }
 
 .security {
@@ -78,6 +79,9 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    width: 100%;
+    padding: 0 20px;
+    flex-direction: column;
 }
 
 .security-card, .danger-card {
@@ -188,6 +192,13 @@ h2 {
     color: #c70000;
 }
 
+.pagina-conteudo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
 #modal {
     width: 420px;
     border: none;
@@ -288,7 +299,8 @@ body.modal-open {
 }
 
 .menu-lateral {
-    position: fixed;
+    position: sticky;
+    top: 0; 
     width: 80px;
     height: 100vh;
     background-color: #ffffff;
@@ -377,3 +389,19 @@ body.modal-open {
     visibility: visible;
     opacity: 1;
 }
+/*Responsividade*/
+    @media(max-width: 768px){
+
+         .texto h1 {
+            font-size: clamp(14px, 2.5vw, 26px);
+        }
+        .perfil-card{
+            max-width: 320px;
+        }
+        header {
+            margin-left: 0;  
+        }
+        .config-layout {
+            margin-left: 0;   
+        }
+    }

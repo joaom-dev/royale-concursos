@@ -356,8 +356,21 @@ h2 {
         .menu-lateral {
             width: 60px;
         }
-        .input-foto{
-                
+}
+
+    @media (min-width: 1024px) {
+        .box {
+            width: 30%;
         }
 }
 
+    @media (min-width: 1440px) {
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .box {
+            width: 30%;
+        }
+}
