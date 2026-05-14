@@ -4,90 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title> Royale Concursos</title>
     <link rel="stylesheet" href="PgMc.css">
-
-    <title>Meus concursos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
+    <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+        </div>
+
+        <div class="menu-itens">
+            <a href="../telaInicial/index.html">
+                <p>Inicial</p>
+            </a>
+            <a href="../pagina sobre/index.html">
+                <p>Sobre</p>
+            </a>
+            <a href="/front-end/pages/pagina Ranking/Index.html">
+                <p>Ranking</p>
+            </a>
+            <a href="/front-end/pages/pagina de calendario/index.html">
+                <p>Calendario</p>
+            </a>
+            <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
+                <p>Salvos</p>
+            </a>
+            <a href="../pagina assinatura/index.html">
+                <p>Assinatura</p>
+            </a>
+        </div>
+
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+    </div>
+
     <header>
-        <button class="botao-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <nav class="menu-lateral">
-
-            <div class="perfil">
-                <img src="./imgs/lebron bb.jpg" alt="logo-usuario">
-                <p id="nome-usuario">Lebron BB</p>
-            </div>
-
-
-            <ul>
-                <li class="nomes-categorias">Sistema</li>
-                <li class="header-list"><a href="../configuraçoes/perfil/configperfil.html"><i
-                            class="fa-solid fa-gears"></i>Configuracoes</a></li>
-                <li class="header-list"><a href="../pagina sobre/index.html"><i
-                            class="fa-solid fa-circle-exclamation"></i>Sobre</a></li>
-                <li class="header-list"><a href="/front-end/pages/telaInicial/index.html"><i
-                            class="fa-solid fa-house"></i>Inicio</a></li>
-            </ul>
-        </nav>
-
-        <p id="nome">royale concursos</p>
+        <p id="nome">Seus favoritos!</p>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Pesquise seu concurso...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
     </header>
 
-    <main>
-        <h2 id="tt">Meus Concursos</h2>
-        <p>Aqui você encontra os concursos para você</p>
-    </main>
+    <div class="page-body">
 
-    <div class="background "></div>
+        <main class="concursos-main">
+            <p class="contagem-label" id="contagem-label">Encontramos <strong>12</strong> Concurosos salvos</p>
 
-    <div class="container">
-
-
-        <div class="card">
-            <img src="/royale-concursos/front-end/assets/images/concurso da caixa.jpg" alt="">
-            <p>
-                Concurso da caixa
-            </p>
-            <div class="button-card">
-
+            <div class="tags-rapidas">
+                <span class="tag-rapida ativo" data-tag="all">Todos</span>
+                <span class="tag-rapida" data-tag="open">Inscrições abertas</span>
+                <span class="tag-rapida" data-tag="soon">Encerra em breve</span>
+                <span class="tag-rapida" data-tag="federal">Federal</span>
+                <span class="tag-rapida" data-tag="municipal">Municipal</span>
+                <span class="tag-rapida" data-tag="estadual">Estadual</span>
             </div>
-        </div>
 
-
-        <div class="card">
-            <img src="/royale-concursos/front-end/assets/images/Concursos-Bombeiros-DF.jpg" alt="">
-            <p>
-                Concurso de bombeiro militar (DF)
-            </p>
-        </div>
-
-        <div class="card">
-            <img src="/royale-concursos/front-end/assets/images/imagem banco do brasil.jpg" alt="">
-            <p>
-                Concurso Banco do brasil
-            </p>
-        </div>
-
+            <div class="cards-grid" id="cards-grid"></div>
+        </main>
 
     </div>
 
 
+    
 
 </body>
-<script src="PgMc.js"></script>
+
+<script src="./PgMc.js"></script>
 
 </html>

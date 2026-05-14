@@ -2,212 +2,309 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
 }
 
+body {
+    overflow-x: hidden;
+    background: #f5f6fa;
+}
 
 header {
-    background-color: #000;
-    color: white;
-    padding: 15px 40px;
-    border-bottom: 1px solid #333;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-main{
-    color: white;
-    background-color: black;
-    font-family: "Inria Sans", sans-serif;
-    justify-content: center;
-    display: flex;
+    padding-top: 90px;
     flex-direction: column;
-    align-items: center;
-    height: 140px;
-    gap: 30px;
 }
 
-#tt{
-    font-size: 35px;
-}
-
-#nome{
-    font-family: "Roboto", sans-serif;
-    font-size: 40px;
+#nome {
+    font-size: 53px;
+    font-weight: 900;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
     padding-top: 15px;
-    
 }
 
-.perfil{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding-top: 20px;
+.search-container {
+    position: relative;
 }
 
-.perfil img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 8px
-}
-
-#nome-usuario{
-    font-size: 25px;
-    color: #ffffff;
-    font-family: "Roboto", sans-serif;
-}
-
-:root{
-    --primary-color: rgb(14, 14, 14);
-    --secondary-color: rgb(34, 33, 33);
-    --text-color: white;
-    --background-color: rgb(8, 8, 8);
-}
-
-.menu-lateral{
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background-color: var(--background-color);
-    z-index: 5;
-    box-shadow: 0 0 3px rgb(37, 37, 37);
-    transition: 0.5s ease;
-}
-
-.menu-lateral.ativo{
-    left: 0;
-}
-
-.menu-lateral ul{
-    list-style-type: none;
-    padding: 0;
-    margin-top: 30px;
-    
-}
-
-.menu-lateral ul li{
-    padding: 15px 30px;
-    font-family: "Roboto", sans-serif;
-}
-
-.menu-lateral ul li a{
-    text-decoration: none;
-    color: var(--text-color);
+input[type="text"] {
     font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding-left: 10px;
 }
 
-
-
-.menu-lateral ul li a i{
-    font-size: 24px;
-}
-
-.header-list:hover{
-    background-color: var(--secondary-color);
-}
-
-.menu-lateral ul li a i:hover{
-    transform: translateX(5px) rotate(5deg);
-}
-
-.botao-menu{
-    background-color: var(--primary-color);
-    left: 25px;
-    top: 25px;
-    z-index: 6;
-    border-radius: 5px;
-    border: none;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--text-color);
-    transition: all 0.5s ease;
+.search-container i {
     position: absolute;
-  
+    left: 565px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: grey;
+    font-size: 18px;
 }
 
-.botao-menu:hover{
-    background-color: white;
-    color: black;
+#search {
+    width: 600px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.338);
 }
 
-.botao-menu.ativo{
-    left: 380px;
+#search::placeholder {
+    padding-left: 10px;
+    font-size: 18px;
 }
 
-body{
-    transition: 0.5s ease;
-}
-
-body.ativo{
-    margin-left: 300px;
-    transition: 0.5s ease;
-   
-}
-
-.background{
+.menu-lateral {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 4;
-}
-
-.background.ativo{
-    opacity: 2;
-    visibility: visible;
-    
-}
-
-.nomes-categorias {
-    font-size: 2rem;
-    border-bottom: 1px solid #333;
-}
-
-.container{
+    height: 70px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
     display: flex;
-    justify-content: center; 
-    flex-wrap: wrap; 
-    gap: 100px;
-    padding: 20px;
-    margin: 40px;    
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 100;
 }
 
-.card{
+.menu-inferior {
+    padding-right: 12px;
+}
+
+.menu-topo img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+
+.menu-itens {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.menu-itens p {
+    font-size: 18px;
+    color: #000000;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-inferior i {
+    font-size: 25px;
+    color: #000000;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-itens p:hover,
+.menu-inferior i:hover {
+    transform: scale(1.2);
+}
+
+.menu-inferior a {
+    color: black;
+}
+
+.menu-itens a,
+.menu-inferior a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    text-decoration: none;
+}
+
+.tooltip-texto {
+    visibility: hidden;
+    opacity: 0;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    background: black;
+    color: white;
+}
+
+.menu-itens a:hover .tooltip-texto,
+.menu-inferior a:hover .tooltip-texto {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ===== LAYOUT GERAL ===== */
+.page-body {
+    display: flex;
+    margin-top: 40px;
+    padding: 0 36px 60px 36px;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.concursos-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.contagem-label {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 18px;
+}
+
+/* ===== TAGS RÁPIDAS ===== */
+.tags-rapidas {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.tag-rapida {
+    background: #eaecf5;
+    color: #1b263b;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border: 1px solid transparent;
+    user-select: none;
+}
+
+.tag-rapida.ativo,
+.tag-rapida:hover {
+    background: #1b263b;
+    color: #fff;
+}
+
+/* ===== GRID DE CARDS ===== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.card-concurso {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e5ec;
+    padding: 22px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-concurso:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(27, 38, 59, 0.11);
+}
+
+.card-topo {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.card-icone {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background: #f0f2f8;
     display: flex;
     align-items: center;
-    gap: 45px;
-    height: 120px;
-    width: 430px; 
-    border-radius: 10px;
-    padding: 15px;
-    color: rgb(5, 5, 5);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    font-family: "Inria Sans", sans-serif;
-    font-size: 20px;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
-.card img {
-    width: 210px;
-    height: 102px;
-    object-fit: cover;
-    border-radius: 5px;
+.card-icone img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    padding: 6px;
 }
 
+.card-texto {
+    flex: 1;
+    min-width: 0;
+}
 
+.card-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 20px;
+    margin-bottom: 7px;
+}
 
+.badge-aberto  { background: #e0f7ec; color: #0a6e3f; }
+.badge-breve   { background: #fff4dc; color: #8a5e00; }
+.badge-fechado { background: #fce8e8; color: #b52a2a; }
 
+.card-nome {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1b263b;
+    line-height: 1.4;
+}
+
+.card-area {
+    font-size: 13px;
+    color: #666;
+    margin-top: 3px;
+}
+
+.card-divisor {
+    height: 1px;
+    background: #f0f1f5;
+}
+
+.card-rodape {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card-ver {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1b263b;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+}
+
+.card-ver:hover { color: #415a77; }
+
+.sem-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: #888;
+    font-size: 16px;
+}
