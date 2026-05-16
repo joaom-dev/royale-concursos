@@ -130,6 +130,15 @@ a:hover {
     text-decoration: underline
 }
 
+#erro-email, #erro-cpf, #erro-senha {
+    color: black;
+    font-size: 15px;
+    padding-top: 4px;
+    margin: 0;
+    display: block;
+    font-family: "DM Sans", sans-serif;
+}
+
 /*Responsividade*/
 @media (max-width: 768px){
     .container{

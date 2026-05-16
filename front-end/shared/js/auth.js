@@ -4,7 +4,7 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = document.querySelector("#email").value;
-    const password = document.querySelector("#senha").value;
+    const password = document.querySelector("#password").value;
 
     try {
         const response = await fetch("http://localhost:8080/auth/login", {
