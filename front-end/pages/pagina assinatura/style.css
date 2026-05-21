@@ -5,7 +5,6 @@
     font-family: "DM Sans", sans-serif;
 }
 
-/* ── TRAVA O FUNDO QUANDO O MODAL ESTÁ ABERTO ── */
 body.modal-open {
     overflow: hidden;
 }
@@ -456,13 +455,11 @@ footer {
     padding: 1rem;
 }
 
-/* ── MODAIS: scroll interno + altura máxima ── */
 #modal-mensal,
 #modal-vita {
     width: 650px;
-    /* removido height fixo — agora cresce com o conteúdo */
-    max-height: 90vh;          /* nunca passa de 90% da tela */
-    overflow-y: auto;          /* scroll quando o conteúdo for maior */
+    max-height: 90vh;          
+    overflow-y: auto;          
     border: none;
     border-radius: 16px;
     padding: 0;
@@ -556,7 +553,6 @@ footer {
     padding: 40px 0;
 }
 
-/* ── Botões modal MENSAL (tema claro) ── */
 .metodo-mensal {
     display: flex;
     flex-direction: column;
@@ -602,7 +598,6 @@ footer {
     color: #ffffff;
 }
 
-/* ── Botões modal VITALÍCIO (tema escuro) ── */
 .metodo-vita {
     display: flex;
     flex-direction: column;
@@ -722,7 +717,6 @@ footer {
     color: #444;
 }
 
-/* ── Inputs: tema CLARO (modal mensal, padrão) ── */
 .card-box input {
     width: 100%;
     padding: 14px;
@@ -737,7 +731,6 @@ footer {
     color: #aaaaaa;
 }
 
-/* ── Inputs: tema ESCURO (modal vitalício) ── */
 #modal-vita .card-box input {
     border: 1px solid #444;
     background: #1a1a1a;
@@ -761,7 +754,6 @@ footer {
     flex: 1;
 }
 
-/* ── Botão pagar: tema CLARO (modal mensal) ── */
 .btn-pagar {
     margin-top: 10px;
     padding: 16px;
@@ -779,7 +771,6 @@ footer {
     opacity: 0.88;
 }
 
-/* ── Botão pagar: tema ESCURO (modal vitalício) ── */
 #modal-vita .btn-pagar {
     background: #2a2a2a;
 }
@@ -789,7 +780,6 @@ footer {
     opacity: 1;
 }
 
-/* ── Seção PIX ── */
 .pix-box {
     padding-top: 10px;
 }
