@@ -584,7 +584,7 @@ footer {
     max-width: 250px;
     }
 
-    #ffoter_content{
+    #footer_content{
         grid-template-columns: repeat(2,1fr);
         gap:2rem;
     }
