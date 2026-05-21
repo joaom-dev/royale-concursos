@@ -95,7 +95,7 @@
                         Remover anúncios
                     </li>
                 </ul>
-                <button class="plan-btn btn-light">Adquirir plano</button>
+                <button class="plan-btn btn-light" id="openModal">Adquirir plano</button>
             </div>
 
             <div class="plan-card dark">
@@ -118,10 +118,254 @@
                         Ranking
                     </li>
                 </ul>
-                <button class="plan-btn btn-dark">Adquirir plano</button>
+                <button class="plan-btn btn-dark" id="openModal2">Adquirir plano</button>
             </div>
 
+            <dialog id="modal-mensal">
+                <div class="header-mensal">
+                    <p>MENSAL</p>
+                    <div class="btn-close">
+                        <button id="closeModalMensal"><i class="fa-solid fa-x"></i></button>
+                    </div>
+                </div>
+
+                <div class="linha1"></div>
+
+                <div class="centralizar2">
+                    <div class="pagamento-header">
+                        <h1>Pagamento</h1>
+                        <p>Escolha como prefere pagar!</p>
+
+                        <div class="box-preco">
+                            <p>Total a pagar!</p>
+                            <span>R$17,90</span>
+                        </div>
+
+                        <div class="box-metodos-mensal">
+                            <div class="metodo-mensal ativo" data-metodo="pix"
+                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
+                                <i class="fa-brands fa-pix"></i>
+                                <p>PIX</p>
+                            </div>
+                            <div class="metodo-mensal" data-metodo="credito"
+                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <p>CRÉDITO</p>
+                            </div>
+                            <div class="metodo-mensal" data-metodo="debito"
+                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <p>DÉBITO</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-pix" id="mensal-pix">
+                        <div class="card-box pix-box">
+                            <div class="alerta">
+                                <i class="fa-brands fa-pix"></i>
+                                <p>Escaneie o QR Code abaixo ou copie a chave PIX para pagar.</p>
+                            </div>
+                            <div class="qrcode-wrapper">
+                                <div class="qrcode-placeholder">
+                                    <i class="fa-brands fa-pix"></i>
+                                </div>
+                                <p class="qrcode-label">QR Code PIX</p>
+                            </div>
+                            <div class="pix-chave-box">
+                                <span class="pix-chave-texto">royaleconcursosJPL@gmail.com</span>
+                                <button class="btn-copiar" onclick="copiarChave(this)">
+                                    <i class="fa-regular fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                            <button class="btn-pagar" style="margin-top:8px">
+                                <i class="fa-solid fa-check"></i>
+                                Já realizei o pagamento
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-credito" id="mensal-credito">
+                        <div class="card-box">
+                            <label>Número do cartão</label>
+                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <label>Nome impresso no cartão</label>
+                            <input type="text" placeholder="Como aparece no cartão">
+                            <div class="linha-cartao">
+                                <div>
+                                    <label>Validade</label>
+                                    <input type="text" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label>CVV</label>
+                                    <input type="text" placeholder="123">
+                                </div>
+                            </div>
+                            <label>CPF do titular (opcional, para nota fiscal)</label>
+                            <input type="text" placeholder="000.000.000-00">
+                            <button class="btn-pagar">
+                                <i class="fa-solid fa-lock"></i>
+                                Pagar R$ 17,90
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-debito" id="mensal-debito">
+                        <div class="card-box">
+                            <div class="alerta">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app
+                                    do banco.</p>
+                            </div>
+                            <label>Número do cartão</label>
+                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <label>Nome impresso no cartão</label>
+                            <input type="text" placeholder="Como aparece no cartão">
+                            <div class="linha-cartao">
+                                <div>
+                                    <label>Validade</label>
+                                    <input type="text" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label>CVV</label>
+                                    <input type="text" placeholder="123">
+                                </div>
+                            </div>
+                            <label>CPF do titular (opcional, para nota fiscal)</label>
+                            <input type="text" placeholder="000.000.000-00">
+                            <button class="btn-pagar">
+                                <i class="fa-solid fa-lock"></i>
+                                Pagar R$ 17,90
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="modal-vita" class="modal-dark">
+                <div class="header-vita">
+                    <p>VITALÍCIO</p>
+                    <div class="btn-close">
+                        <button id="closeModalVita"><i class="fa-solid fa-x"></i></button>
+                    </div>
+                </div>
+
+                <div class="linha1"></div>
+
+                <div class="centralizar3">
+                    <div class="pagamento-header">
+                        <h1>Pagamento</h1>
+                        <p>Escolha como prefere pagar!</p>
+
+                        <div class="box-preco">
+                            <p>Total a pagar!</p>
+                            <span>R$64,90</span>
+                        </div>
+
+                        <div class="box-metodos-vita">
+                            <div class="metodo-vita ativo" data-metodo="pix"
+                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
+                                <i class="fa-brands fa-pix"></i>
+                                <p>PIX</p>
+                            </div>
+                            <div class="metodo-vita" data-metodo="credito"
+                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <p>CRÉDITO</p>
+                            </div>
+                            <div class="metodo-vita" data-metodo="debito"
+                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <p>DÉBITO</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-pix" id="vita-pix">
+                        <div class="card-box pix-box">
+                            <div class="alerta" style="background:#1e3a2f; color:#4ade80;">
+                                <i class="fa-brands fa-pix"></i>
+                                <p>Escaneie o QR Code abaixo ou copie a chave PIX para pagar.</p>
+                            </div>
+                            <div class="qrcode-wrapper">
+                                <div class="qrcode-placeholder" style="border-color:#333; color:#555;">
+                                    <i class="fa-brands fa-pix"></i>
+                                </div>
+                                <p class="qrcode-label" style="color:#888;">QR Code PIX</p>
+                            </div>
+                            <div class="pix-chave-box">
+                                <span class="pix-chave-texto">royaleconcursosJPL@gmail.com</span>
+                                <button class="btn-copiar" onclick="copiarChave(this)">
+                                    <i class="fa-regular fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                            <button class="btn-pagar" style="margin-top:8px">
+                                <i class="fa-solid fa-check"></i>
+                                Já realizei o pagamento
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-credito" id="vita-credito">
+                        <div class="card-box">
+                            <label>Número do cartão</label>
+                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <label>Nome impresso no cartão</label>
+                            <input type="text" placeholder="Como aparece no cartão">
+                            <div class="linha-cartao">
+                                <div>
+                                    <label>Validade</label>
+                                    <input type="text" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label>CVV</label>
+                                    <input type="text" placeholder="123">
+                                </div>
+                            </div>
+                            <label>CPF do titular (opcional, para nota fiscal)</label>
+                            <input type="text" placeholder="000.000.000-00">
+                            <button class="btn-pagar">
+                                <i class="fa-solid fa-lock"></i>
+                                Pagar R$ 64,90
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pagamento-debito" id="vita-debito">
+                        <div class="card-box">
+                            <div class="alerta" style="background:#1e3a2f; color:#4ade80;">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app
+                                    do banco.</p>
+                            </div>
+                            <label>Número do cartão</label>
+                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <label>Nome impresso no cartão</label>
+                            <input type="text" placeholder="Como aparece no cartão">
+                            <div class="linha-cartao">
+                                <div>
+                                    <label>Validade</label>
+                                    <input type="text" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label>CVV</label>
+                                    <input type="text" placeholder="123">
+                                </div>
+                            </div>
+                            <label>CPF do titular (opcional, para nota fiscal)</label>
+                            <input type="text" placeholder="000.000.000-00">
+                            <button class="btn-pagar">
+                                <i class="fa-solid fa-lock"></i>
+                                Pagar R$ 64,90
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
         </div>
+        </dialog>
+
+    </div>
     </div>
 
     <footer>

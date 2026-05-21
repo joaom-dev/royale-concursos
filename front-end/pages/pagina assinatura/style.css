@@ -5,6 +5,11 @@
     font-family: "DM Sans", sans-serif;
 }
 
+/* ── TRAVA O FUNDO QUANDO O MODAL ESTÁ ABERTO ── */
+body.modal-open {
+    overflow: hidden;
+}
+
 header {
     display: flex;
     align-items: center;
@@ -449,4 +454,415 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+}
+
+/* ── MODAIS: scroll interno + altura máxima ── */
+#modal-mensal,
+#modal-vita {
+    width: 650px;
+    /* removido height fixo — agora cresce com o conteúdo */
+    max-height: 90vh;          /* nunca passa de 90% da tela */
+    overflow-y: auto;          /* scroll quando o conteúdo for maior */
+    border: none;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    font-family: "DM Sans", sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+.header-mensal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-mensal p {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    background: #f0f0f0;
+    color: #555555;
+}
+
+.btn-close {
+    position: relative;
+    left: 230px;
+}
+
+.btn-close button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.linha1 {
+    border-bottom: 1px solid #ccc;
+    margin: 0 40px;
+    background: #cacbcb;
+
+}
+
+.pagamento-header {
+    padding: 30px 60px 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.pagamento-header p {
+    font-size: 20px;
+}
+
+.pagamento-header h1 {
+    letter-spacing: 0.08em;
+}
+
+.box-preco {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+
+.box-preco span {
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.box-metodos-mensal,
+.box-metodos-vita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px 0;
+}
+
+/* ── Botões modal MENSAL (tema claro) ── */
+.metodo-mensal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 140px;
+    padding: 18px 12px;
+    border-radius: 12px;
+    border: 1.5px solid #e0e0e0;
+    background: #f5f5f5;
+    color: #111111;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, border-color 0.2s, background 0.2s;
+}
+
+.metodo-mensal i {
+    font-size: 26px;
+    color: #111111;
+}
+
+.metodo-mensal p {
+    font-size: 14px !important;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #111111;
+}
+
+.metodo-mensal:hover {
+    transform: scale(1.06);
+    border-color: #aaaaaa;
+    background: #ececec;
+}
+
+.metodo-mensal.ativo {
+    border-color: #1b263b;
+    background: #1b263b;
+}
+
+.metodo-mensal.ativo i,
+.metodo-mensal.ativo p {
+    color: #ffffff;
+}
+
+/* ── Botões modal VITALÍCIO (tema escuro) ── */
+.metodo-vita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 140px;
+    padding: 18px 12px;
+    border-radius: 12px;
+    border: 1.5px solid #3a3a3a;
+    background: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, border-color 0.2s, background 0.2s;
+}
+
+.metodo-vita i {
+    font-size: 26px;
+    color: #ffffff;
+}
+
+.metodo-vita p {
+    font-size: 14px !important;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+}
+
+.metodo-vita:hover {
+    transform: scale(1.06);
+    background: #2a2a2a;
+}
+
+.metodo-vita.ativo {
+    border-color: #ffffff;
+    background: #2e2e2e;
+}
+
+
+
+
+.header-vita {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.header-vita p {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    background: #2a2a2a;
+    color: #aaaaaa;
+}
+
+#modal-vita.modal-dark {
+    background: #111111;
+    color: #ffffff;
+}
+
+#modal-vita.modal-dark .linha1 {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+#modal-vita.modal-dark .pagamento-header h1 {
+    color: #ffffff;
+}
+
+#modal-vita.modal-dark .pagamento-header>p {
+    color: #aaaaaa;
+}
+
+#modal-vita.modal-dark .box-preco {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+#modal-vita.modal-dark .box-preco span {
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#modal-vita.modal-dark .btn-close button {
+    color: #ffffff;
+}
+
+.card-box {
+    padding:2px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.alerta {
+    display: flex;
+    gap: 10px;
+    background: #e6f4ea;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    align-items: center;
+}
+
+.card-box label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+
+/* ── Inputs: tema CLARO (modal mensal, padrão) ── */
+.card-box input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f9f9f9;
+    color: #111111;
+    outline: none;
+}
+
+.card-box input::placeholder {
+    color: #aaaaaa;
+}
+
+/* ── Inputs: tema ESCURO (modal vitalício) ── */
+#modal-vita .card-box input {
+    border: 1px solid #444;
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+#modal-vita .card-box input::placeholder {
+    color: #666666;
+}
+
+#modal-vita .card-box label {
+    color: #cccccc;
+}
+
+.linha-cartao {
+    display: flex;
+    gap: 12px;
+}
+
+.linha-cartao div {
+    flex: 1;
+}
+
+/* ── Botão pagar: tema CLARO (modal mensal) ── */
+.btn-pagar {
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-bottom: 30px;
+}
+
+.btn-pagar:hover {
+    opacity: 0.88;
+}
+
+/* ── Botão pagar: tema ESCURO (modal vitalício) ── */
+#modal-vita .btn-pagar {
+    background: #2a2a2a;
+}
+
+#modal-vita .btn-pagar:hover {
+    background: #3a3a3a;
+    opacity: 1;
+}
+
+/* ── Seção PIX ── */
+.pix-box {
+    padding-top: 10px;
+}
+
+.qrcode-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0 10px;
+}
+
+.qrcode-placeholder {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    color: #ccc;
+}
+
+.qrcode-label {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.pix-chave-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f9f9f9;
+}
+
+#modal-vita .pix-chave-box {
+    border-color: #444;
+    background: #1a1a1a;
+}
+
+.pix-chave-texto {
+    font-size: 14px;
+    color: #333;
+    word-break: break-all;
+}
+
+#modal-vita .pix-chave-texto {
+    color: #ccc;
+}
+
+.btn-copiar {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-copiar:hover {
+    opacity: 0.85;
+}
+
+.btn-copiar:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
