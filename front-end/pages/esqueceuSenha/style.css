@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 100vh;
+}
+
+.img-login img {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    width: 410px;
+    height: auto;
+    min-height: 500px;
+    background-color: white;
+    border-radius: 17px;
+    gap: 20px;
+    padding: 40px 0;
+}
+
+h1 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 43px;
+    font-weight: 1100;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 20px;
+}
+
+.subtitulo {
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    color: #888;
+    text-align: center;
+    padding: 0 30px;
+    margin-top: -10px;
+}
+
+input {
+    width: 100%;
+    height: 48px;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.5s;
+    font-family: "DM Sans", sans-serif;
+}
+
+input[type="password"],
+input[type="text"] {
+    font-size: 20px;
+}
+
+.input-group {
+    position: relative;
+    width: 85%;
+    margin-bottom: 5px;
+}
+
+.input-group i:not(.eye-icon) {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+}
+
+input:focus {
+    border-color: #000000;
+}
+
+button {
+    width: 318px;
+    height: 48px;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background: linear-gradient(to left, #1b263b, #415a77);
+    box-shadow: 0 0 9px #415a77;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.mensagem-erro {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    color: #e63946;
+    width: 85%;
+    text-align: left;
+    margin-top: -10px;
+}
+
+.mensagem-forca {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    width: 85%;
+    text-align: left;
+    margin-top: -10px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+a {
+    color: #888;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "DM Sans", sans-serif;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  img {
+    display: none;
+  }
+
+  button {
+    width: 85%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .box {
+    width: 30%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .box {
+    width: 30%;
+  }
+}

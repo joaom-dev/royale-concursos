@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Senha</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+</head>
+
+<body>
+
+    <form action="" class="login" id="formNovaSenha">
+
+        <div class="container">
+            <div class="img-login">
+                <img src="/front-end/pages/tela de login/logo royale concursos.png" alt="logo">
+            </div>
+
+            <div class="login-container">
+                <h1>Nova Senha</h1>
+
+                <p class="subtitulo">Crie uma nova senha para sua conta.</p>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="novaSenha" placeholder="Nova senha" required>
+                    <i class="fa-solid fa-eye eye-icon" id="toggleNova"></i>
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="confirmarSenha" placeholder="Confirmar nova senha" required>
+                    <i class="fa-solid fa-eye eye-icon" id="toggleConfirmar"></i>
+                </div>
+
+                <div id="mensagemErro" class="mensagem-erro" style="display:none;">
+                    As senhas não coincidem.
+                </div>
+
+                <div id="mensagemForca" class="mensagem-forca" style="display:none;"></div>
+
+                <button type="submit" id="aBotao">Salvar Senha</button>
+
+                <a href="../tela de login/index.html" id="Voltar">Voltar para o login</a>
+            </div>
+        </div>
+    </form>
+
+</body>
+
+<script src="./script.js"></script>
+
+</html>
