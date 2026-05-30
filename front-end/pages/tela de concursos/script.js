@@ -142,7 +142,7 @@ function renderCards() {
     <div class="card-concurso" onclick="abrirDetalhes('${c.link || ''}')">
       <div class="card-topo">
         <div class="card-icone">
-          <span class="card-icone-sigla">${siglaOrgao(c.orgao)}</span>
+          ${iconeHtml(c.orgao, c.link)}
         </div>
         <div class="card-texto">
           <span class="card-badge ${badgeClass(c.tipo)}">${badgeTexto(c.tipo)}</span>
@@ -163,6 +163,79 @@ function renderCards() {
 }
 
 // ─── Funções auxiliares ───────────────────────────────────────────────────────
+
+// ─── Tabela de logos conhecidos ──────────────────────────────────────────────
+// Chave: trecho do nome do órgão em minúsculo | Valor: URL pública do logo
+const LOGOS_CONHECIDOS = {
+  'ibge':        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/IBGE_logo.svg/320px-IBGE_logo.svg.png',
+  'receita':     'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Receita_Federal_do_Brasil_logo.svg/320px-Receita_Federal_do_Brasil_logo.svg.png',
+  'ciee':        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/CIEE_logo.svg/320px-CIEE_logo.svg.png',
+  'tj-mg':       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Brasao_TJMG.svg/200px-Brasao_TJMG.svg.png',
+  'tjmg':        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Brasao_TJMG.svg/200px-Brasao_TJMG.svg.png',
+  'justiça federal': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'jfrn':        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'jfsp':        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'trt':         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'tse':         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'stj':         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'stf':         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg/200px-Bras%C3%A3o_da_Justi%C3%A7a_Federal.svg.png',
+  'polícia civil':   'https://upload.wikimedia.org/wikipedia/commons/thumb/4/forty/Coat_of_arms_of_Brazil.svg/200px-Coat_of_arms_of_Brazil.svg.png',
+  'polícia militar': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/forty/Coat_of_arms_of_Brazil.svg/200px-Coat_of_arms_of_Brazil.svg.png',
+  'prefeitura':  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bras%C3%A3o_de_armas_do_Brasil.svg/200px-Bras%C3%A3o_de_armas_do_Brasil.svg.png',
+  'câmara':      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bras%C3%A3o_de_armas_do_Brasil.svg/200px-Bras%C3%A3o_de_armas_do_Brasil.svg.png',
+  'governo':     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bras%C3%A3o_de_armas_do_Brasil.svg/200px-Bras%C3%A3o_de_armas_do_Brasil.svg.png',
+  'cetesb':      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bras%C3%A3o_de_armas_do_Brasil.svg/200px-Bras%C3%A3o_de_armas_do_Brasil.svg.png',
+  'spprev':      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bras%C3%A3o_de_armas_do_Brasil.svg/200px-Bras%C3%A3o_de_armas_do_Brasil.svg.png',
+};
+
+// Tenta achar logo na tabela manual pelo nome do órgão
+function logoManual(orgao) {
+  if (!orgao) return null;
+  const nome = orgao.toLowerCase();
+  for (const chave of Object.keys(LOGOS_CONHECIDOS)) {
+    if (nome.includes(chave)) return LOGOS_CONHECIDOS[chave];
+  }
+  return null;
+}
+
+// Gera uma cor de fundo consistente baseada no nome do órgão
+function corAvatar(nome) {
+  const cores = [
+    { bg: '#dbeafe', text: '#1e40af' }, // azul
+    { bg: '#dcfce7', text: '#166534' }, // verde
+    { bg: '#fef9c3', text: '#854d0e' }, // amarelo
+    { bg: '#fce7f3', text: '#9d174d' }, // rosa
+    { bg: '#ede9fe', text: '#5b21b6' }, // roxo
+    { bg: '#ffedd5', text: '#9a3412' }, // laranja
+    { bg: '#cffafe', text: '#155e75' }, // ciano
+    { bg: '#f1f5f9', text: '#334155' }, // cinza
+  ];
+  let hash = 0;
+  for (let i = 0; i < (nome || '').length; i++) hash += nome.charCodeAt(i);
+  return cores[hash % cores.length];
+}
+
+// Monta o HTML do ícone:
+// 1. Logo da tabela manual (alta qualidade)  →  2. Avatar colorido com sigla
+function iconeHtml(orgao, link) {
+  const manual = logoManual(orgao);
+
+  if (manual) {
+    const cor = corAvatar(orgao);
+    return `
+      <img src="${manual}" alt="${orgao}" class="card-icone-img"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="card-icone-avatar" style="display:none; background:${cor.bg}; color:${cor.text};">
+        ${siglaOrgao(orgao)}
+      </span>`;
+  }
+
+  // Sem logo manual: avatar colorido direto
+  const cor = corAvatar(orgao);
+  return `<span class="card-icone-avatar" style="background:${cor.bg}; color:${cor.text};">
+    ${siglaOrgao(orgao)}
+  </span>`;
+}
 
 // Abre o edital em nova aba (se o link existir)
 function abrirDetalhes(link) {
