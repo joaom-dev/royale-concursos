@@ -533,22 +533,72 @@ footer {
     padding: 6px 12px;
     font-size: 0.85rem;
   }
-
 }
 
-@media (min-width: 1024px) {
-  .box {
-    width: 30%;
-  }
+@media(max-width:600px){
+@media (max-width: 600px) {
+    .menu-lateral {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        gap: 8px;
+    }
+    .menu-itens {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        padding-bottom: 8px;
+    }
+    .menu-itens p {
+        font-size: 13px;
+    }
+    .menu-topo img {
+        width: 34px;
+        height: 34px;
+    }
+    .menu-inferior {
+        padding-right: 0;
+    }
+
+    .formulario {
+        margin-top: 130px;
+        padding: 15px;
+    }
+
+    .ranking-cont {
+        flex-direction: column;
+    }
+
+    table {
+        min-width: unset;
+        font-size: 0.78rem;
+    }
+
+    thead th,
+    tbody td {
+        padding: 8px 8px;
+    }
+
+    .top-3 {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .card {
+        min-width: unset;
+        width: 100%;
+    }
+    #content-footer {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.2rem;
+        gap: 2rem;
+    }
 }
-
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  .box {
-    width: 30%;
-  }
 }

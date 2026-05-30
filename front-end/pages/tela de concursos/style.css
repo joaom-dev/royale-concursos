@@ -475,4 +475,29 @@ input[type="text"] {
     header {
         padding-top: 110px;
     }
+
+    #nome {
+        font-size: 32px;
+        text-align: center;
+        padding: 10px 16px 16px;
+    }
+
+    .page-body {
+        flex-direction: column;
+        padding: 0 16px 40px;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+
+    .filtros-sidebar {
+        width: 100%;
+        min-width: unset;
+        position: static;
+        max-height: unset;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
 }

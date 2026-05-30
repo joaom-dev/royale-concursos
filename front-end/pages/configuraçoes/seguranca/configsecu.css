@@ -392,8 +392,8 @@ body.modal-open {
 /*Responsividade*/
     @media(max-width: 768px){
 
-         .texto h1 {
-            font-size: clamp(14px, 2.5vw, 26px);
+        p {
+            font-size: clamp(14px, 2.5vw, 15px);
         }
         .perfil-card{
             max-width: 320px;
