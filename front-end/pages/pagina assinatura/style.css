@@ -856,3 +856,85 @@ footer {
     opacity: 0.6;
     cursor: default;
 }
+
+@media (max-width: 600px) {
+
+    .menu-lateral {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        gap: 8px;
+    }
+    .menu-itens {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        padding-bottom: 8px;
+    }
+    .menu-itens p {
+        font-size: 13px;
+    }
+    .menu-topo img {
+        width: 34px;
+        height: 34px;
+    }
+    .menu-inferior {
+        padding-right: 0;
+    }
+    header {
+        padding-top: 120px;
+    }
+    #nome {
+        font-size: 34px;
+    }
+    .centralizar {
+        padding: 1rem 1rem 3rem;
+        min-height: unset;
+    }
+    .plans-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .plan-card {
+        width: 100%;
+        max-width: 360px;
+        min-height: unset;
+        padding: 1.75rem 1.25rem;
+    }
+    #modal-mensal,
+    #modal-vita {
+        width: 95vw;
+        max-height: 85vh;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .pagamento-header {
+        padding: 20px 24px 0;
+    }
+    .card-box {
+        padding: 2px 24px;
+    }
+    .box-metodos-mensal,
+    .box-metodos-vita {
+        gap: 12px;
+        padding: 24px 0;
+    }
+    .metodo-mensal,
+    .metodo-vita {
+        width: 90px;
+        padding: 14px 8px;
+    }
+    .btn-close {
+        left: 0;
+        margin-left: auto;
+    }
+    #content-footer {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.2rem;
+        gap: 2rem;
+    }
+}
