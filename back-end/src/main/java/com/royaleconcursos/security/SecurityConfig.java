@@ -37,7 +37,8 @@ public class SecurityConfig {
                     "/auth/register",
                     "/login**",
                     "/error**",
-                    "/oauth2/**"
+                    "/oauth2/**",
+                    "/api/concursos/**"   // leitura pública dos concursos
                 ).permitAll()
                 .anyRequest().authenticated()
             )

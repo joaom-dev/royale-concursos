@@ -415,6 +415,63 @@ input[type="text"] {
     font-size: 16px;
 }
 
+.card-icone-sigla {
+    font-size: 22px;
+    font-weight: 800;
+    color: #415a77;
+    letter-spacing: -0.5px;
+    user-select: none;
+}
+
+.card-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.card-uf {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+}
+
+.card-vagas {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1b263b;
+    background: #eaecf5;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+/* Loading spinner */
+.loading-container {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 16px;
+    color: #888;
+    font-size: 15px;
+}
+
+.loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e2e5ec;
+    border-top-color: #1b263b;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
 /* Responsividade */
 
 @media(max-width: 768px){
