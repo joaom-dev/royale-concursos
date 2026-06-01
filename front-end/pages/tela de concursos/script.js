@@ -1,12 +1,11 @@
-// ─── Configuração ────────────────────────────────────────────────────────────
+
 // Aponte para a URL do seu backend Spring Boot
 const API_BASE = 'http://localhost:8080/api/concursos';
 
-// ─── Estado da aplicação ─────────────────────────────────────────────────────
+
 let tagAtiva        = 'all';
 let todosOsConcursos = [];   // cache local após o fetch
 
-// ─── Inicialização ────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   carregarConcursos();
 
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ─── Busca inicial no backend ─────────────────────────────────────────────────
+// Busca inicial no backend 
 async function carregarConcursos() {
   mostrarLoading(true);
 
@@ -44,13 +43,13 @@ async function carregarConcursos() {
   }
 }
 
-// ─── Filtros dos checkboxes da sidebar ───────────────────────────────────────
+ 
 // Chamado pelo onchange de cada checkbox no HTML
 function aplicarFiltros() {
   renderCards();
 }
 
-// ─── Renderização dos cards ───────────────────────────────────────────────────
+// Renderização dos cards 
 function renderCards() {
   const busca      = document.getElementById('search').value.toLowerCase().trim();
   const grid       = document.getElementById('cards-grid');
@@ -201,14 +200,14 @@ function logoManual(orgao) {
 // Gera uma cor de fundo consistente baseada no nome do órgão
 function corAvatar(nome) {
   const cores = [
-    { bg: '#dbeafe', text: '#1e40af' }, // azul
-    { bg: '#dcfce7', text: '#166534' }, // verde
-    { bg: '#fef9c3', text: '#854d0e' }, // amarelo
-    { bg: '#fce7f3', text: '#9d174d' }, // rosa
-    { bg: '#ede9fe', text: '#5b21b6' }, // roxo
-    { bg: '#ffedd5', text: '#9a3412' }, // laranja
-    { bg: '#cffafe', text: '#155e75' }, // ciano
-    { bg: '#f1f5f9', text: '#334155' }, // cinza
+    { bg: '#dbeafe', text: '#1e40af' }, 
+    { bg: '#dcfce7', text: '#166534' }, 
+    { bg: '#fef9c3', text: '#854d0e' }, 
+    { bg: '#fce7f3', text: '#9d174d' }, 
+    { bg: '#ede9fe', text: '#5b21b6' }, 
+    { bg: '#ffedd5', text: '#9a3412' }, 
+    { bg: '#cffafe', text: '#155e75' }, 
+    { bg: '#f1f5f9', text: '#334155' }, 
   ];
   let hash = 0;
   for (let i = 0; i < (nome || '').length; i++) hash += nome.charCodeAt(i);
