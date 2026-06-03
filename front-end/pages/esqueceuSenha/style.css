@@ -44,7 +44,7 @@ h1 {
     font-family: "DM Sans", sans-serif;
     font-size: 43px;
     font-weight: 1100;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 20px;
@@ -111,8 +111,8 @@ button {
     font-size: 20px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    background: linear-gradient(to left, #1b263b, #415a77);
-    box-shadow: 0 0 9px #415a77;
+    background: linear-gradient(to left, #293ab4, #3e70db);
+    box-shadow: 0 0 9px #3e70db;
 }
 
 button:hover {

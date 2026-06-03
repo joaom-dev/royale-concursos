@@ -17,7 +17,7 @@ header {
     font-family: "DM Sans", sans-serif;
     font-size: 53px;
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -283,7 +283,7 @@ body.modal-open {
 }
 
 #salvar {
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     color: white;
     border: none;
     padding: 14px 35px;

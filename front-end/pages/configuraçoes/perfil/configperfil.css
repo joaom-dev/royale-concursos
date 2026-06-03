@@ -29,7 +29,7 @@ header {
     font-family: "DM Sans", sans-serif;
     font-size: clamp(24px, 5vw, 53px);
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -231,7 +231,7 @@ h2 {
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     transition: all 0.3s ease;
 }
 

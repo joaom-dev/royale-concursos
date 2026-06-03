@@ -5,6 +5,9 @@
 #1b263b
 #415a77
 
+#293ab4
+#3e70db
+
 # codigo para usar a cor como background
 
 background: linear-gradient(to left, #1b263b, #415a77);

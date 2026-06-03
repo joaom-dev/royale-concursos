@@ -22,7 +22,7 @@ header {
 #nome {
     font-size: 53px;
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -177,13 +177,13 @@ input[type="text"] {
 .filtros-titulo {
     font-size: 18px;
     font-weight: 800;
-    color: #1b263b;
+    color: #293ab4;
     margin-bottom: 5px;
 }
 
 .filtros-sub {
     font-size: 13px;
-    color: #415a77;
+    color: #3e70db;
     text-decoration: underline;
     cursor: pointer;
     margin-bottom: 20px;
@@ -205,7 +205,7 @@ input[type="text"] {
 .filtro-header span {
     font-size: 14px;
     font-weight: 600;
-    color: #1b263b;
+    color: #293ab4;
 }
 
 .filtro-chevron {
@@ -239,7 +239,7 @@ input[type="text"] {
 }
 
 .filtro-body input[type="checkbox"] {
-    accent-color: #1b263b;
+    accent-color: #293ab4;
     width: 15px;
     height: 15px;
     cursor: pointer;
@@ -267,7 +267,7 @@ input[type="text"] {
 
 .tag-rapida {
     background: #eaecf5;
-    color: #1b263b;
+    color: #293ab4;
     font-size: 13px;
     font-weight: 600;
     padding: 8px 18px;
@@ -280,7 +280,7 @@ input[type="text"] {
 
 .tag-rapida.ativo,
 .tag-rapida:hover {
-    background: #1b263b;
+    background: #293ab4;
     color: #fff;
 }
 
@@ -370,7 +370,7 @@ input[type="text"] {
 .card-nome {
     font-size: 14px;
     font-weight: 700;
-    color: #1b263b;
+    color: #293ab4;
     line-height: 1.4;
 }
 
@@ -402,7 +402,7 @@ input[type="text"] {
 .card-vagas {
     font-size: 12px;
     font-weight: 700;
-    color: #1b263b;
+    color: #293ab4;
     background: #eaecf5;
     padding: 3px 10px;
     border-radius: 20px;
@@ -411,7 +411,7 @@ input[type="text"] {
 .card-ver {
     font-size: 14px;
     font-weight: 700;
-    color: #1b263b;
+    color: #293ab4;
     background: none;
     border: none;
     cursor: pointer;
@@ -420,7 +420,7 @@ input[type="text"] {
     font-family: "DM Sans", sans-serif;
 }
 
-.card-ver:hover { color: #415a77; }
+.card-ver:hover { color: #3e70db; }
 
 /* ===== ESTADOS VAZIOS / LOADING ===== */
 .sem-resultados {
@@ -447,7 +447,7 @@ input[type="text"] {
     width: 36px;
     height: 36px;
     border: 3px solid #e2e5ec;
-    border-top-color: #1b263b;
+    border-top-color: #293ab4;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }

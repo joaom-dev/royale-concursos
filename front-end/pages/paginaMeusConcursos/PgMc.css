@@ -21,7 +21,7 @@ header {
 #nome {
     font-size: 53px;
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -201,7 +201,7 @@ input[type="text"] {
 
 .tag-rapida {
     background: #eaecf5;
-    color: #1b263b;
+    color: #293ab4;
     font-size: 13px;
     font-weight: 600;
     padding: 8px 18px;
@@ -214,7 +214,7 @@ input[type="text"] {
 
 .tag-rapida.ativo,
 .tag-rapida:hover {
-    background: #1b263b;
+    background: #293ab4;
     color: #fff;
 }
 
@@ -288,7 +288,7 @@ input[type="text"] {
 .card-nome {
     font-size: 14px;
     font-weight: 700;
-    color: #1b263b;
+    color: #293ab4;
     line-height: 1.4;
 }
 
@@ -312,7 +312,7 @@ input[type="text"] {
 .card-ver {
     font-size: 14px;
     font-weight: 700;
-    color: #1b263b;
+    color: #293ab4;
     background: none;
     border: none;
     cursor: pointer;
@@ -321,7 +321,7 @@ input[type="text"] {
     font-family: "DM Sans", sans-serif;
 }
 
-.card-ver:hover { color: #415a77; }
+.card-ver:hover { color: #3e70db; }
 
 .sem-resultados {
     grid-column: 1 / -1;

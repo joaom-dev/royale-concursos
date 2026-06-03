@@ -28,7 +28,7 @@ header {
     font-family: "DM Sans", sans-serif;
     font-size: 43px;
     font-weight: 1100;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -85,8 +85,8 @@ nav a:hover::after {
     background-color: transparent;
     cursor: pointer;
     transition: transform 0.3s ease;
-    background: linear-gradient(to left, #1b263b, #415a77);
-    box-shadow: 0 0 9px #415a77;
+    background: linear-gradient(to left, #293ab4, #3e70db);
+    box-shadow: 0 0 9px #3e70db;
 
 }
 
@@ -162,7 +162,7 @@ section {
     font-family: "DM Sans", sans-serif;
     font-size: 65px;
     font-weight: 1100;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -311,7 +311,7 @@ VERSAO ANTIGA
     font-size: 110px;
     line-height: 1;
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0 0 10px 0;
@@ -409,7 +409,7 @@ img {
 
 footer {
     font-family: "DM Sans", sans-serif;
-    background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
+    background: linear-gradient(135deg, #04090e 0%, #293ab4 100%);
 }
 
 #content-footer {

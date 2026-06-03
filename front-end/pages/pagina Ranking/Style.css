@@ -104,7 +104,7 @@
 }
 
 .add-ranking {
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   color: #ffffff;
   border: none;
   padding: 8px 18px;
@@ -115,7 +115,7 @@
 }
 
 .add-ranking:hover {
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
 }
 
 .container {
@@ -174,7 +174,7 @@
 
 table {
   border-collapse: collapse;
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   border-radius: 6px;
   color: #fffefe;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
@@ -193,7 +193,7 @@ button {
 }
 
 thead {
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   color: #121212;
   font-weight: 700;
 }
@@ -250,7 +250,7 @@ tbody td {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   color: #121212;
   font-weight: 700;
   font-size: 0.9rem;
@@ -299,7 +299,7 @@ tbody td {
 }
 
 .avatar-large {
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   color: #121212;
   display: inline-block;
   width: 62px;
@@ -319,7 +319,7 @@ tbody td {
 
 .user-score {
   font-weight: 700;
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.5rem;
@@ -337,7 +337,7 @@ tbody td {
 
 .progress {
   height: 100%;
-background: linear-gradient(to left, #1b263b, #415a77);
+background: linear-gradient(to left, #293ab4, #3e70db);
   border-radius: 6px 0 0 6px;
 }
 
@@ -375,7 +375,7 @@ background: linear-gradient(to left, #1b263b, #415a77);
 
 .card h3 {
   font-size: 2rem;
-  background: linear-gradient(to left, #1b263b, #415a77);
+  background: linear-gradient(to left, #293ab4, #3e70db);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
@@ -389,7 +389,7 @@ footer {
 }
 
 #content-footer {
-  background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
+  background: linear-gradient(135deg, #04090e 0%, #293ab4 100%);
   color: white;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

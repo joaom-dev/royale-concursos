@@ -19,7 +19,7 @@ header {
 #nome {
     font-size: 53px;
     font-weight: 900;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -223,12 +223,12 @@ header {
 }
 
 .btn-light {
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     color: #ffffff;
 }
 
 .btn-dark {
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     color: #ffffff;
 }
 
@@ -329,7 +329,7 @@ footer {
 }
 
 #content-footer {
-    background: linear-gradient(135deg, #04090e 0%, #1b263b 100%);
+    background: linear-gradient(135deg, #04090e 0%, #293ab4 100%);
     color: white;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -539,7 +539,7 @@ footer {
 }
 
 .box-preco span {
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -589,8 +589,8 @@ footer {
 }
 
 .metodo-mensal.ativo {
-    border-color: #1b263b;
-    background: #1b263b;
+    border-color: #293ab4;
+    background: #293ab4;
 }
 
 .metodo-mensal.ativo i,
@@ -684,7 +684,7 @@ footer {
 }
 
 #modal-vita.modal-dark .box-preco span {
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -759,7 +759,7 @@ footer {
     padding: 16px;
     border-radius: 12px;
     border: none;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -840,7 +840,7 @@ footer {
     padding: 8px 14px;
     border-radius: 8px;
     border: none;
-    background: linear-gradient(to left, #1b263b, #415a77);
+    background: linear-gradient(to left, #293ab4, #3e70db);
     color: white;
     font-size: 13px;
     font-weight: 600;
