@@ -5,6 +5,8 @@
 #1b263b
 #415a77
 
+# codigo das cores atualizadas
+
 #293ab4
 #3e70db
 
@@ -18,7 +20,8 @@ background: linear-gradient(to left, #1b263b, #415a77);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-# código para deixar o footer responsivo
+# codigo para deixar o footer responsivo
+
     footer{
         width: 100%;
         height: 100%;
