@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +41,7 @@ public class ConcursoService {
         this.objectMapper = new ObjectMapper();
     }
 
-    // Roda ao iniciar e depois a cada 6 horas (em ms: 6 * 60 * 60 * 1000)
+    // Roda ao iniciar e depois a cada 6 horas
     @Scheduled(fixedDelay = 21_600_000, initialDelay = 0)
     @Transactional
     public void sincronizarTodosOsEstados() {
@@ -59,14 +60,14 @@ public class ConcursoService {
                     continue;
                 }
 
-                JsonNode root   = objectMapper.readTree(json);
-                String estado   = root.path("estado").asText();
+                JsonNode root    = objectMapper.readTree(json);
+                String estado    = root.path("estado").asText();
                 List<Concurso> novos = new ArrayList<>();
 
-                JsonNode abertos  = root.path("concursos_abertos");
+                JsonNode abertos   = root.path("concursos_abertos");
                 JsonNode previstos = root.path("concursos_previstos");
 
-                if (abertos.isArray())  abertos.forEach(n  -> novos.add(mapear(n, uf, estado, "aberto")));
+                if (abertos.isArray())   abertos.forEach(n  -> novos.add(mapear(n, uf, estado, "aberto")));
                 if (previstos.isArray()) previstos.forEach(n -> novos.add(mapear(n, uf, estado, "previsto")));
 
                 repository.deleteByUfIgnoreCase(uf);
@@ -82,10 +83,15 @@ public class ConcursoService {
         log.info("===== Sincronização concluída [{}] =====", LocalDateTime.now());
     }
 
-    //  Métodos de consulta (usados pelo Controller) 
+    // ─── Métodos de consulta (usados pelo Controller) ─────────────────────────
 
     public List<ConcursoDTO> listarTodos() {
         return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    // Novo: busca por ID individual (usado pela tela de detalhes)
+    public Optional<ConcursoDTO> buscarPorId(Long id) {
+        return repository.findById(id).map(this::toDTO);
     }
 
     public List<ConcursoDTO> listarPorUf(String uf) {
@@ -104,28 +110,114 @@ public class ConcursoService {
         return repository.findByOrgaoContainingIgnoreCase(texto).stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    // Helpers privados
+    // ─── Helpers privados ─────────────────────────────────────────────────────
+
+    // Tenta ler um campo tentando várias grafias possíveis que a API pode retornar
+    private String ler(JsonNode node, String... chaves) {
+        for (String chave : chaves) {
+            String valor = node.path(chave).asText("");
+            if (!valor.isBlank()) return valor;
+        }
+        return "";
+    }
 
     private Concurso mapear(JsonNode node, String uf, String estado, String tipo) {
         Concurso c = new Concurso();
-        // A API pode retornar "Órgão" (com acento) ou "orgao" dependendo da versão
-        String orgao = node.path("Órgão").asText(node.path("orgao").asText(""));
+
+        // ── Campos básicos ────────────────────────────────────────────────────
+        String orgao = ler(node, "Órgão", "orgao", "Orgao", "organ");
         c.setOrgao(orgao.isBlank() ? "Não informado" : orgao);
-        c.setSituacao(node.path("Situação").asText(node.path("situacao").asText("")));
-        c.setVagas(node.path("Vagas").asText(node.path("vagas").asText("")));
-        c.setLink(node.path("link").asText(""));
+
+        c.setSituacao(ler(node, "Situação", "situacao", "Situacao", "situation"));
+        c.setVagas(ler(node, "Vagas", "vagas", "vacancies"));
         c.setUf(uf.toUpperCase());
         c.setEstado(estado);
         c.setTipo(tipo);
         c.setAtualizadoEm(LocalDateTime.now());
+
+        // ── Link de inscrição ─────────────────────────────────────────────────
+        String link = ler(node, "link", "Link", "url", "URL", "linkInscricao", "link_inscricao");
+        c.setLink(link.isBlank() ? null : link);
+
+        // ── Edital ────────────────────────────────────────────────────────────
+        String editalUrl = ler(node, "edital_url", "EditalUrl", "edital", "Edital",
+                               "link_edital", "linkEdital", "editalLink");
+        c.setEditalUrl(editalUrl.isBlank() ? null : editalUrl);
+
+        // ── Período de inscrições ─────────────────────────────────────────────
+        String periodo = ler(node, "periodo_inscricao", "Período de Inscrição",
+                             "PeriodoInscricao", "periodo", "Periodo");
+        // Tenta montar a partir de data_inicio + data_fim se não vier direto
+        if (periodo.isBlank()) {
+            String inicio = ler(node, "data_inicio", "DataInicio", "dataInicio", "inicio");
+            String fim    = ler(node, "data_fim",    "DataFim",    "dataFim",    "fim");
+            if (!inicio.isBlank() && !fim.isBlank()) periodo = inicio + " até " + fim;
+            else if (!inicio.isBlank())              periodo = "A partir de " + inicio;
+        }
+        c.setPeriodoInscricao(periodo.isBlank() ? null : periodo);
+
+        // ── Nível de escolaridade ─────────────────────────────────────────────
+        String nivel = ler(node, "nivel", "Nível", "nivel_escolaridade",
+                           "escolaridade", "Escolaridade", "education");
+        c.setNivel(nivel.isBlank() ? null : nivel);
+
+        // ── Banca ─────────────────────────────────────────────────────────────
+        String banca = ler(node, "banca", "Banca", "organizadora",
+                           "Organizadora", "bancaOrganizadora");
+        c.setBanca(banca.isBlank() ? null : banca);
+
+        // ── Cargo ─────────────────────────────────────────────────────────────
+        String cargo = ler(node, "cargo", "Cargo", "cargos", "Cargos", "position");
+        c.setCargo(cargo.isBlank() ? null : cargo);
+
+        // ── Salário ───────────────────────────────────────────────────────────
+        String salario = ler(node, "salario", "Salário", "remuneracao",
+                             "Remuneração", "remuneracao_base", "salary");
+        c.setSalario(salario.isBlank() ? null : salario);
+
+        // ── Requisitos ────────────────────────────────────────────────────────
+        String requisitos = ler(node, "requisitos", "Requisitos", "requirements");
+        c.setRequisitos(requisitos.isBlank() ? null : requisitos);
+
+        // ── Benefícios ────────────────────────────────────────────────────────
+        String beneficios = ler(node, "beneficios", "Benefícios", "beneficio",
+                                "Beneficio", "benefits");
+        c.setBeneficios(beneficios.isBlank() ? null : beneficios);
+
+        // ── Carga horária ─────────────────────────────────────────────────────
+        String cargaHoraria = ler(node, "carga_horaria", "CargaHoraria",
+                                  "Carga Horária", "cargaHoraria", "workload");
+        c.setCargaHoraria(cargaHoraria.isBlank() ? null : cargaHoraria);
+
+        // ── Observação / aviso ────────────────────────────────────────────────
+        String observacao = ler(node, "observacao", "Observação", "observacoes",
+                                "aviso", "Aviso", "obs", "notice");
+        c.setObservacao(observacao.isBlank() ? null : observacao);
+
         return c;
     }
 
     private ConcursoDTO toDTO(Concurso c) {
         return new ConcursoDTO(
-            c.getId(), c.getOrgao(), c.getSituacao(),
-            c.getUf(), c.getEstado(), c.getTipo(),
-            c.getVagas(), c.getLink(), c.getAtualizadoEm()
+            c.getId(),
+            c.getOrgao(),
+            c.getSituacao(),
+            c.getUf(),
+            c.getEstado(),
+            c.getTipo(),
+            c.getVagas(),
+            c.getLink(),
+            c.getEditalUrl(),
+            c.getPeriodoInscricao(),
+            c.getNivel(),
+            c.getBanca(),
+            c.getCargo(),
+            c.getSalario(),
+            c.getRequisitos(),
+            c.getBeneficios(),
+            c.getCargaHoraria(),
+            c.getObservacao(),
+            c.getAtualizadoEm()
         );
     }
 }
