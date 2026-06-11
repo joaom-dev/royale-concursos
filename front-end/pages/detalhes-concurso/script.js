@@ -319,12 +319,93 @@ function renderizarDetalhes(c) {
     }
 
     // ── Exibe a página ────────────────────────────────────────────────────────
+    window._concursoAtual = c;  // guarda para o toggleSalvar
     document.getElementById('loading-overlay').style.display = 'none';
     document.getElementById('detalhes-page').style.display   = 'block';
     document.title = `${c.orgao || 'Detalhes'} – Royale Concursos`;
+
+    // Inicializa estado do botão salvar
+    atualizarBtnSalvar(isSalvo(c.id));
 }
 
-// ─── Trocar aba ───────────────────────────────────────────────────────────────
+// ─── Salvar / Favoritar ───────────────────────────────────────────────────────
+const STORAGE_KEY = 'royale_salvos';
+
+function getSalvos() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+}
+
+function setSalvos(lista) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+}
+
+function isSalvo(id) {
+    return getSalvos().some(c => String(c.id) === String(id));
+}
+
+function toggleSalvar() {
+    const params = new URLSearchParams(window.location.search);
+    const id     = params.get('id');
+    if (!id) return;
+
+    let salvos = getSalvos();
+
+    if (isSalvo(id)) {
+        // Remove dos salvos
+        salvos = salvos.filter(c => String(c.id) !== String(id));
+        setSalvos(salvos);
+        atualizarBtnSalvar(false);
+        mostrarToast('Concurso removido dos salvos');
+    } else {
+        // Adiciona — pega dados do concurso atual que já estão na tela
+        const concursoAtual = window._concursoAtual;
+        if (concursoAtual) {
+            salvos.push(concursoAtual);
+            setSalvos(salvos);
+        }
+        atualizarBtnSalvar(true);
+        mostrarToast('Concurso salvo! <a href="../paginaMeusConcursos/PgMc.html">Ver salvos →</a>');
+    }
+}
+
+function atualizarBtnSalvar(salvo) {
+    const btn    = document.getElementById('btn-salvar');
+    const icone  = document.getElementById('icone-salvar');
+    const texto  = document.getElementById('texto-salvar');
+    if (!btn) return;
+    if (salvo) {
+        btn.classList.add('salvo');
+        icone.className = 'fa-solid fa-bookmark';
+        texto.textContent = 'Salvo!';
+    } else {
+        btn.classList.remove('salvo');
+        icone.className = 'fa-regular fa-bookmark';
+        texto.textContent = 'Salvar concurso';
+    }
+}
+
+function mostrarToast(html) {
+    let toast = document.getElementById('toast-salvo');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-salvo';
+        toast.style.cssText = `
+            position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+            background:#1a1f36; color:#fff; padding:12px 24px; border-radius:10px;
+            font-size:14px; font-weight:600; z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,0.2);
+            transition:opacity 0.3s; display:flex; gap:10px; align-items:center;
+        `;
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = html;
+    toast.querySelectorAll('a').forEach(a => Object.assign(a.style, { color:'#7ea8f8', textDecoration:'none' }));
+    toast.style.opacity = '1';
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+}
+
+
 function trocarAba(btn) {
     document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativo'));
     document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));

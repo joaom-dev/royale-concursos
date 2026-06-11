@@ -1,4 +1,3 @@
-/* ===== RESET / BASE ===== */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +10,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== NAVBAR ===== */
+
 .menu-lateral {
     position: fixed;
     top: 0; left: 0;
@@ -58,7 +57,7 @@ body {
 }
 .menu-inferior a:hover .tooltip-texto { visibility: visible; opacity: 1; }
 
-/* ===== LOADING ===== */
+
 #loading-overlay {
     display: flex;
     flex-direction: column;
@@ -79,14 +78,13 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ===== PÁGINA PRINCIPAL ===== */
+
 .detalhes-page {
     max-width: 1100px;
     margin: 0 auto;
     padding: 90px 24px 60px;
 }
 
-/* ===== BREADCRUMB ===== */
 .breadcrumb {
     display: flex;
     align-items: center;
@@ -101,7 +99,6 @@ body {
 .breadcrumb i { font-size: 10px; color: #bbb; }
 .breadcrumb span { color: #333; font-weight: 600; }
 
-/* ===== AVISO BANNER ===== */
 .aviso-banner {
     background: #fffbe6;
     border: 1px solid #ffe58f;
@@ -117,7 +114,6 @@ body {
 }
 .aviso-banner i { color: #d4a017; margin-top: 2px; flex-shrink: 0; }
 
-/* ===== CARD TOPO ===== */
 .topo-card {
     background: #fff;
     border: 1px solid #e2e5ec;
@@ -170,7 +166,6 @@ body {
 }
 .meta-item i { color: #293ab4; font-size: 13px; }
 
-/* ===== AÇÕES ===== */
 .topo-acoes {
     display: flex;
     flex-direction: column;
@@ -233,7 +228,31 @@ body {
 }
 .btn-edital.indisponivel:hover { background: #fff; }
 
-/* ===== ABAS ===== */
+.btn-salvar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: 1.5px solid #ddd;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    width: 100%;
+    font-family: "DM Sans", sans-serif;
+}
+.btn-salvar:hover { background: #fff4dc; border-color: #d4a017; color: #8a5e00; }
+.btn-salvar.salvo {
+    background: #fff4dc;
+    color: #8a5e00;
+    border-color: #d4a017;
+}
+.btn-salvar.salvo i { font-weight: 900; }
+
 .abas-container {
     display: flex;
     border-bottom: 2px solid #e2e5ec;
@@ -258,11 +277,9 @@ body {
 .aba:hover { color: #293ab4; }
 .aba.ativo { color: #293ab4; border-bottom-color: #293ab4; }
 
-/* ===== PAINÉIS ===== */
 .painel { display: none; }
 .painel.ativo { display: block; }
 
-/* ===== SEÇÃO ===== */
 .secao {
     background: #fff;
     border: 1px solid #e2e5ec;
@@ -280,7 +297,6 @@ body {
     gap: 10px;
 }
 
-/* ===== FASES ===== */
 .fases-lista { display: flex; flex-direction: column; }
 .fase-item {
     display: flex;
@@ -304,7 +320,6 @@ body {
 }
 .fase-desc { font-size: 14px; color: #333; font-weight: 500; }
 
-/* ===== INFO GRID ===== */
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -325,17 +340,14 @@ body {
 }
 .info-valor { font-size: 15px; font-weight: 700; color: #1a1f36; }
 
-/* ===== DESCRIÇÃO ===== */
 .descricao-texto { font-size: 14px; color: #444; line-height: 1.8; }
 
-/* ===== ESTADO VAZIO ===== */
 .nao-disponivel {
     font-size: 14px;
     color: #aaa;
     font-style: italic;
 }
 
-/* ===== REQUISITOS ===== */
 .requisitos-lista {
     list-style: none;
     display: flex;
@@ -360,7 +372,6 @@ body {
 }
 .requisitos-lista li.nao-disponivel::before { display: none; }
 
-/* ===== CURSOS / ESCOLARIDADE ===== */
 .cursos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -375,7 +386,6 @@ body {
     font-weight: 500;
 }
 
-/* ===== BENEFÍCIOS ===== */
 .beneficios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -403,7 +413,6 @@ body {
 .ben-valor { font-size: 15px; font-weight: 700; color: #1a1f36; }
 .beneficios-extras { font-size: 14px; color: #444; line-height: 1.8; }
 
-/* ===== ERRO ===== */
 .erro-container {
     display: flex;
     flex-direction: column;
@@ -433,7 +442,6 @@ body {
 }
 .btn-voltar:hover { background: #1e2d9e; }
 
-/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 900px) {
     .menu-itens { gap: 20px; }
     .menu-itens p { font-size: 14px; }
