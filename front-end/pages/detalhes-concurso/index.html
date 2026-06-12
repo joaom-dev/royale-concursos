@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Concurso – Royale Concursos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
+</head>
+
+<body>
+
+    <div class="menu-lateral">
+        <div class="menu-topo">
+            <img src="/front-end/assets/images/lebron bb.jpg" alt="Avatar">
+        </div>
+        <div class="menu-itens">
+            <a href="../telaInicial/index.html">
+                <p>Inicial</p>
+            </a>
+            <a href="../pagina sobre/index.html">
+                <p>Sobre</p>
+            </a>
+            <a href="/front-end/pages/pagina Ranking/Index.html">
+                <p>Ranking</p>
+            </a>
+            <a href="/front-end/pages/pagina de calendario/index.html">
+                <p>Calendario</p>
+            </a>
+            <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
+                <p>Salvos</p>
+            </a>
+            <a href="../pagina assinatura/index.html">
+                <p>Assinatura</p>
+            </a>
+        </div>
+        <div class="menu-inferior">
+            <a href="../configuraçoes/perfil/configperfil.html">
+                <i class="fa-solid fa-gear"></i>
+                <span class="tooltip-texto">Configurações</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Carregando detalhes...</p>
+    </div>
+
+    <div class="detalhes-page" id="detalhes-page" style="display:none;">
+
+        <nav class="breadcrumb">
+            <a href="../telaInicial/index.html">Inicio</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="../tela de concursos/index.html">Processos Públicos</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span id="bc-nome">Detalhes do processo</span>
+        </nav>
+
+        <div class="aviso-banner" id="aviso-banner" style="display:none;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span id="aviso-texto"></span>
+        </div>
+
+        <div class="topo-card">
+            <div class="topo-esquerda">
+                <div class="topo-icone" id="topo-icone"></div>
+                <div class="topo-info">
+                    <h1 class="topo-titulo" id="topo-titulo">—</h1>
+                    <p class="topo-areas" id="topo-areas">—</p>
+                    <div class="topo-meta">
+                        <span class="meta-item" id="meta-periodo">
+                            <i class="fa-regular fa-calendar"></i> —
+                        </span>
+                        <span class="meta-item" id="meta-uf">
+                            <i class="fa-solid fa-location-dot"></i> —
+                        </span>
+                        <span class="meta-item" id="meta-vagas">
+                            <i class="fa-solid fa-users"></i> —
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="topo-acoes">
+                <span class="badge-status" id="badge-status">—</span>
+                <a id="btn-inscricao" href="#" target="_blank" rel="noopener" class="btn-inscrever">
+                    <i class="fa-solid fa-pen-to-square"></i> INSCREVA-SE
+                </a>
+                <button class="btn-edital" id="btn-edital" onclick="baixarEdital()">
+                    <i class="fa-solid fa-file-arrow-down"></i> Baixar Edital
+                </button>
+                <button class="btn-salvar" id="btn-salvar" onclick="toggleSalvar()">
+                    <i class="fa-regular fa-bookmark" id="icone-salvar"></i>
+                    <span id="texto-salvar">Salvar concurso</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="abas-container">
+            <button class="aba ativo" data-aba="detalhes" onclick="trocarAba(this)">DETALHES DO PROCESSO</button>
+            <button class="aba" data-aba="requisitos" onclick="trocarAba(this)">REQUISITOS</button>
+            <button class="aba" data-aba="beneficios" onclick="trocarAba(this)">BENEFÍCIOS</button>
+        </div>
+
+        <div class="painel ativo" id="painel-detalhes">
+            <div class="secao">
+                <h2 class="secao-titulo"><i class="fa-solid fa-list-check"></i> Fases do Processo</h2>
+                <div class="fases-lista" id="fases-lista">
+                    <div class="fase-item">
+                        <span class="fase-num">1ª</span>
+                        <span class="fase-desc">Inscrição</span>
+                    </div>
+                    <div class="fase-item">
+                        <span class="fase-num">2ª</span>
+                        <span class="fase-desc">Provas / Avaliação</span>
+                    </div>
+                    <div class="fase-item">
+                        <span class="fase-num">3ª</span>
+                        <span class="fase-desc">Resultado Final</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secao">
+                <h2 class="secao-titulo"><i class="fa-solid fa-briefcase"></i> Informações do Cargo</h2>
+                <div class="info-grid" id="info-grid">
+                </div>
+            </div>
+
+            <div class="secao" id="secao-descricao">
+                <h2 class="secao-titulo"><i class="fa-solid fa-circle-info"></i> Descrição</h2>
+                <p class="descricao-texto" id="descricao-texto">—</p>
+            </div>
+        </div>
+
+        <div class="painel" id="painel-requisitos">
+            <div class="secao">
+                <h2 class="secao-titulo"><i class="fa-solid fa-clipboard-list"></i> Requisitos para Participação</h2>
+                <ul class="requisitos-lista" id="requisitos-lista">
+                    <li>Informações de requisitos não disponíveis para este concurso.</li>
+                </ul>
+            </div>
+            <div class="secao" id="secao-cursos" style="display:none;">
+                <h2 class="secao-titulo"><i class="fa-solid fa-graduation-cap"></i> Escolaridade / Cursos</h2>
+                <div class="cursos-grid" id="cursos-grid"></div>
+            </div>
+        </div>
+
+        <div class="painel" id="painel-beneficios">
+            <div class="secao">
+                <h2 class="secao-titulo"><i class="fa-solid fa-star"></i> Benefícios e Remuneração</h2>
+                <div class="beneficios-grid" id="beneficios-grid">
+                    <div class="beneficio-card" id="ben-salario" style="display:none;">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <div>
+                            <span class="ben-label">Salário</span>
+                            <span class="ben-valor" id="ben-salario-valor">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="beneficios-extras" id="beneficios-extras"></div>
+            </div>
+            <div class="secao" id="secao-carga" style="display:none;">
+                <h2 class="secao-titulo"><i class="fa-regular fa-clock"></i> Carga Horária</h2>
+                <p class="descricao-texto" id="carga-texto">—</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="erro-container" id="erro-container" style="display:none;">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <h2>Concurso não encontrado</h2>
+        <p>Não foi possível carregar os detalhes deste concurso.</p>
+        <a href="../paginaPesquisaConcursos/index.html" class="btn-voltar">← Voltar para a pesquisa</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
