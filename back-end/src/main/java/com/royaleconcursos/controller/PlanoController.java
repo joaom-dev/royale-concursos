@@ -1,6 +1,6 @@
-package com.pagamentos.payment.controller;
+package com.royaleconcursos.controller;
 
-import com.pagamentos.payment.service.PlanoService;
+import com.royaleconcursos.service.PlanoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

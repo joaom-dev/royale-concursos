@@ -1,166 +1,205 @@
-// Dados iniciais pré-definidos (exemplo da imagem)
-const initialUsers = [
-  {
-    initials: "AC",
-    username: "Ana Carolina",
-    contest: "Concursos do Banco do Brasil",
-    score: 9850,
-    corrects: "98/100",
-  },
-  {
-    initials: "AC",
-    username: "Ana Carolina",
-    contest: "Concursos do Banco do Brasil",
-    score: 9850,
-    corrects: "98/100",
-  },
-  
-  {
-    initials: "AC",
-    username: "Ana Carolina",
-    contest: "Concursos do Banco do Brasil",
-    score: 9850,
-    corrects: "98/100",
-  },
-  
+// ─── URLs do back-end ─────────────────────────────────────────────────────────
+const API_CONCURSOS = 'http://localhost:8080/api/concursos';
+const API_RANKING   = 'http://localhost:8080/api/ranking';
 
-];
+// ─── Elementos ────────────────────────────────────────────────────────────────
+const form              = document.getElementById('userForm');
+const selectContest     = document.getElementById('contest');
+const loadingConcursos  = document.getElementById('loadingConcursos');
+const erroMsg           = document.getElementById('erroMsg');
+const rankingTableBody  = document.querySelector('#rankingTable tbody');
+const top3Div           = document.getElementById('top3Users');
+const fotoInput         = document.getElementById('foto');
 
-let users = [...initialUsers];
-let totalUsers = 12450; // Usuários totais para mostrar no resumo
-let contestsParticipated = 23; // Exemplo fixo, poderia contar concursos únicos no futuro
+let fotoBase64      = null;
+let totalConcursos  = 0;
 
-const rankingTableBody = document.querySelector("#rankingTable tbody");
-const top3Div = document.querySelector("#top3Users");
-const posicaoAtualCard = document.querySelector("#posicaoAtualCard");
-const melhorPontuacaoCard = document.querySelector("#melhorPontuacaoCard");
-const concursosParticipadosCard = document.querySelector("#concursosParticipadosCard");
+// ─── 1. Carregar concursos da API e popular o <select> ───────────────────────
+async function carregarConcursos() {
+  loadingConcursos.style.display = 'inline';
+  try {
+    const res = await fetch(API_CONCURSOS);
+    if (!res.ok) throw new Error();
+    const lista = await res.json();
+    totalConcursos = lista.length;
+    document.getElementById('valConcursos').textContent = totalConcursos;
 
-const form = document.getElementById("userForm");
-
-function updateTable() {
-  // Ordenar por pontuação decrescente
-  users.sort((a, b) => b.score - a.score);
-
-  rankingTableBody.innerHTML = "";
-
-  users.forEach((user, index) => {
-    const position = index + 1;
-
-    // Classes para medalhas
-    let positionClass = "";
-    let medalIcon = "";
-    if (position === 1) {
-      positionClass = "position-1";
-      medalIcon = "🏅";
-    } else if (position === 2) {
-      positionClass = "position-2";
-      medalIcon = "🥈";
-    } else if (position === 3) {
-      positionClass = "position-3";
-      medalIcon = "🥉";
-    }
-
-    // Formatando pontuação com vírgula e 3 casas
-    let scoreStr = (user.score / 1000).toFixed(3).replace('.', ',');
-
-    const tr = document.createElement("tr");
-    tr.classList.add(positionClass);
-    tr.innerHTML = `
-      <td><span class="medal">${medalIcon}</span> ${position}º</td>
-      <td><span class="avatar-circle">${user.initials.toUpperCase()}</span> ${user.username}</td>
-      <td>${user.contest}</td>
-      <td class="score">${scoreStr}</td>
-      <td>${user.corrects}</td>
-
-    `;
-
-    rankingTableBody.appendChild(tr);
-  });
-
-  updateTop3();
-  updateSummary();
+    lista.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = `${c.orgao} — ${(c.uf || '').toUpperCase()}`;
+      selectContest.appendChild(opt);
+    });
+  } catch {
+    const opt = document.createElement('option');
+    opt.disabled = true;
+    opt.textContent = 'Erro ao carregar concursos';
+    selectContest.appendChild(opt);
+  } finally {
+    loadingConcursos.style.display = 'none';
+  }
 }
 
-function updateTop3() {
-  const top3 = users.slice(0, 3);
-  top3Div.innerHTML = "";
-
-  top3.forEach((user, i) => {
-    const position = i + 1;
-    let medalIcon = "";
-    if (position === 1) medalIcon = "🏅";
-    else if (position === 2) medalIcon = "🥈";
-    else if (position === 3) medalIcon = "🥉";
-
-    // Calcular % da maior pontuação
-    const maxScore = users[0].score;
-    const percent = ((user.score / maxScore) * 100).toFixed(1);
-
-    // Formatar pontuação
-    let scoreStr = (user.score / 1000).toFixed(3).replace('.', ',');
-
-    const div = document.createElement("div");
-    div.classList.add("top-user");
-    div.innerHTML = `
-      <span class="medal">${medalIcon}</span>
-      <div class="avatar-large">${user.initials.toUpperCase()}</div>
-      <p class="user-name">${user.username}</p>
-      <p class="user-score">${scoreStr}</p>
-      <div class="progress-bar">
-        <div class="progress" style="width: ${percent}%"></div>
-      </div>
-      <small>${percent}% do máximo</small>
-    `;
-    top3Div.appendChild(div);
-  });
+// ─── 2. Carregar ranking do concurso selecionado ──────────────────────────────
+async function carregarRanking(concursoId, concursoNome) {
+  try {
+    const res = await fetch(`${API_RANKING}/${concursoId}`);
+    if (!res.ok) throw new Error();
+    const entries = await res.json(); // ordenado por nota desc pelo backend
+    renderizarTabela(entries, concursoNome);
+    renderizarTop3(entries);
+    atualizarCards(entries);
+  } catch {
+    rankingTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#aaa;">Erro ao carregar ranking.</td></tr>';
+  }
 }
 
-function updateSummary() {
-  // Vamos considerar o último usuário como o "Usuário Atual"
-  const currentUser = users[users.length - 1];
-  // Posição atual (index + 1)
-  const positionAtual = users.findIndex(u => u === currentUser) + 1;
-
-  // Melhor pontuação
-  let melhorPontuacao = users[0];
-
-  posicaoAtualCard.querySelector("h3").textContent = `${positionAtual}º`;
-  posicaoAtualCard.querySelector("small").textContent = `Entre ${totalUsers.toLocaleString('pt-BR')} usuários`;
-
-  melhorPontuacaoCard.querySelector("h3").textContent = (melhorPontuacao.score / 1000).toFixed(3).replace('.', ',');
-  melhorPontuacaoCard.querySelector("small").textContent = melhorPontuacao.contest;
-
-  concursosParticipadosCard.querySelector("h3").textContent = contestsParticipated;
-}
-
-// Validação e submissão do formulário
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const username = form.username.value.trim();
-  const initials = form.initials.value.trim().toUpperCase();
-  const contest = form.contest.value;
-  const score = parseInt(form.score.value, 10);
-  const corrects = form.corrects.value.trim();
-
-  // Verifique se as iniciais têm 2 caracteres e outras validações já feitas pelo HTML
-
-  // Adicionar ao array
-  users.push({
-    username,
-    initials,
-    contest,
-    score,
-    corrects,
-
-  });
-
-  // Atualizar tabela e demais áreas
-  updateTable();
-
-  // Limpar formulário
-  form.reset();
+// ─── 3. Quando o usuário muda o select ───────────────────────────────────────
+selectContest.addEventListener('change', () => {
+  const id   = selectContest.value;
+  const nome = selectContest.options[selectContest.selectedIndex]?.text || '';
+  if (id) carregarRanking(id, nome);
 });
 
-updateTable();
+// ─── 4. Capturar foto em base64 ───────────────────────────────────────────────
+fotoInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) { fotoBase64 = null; return; }
+  const reader = new FileReader();
+  reader.onload = (ev) => { fotoBase64 = ev.target.result; };
+  reader.readAsDataURL(file);
+});
+
+// ─── 5. Submeter nota ao back-end ─────────────────────────────────────────────
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  erroMsg.style.display = 'none';
+
+  const concursoId   = selectContest.value;
+  const concursoNome = selectContest.options[selectContest.selectedIndex]?.text || '';
+  const nome         = form.username.value.trim();
+  const nota         = parseFloat(parseFloat(form.score.value).toFixed(2));
+
+  if (!concursoId) { mostrarErro('Selecione um concurso.'); return; }
+  if (!nome)       { mostrarErro('Informe seu nome.');      return; }
+  if (isNaN(nota)) { mostrarErro('Informe uma nota válida.'); return; }
+
+  const btnSubmit = form.querySelector('button[type="submit"]');
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Salvando...';
+
+  try {
+    const res = await fetch(API_RANKING, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ concursoId: parseInt(concursoId), nome, nota, fotoUrl: fotoBase64 || null })
+    });
+
+    // Duplicata bloqueada pelo back-end
+    if (res.status === 409) {
+      const msg = await res.text();
+      mostrarErro(msg || `"${nome}" já está cadastrado neste concurso.`);
+      return;
+    }
+
+    if (!res.ok) throw new Error();
+
+    form.reset();
+    fotoBase64 = null;
+    // Recarregar ranking do concurso atual
+    await carregarRanking(concursoId, concursoNome);
+
+  } catch {
+    mostrarErro('Erro ao salvar. Verifique sua conexão.');
+  } finally {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Adicionar ao Ranking';
+  }
+});
+
+// ─── 6. Renderizar tabela ────────────────────────────────────────────────────
+function renderizarTabela(entries, concursoNome) {
+  if (entries.length === 0) {
+    rankingTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#aaa;">Nenhuma nota cadastrada ainda. Seja o primeiro!</td></tr>';
+    return;
+  }
+
+  rankingTableBody.innerHTML = entries.map((u, i) => {
+    const pos      = i + 1;
+    const medals   = { 1: '🏅', 2: '🥈', 3: '🥉' };
+    const posClass = pos <= 3 ? `position-${pos}` : '';
+    const medal    = medals[pos] || '';
+    const avatarHtml = u.fotoUrl
+      ? `<img class="avatar-img" src="${u.fotoUrl}" alt="${esc(u.nome)}">`
+      : `<span class="avatar-circle">${iniciais(u.nome)}</span>`;
+
+    return `
+      <tr class="${posClass}">
+        <td><span class="medal">${medal}</span> ${pos}º</td>
+        <td>${avatarHtml} ${esc(u.nome)}</td>
+        <td>${esc(concursoNome)}</td>
+        <td class="score">${u.nota.toFixed(2)}</td>
+      </tr>`;
+  }).join('');
+}
+
+// ─── 7. Renderizar Top 3 ─────────────────────────────────────────────────────
+function renderizarTop3(entries) {
+  const top3   = entries.slice(0, 3);
+  const medals = ['🏅', '🥈', '🥉'];
+
+  if (top3.length === 0) {
+    top3Div.innerHTML = '<p style="text-align:center;color:#aaa;padding:20px;">Nenhuma nota ainda.</p>';
+    return;
+  }
+
+  const maxNota = entries[0].nota;
+
+  top3Div.innerHTML = top3.map((u, i) => {
+    const pct = maxNota > 0 ? ((u.nota / maxNota) * 100).toFixed(1) : '0.0';
+    const avatarHtml = u.fotoUrl
+      ? `<img class="avatar-large-img" src="${u.fotoUrl}" alt="${esc(u.nome)}">`
+      : `<div class="avatar-large">${iniciais(u.nome)}</div>`;
+
+    return `
+      <div class="top-user">
+        <span class="medal">${medals[i]}</span>
+        ${avatarHtml}
+        <p class="user-name">${esc(u.nome)}</p>
+        <p class="user-score">${u.nota.toFixed(2)}</p>
+        <div class="progress-bar">
+          <div class="progress" style="width:${pct}%"></div>
+        </div>
+        <small>${pct}% do máximo</small>
+      </div>`;
+  }).join('');
+}
+
+// ─── 8. Atualizar cards de resumo ─────────────────────────────────────────────
+function atualizarCards(entries) {
+  document.getElementById('valTotal').textContent = entries.length;
+  if (entries.length > 0) {
+    document.getElementById('valMelhorNota').textContent = entries[0].nota.toFixed(2);
+    document.getElementById('lblMelhorNota').textContent = entries[0].nome;
+  } else {
+    document.getElementById('valMelhorNota').textContent = '--';
+    document.getElementById('lblMelhorNota').textContent = '--';
+  }
+}
+
+// ─── Utilitários ──────────────────────────────────────────────────────────────
+function iniciais(nome) {
+  return (nome || '?').split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+function esc(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function mostrarErro(msg) {
+  erroMsg.textContent = msg;
+  erroMsg.style.display = 'block';
+}
+
+// ─── Iniciar ──────────────────────────────────────────────────────────────────
+carregarConcursos();
