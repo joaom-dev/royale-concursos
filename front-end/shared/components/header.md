@@ -21,11 +21,6 @@
                 <!-- <i class="fa-solid fa-trophy"></i> -->
                 <!-- <span class="tooltip-texto">Ranking</span> -->
             </a>
-            <a href="/front-end/pages/pagina de calendario/index.html">
-                <p>Calendario</p>
-                <!-- <i class="fa-regular fa-calendar"></i> -->
-                <!-- <span class="tooltip-texto">Calendário</span> -->
-            </a>
             <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
                 <p>Salvos</p>
                 <!-- <i class="fa-solid fa-bookmark"></i> -->

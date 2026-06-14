@@ -19,10 +19,6 @@
                 <span class="tooltip-texto">Ranking</span>
             </a>
             <a href="">
-                <i class="fa-regular fa-calendar"></i>
-                <span class="tooltip-texto">Calendário</span>
-            </a>
-            <a href="">
                 <i class="fa-solid fa-bookmark"></i>
                 <span class="tooltip-texto">Salvos</span>
             </a>
