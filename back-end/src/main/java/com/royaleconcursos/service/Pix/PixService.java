@@ -6,149 +6,132 @@ import java.math.BigDecimal;
 import java.util.zip.CRC32;
 
 /**
- * Gerador de payload PIX (BR Code) seguindo o padrão do Banco Central do Brasil.
+ * Serviço responsável por gerar o payload PIX ("copia e cola")
+ * no padrão BR Code (EMV / BACEN).
  *
- * O que este serviço faz:
- *   1. Monta o payload de texto no formato EMV (padrão internacional de pagamentos)
- *   2. Calcula o CRC16 (checksum de integridade exigido pelo BACEN)
- *   3. Retorna o código "Copia e Cola" que pode ser transformado em QR Code
- *
- * Para gerar o QR Code de imagem a partir do payload, use a biblioteca ZXing
- * (já inclusa na dependência sugerida no pom.xml) ou envie o payload para
- * o front-end e gere a imagem lá com uma biblioteca JavaScript.
- *
- * Documentação oficial: https://www.bcb.gov.br/content/estabilidadefinanceira/pix/Regulamento_Pix/II_ManualdePadroesparaIniciacaodoPix.pdf
+ * Gera um payload PIX ESTÁTICO (com valor fixo).
+ * Não envolve nenhuma chamada externa — é montado localmente
+ * seguindo a especificação do BACEN.
  */
 @Service
 public class PixService {
 
+    private static final String PAYLOAD_FORMAT_INDICATOR = "01";
+    private static final String MERCHANT_ACCOUNT_INFO_GUI = "br.gov.bcb.pix";
+    private static final String MERCHANT_CATEGORY_CODE = "0000";
+    private static final String TRANSACTION_CURRENCY_BRL = "986";
+    private static final String COUNTRY_CODE = "BR";
+
     /**
-     * Gera o payload PIX (Copia e Cola) completo.
+     * Gera o payload PIX completo (com CRC16) para um pagamento.
      *
-     * @param chavePix   Chave PIX do recebedor (CPF, email, telefone ou chave aleatória)
-     * @param nomeLoja   Nome do recebedor que aparece no app de pagamento (max 25 chars)
-     * @param cidade     Cidade do recebedor (max 15 chars)
-     * @param valor      Valor da cobrança. Se null, gera PIX sem valor (usuário digita)
-     * @param txId       Identificador único da transação (max 25 chars, sem espaços)
-     * @return           String do payload que pode ser transformada em QR Code
+     * @param chavePix    chave PIX do recebedor (e-mail, CPF, telefone ou chave aleatória)
+     * @param nomeRecebedor nome do beneficiário (máx. 25 caracteres)
+     * @param cidade      cidade do beneficiário (máx. 15 caracteres)
+     * @param valor       valor da transação
+     * @param txId        identificador da transação (até 25 caracteres alfanuméricos)
+     * @return string do payload PIX pronto para gerar QR Code / copiar e colar
      */
-    public String gerarPayload(String chavePix, String nomeLoja, String cidade,
-                               BigDecimal valor, String txId) {
-        // Sanitiza os campos para evitar caracteres especiais no payload
-        nomeLoja = sanitizar(nomeLoja, 25);
-        cidade   = sanitizar(cidade, 15);
-        txId     = sanitizar(txId, 25).replaceAll("\\s", ""); // sem espaços
+    public String gerarPayload(String chavePix, String nomeRecebedor, String cidade, BigDecimal valor, String txId) {
+        String nome = limitarTamanho(normalizar(nomeRecebedor), 25);
+        String cidadeFormatada = limitarTamanho(normalizar(cidade), 15);
+        String transacaoId = limitarTamanho(normalizarTxId(txId), 25);
+        String valorFormatado = valor.setScale(2, java.math.RoundingMode.HALF_UP).toPlainString();
 
         StringBuilder payload = new StringBuilder();
 
-        // ── Campos obrigatórios do EMV ──────────────────────────────────────
+        // 00 - Payload Format Indicator
+        payload.append(campo("00", PAYLOAD_FORMAT_INDICATOR));
 
-        // ID 00: Payload Format Indicator — sempre "01"
-        payload.append(campo("00", "01"));
+        // 26 - Merchant Account Information (Arranjo PIX)
+        String merchantAccountInfo =
+                campo("00", MERCHANT_ACCOUNT_INFO_GUI) +
+                campo("01", chavePix);
+        payload.append(campo("26", merchantAccountInfo));
 
-        // ID 26: Merchant Account Information (dados do recebedor PIX)
-        String merchantInfo = campo("00", "BR.GOV.BCB.PIX") // GUI do PIX no BACEN
-                            + campo("01", chavePix);         // chave PIX
-        payload.append(campo("26", merchantInfo));
+        // 52 - Merchant Category Code
+        payload.append(campo("52", MERCHANT_CATEGORY_CODE));
 
-        // ID 52: Merchant Category Code — "0000" = genérico
-        payload.append(campo("52", "0000"));
+        // 53 - Transaction Currency (986 = BRL)
+        payload.append(campo("53", TRANSACTION_CURRENCY_BRL));
 
-        // ID 53: Transaction Currency — "986" = BRL (código ISO 4217)
-        payload.append(campo("53", "986"));
+        // 54 - Transaction Amount
+        payload.append(campo("54", valorFormatado));
 
-        // ID 54: Valor (opcional — se null, usuário digita no app)
-        if (valor != null && valor.compareTo(BigDecimal.ZERO) > 0) {
-            // Formato: sem símbolo, ponto como separador decimal, 2 casas
-            // Exemplo: 150.00, 1234.50
-            String valorStr = String.format("%.2f", valor);
-            payload.append(campo("54", valorStr));
-        }
+        // 58 - Country Code
+        payload.append(campo("58", COUNTRY_CODE));
 
-        // ID 58: Country Code — "BR"
-        payload.append(campo("58", "BR"));
+        // 59 - Merchant Name
+        payload.append(campo("59", nome));
 
-        // ID 59: Merchant Name (nome do recebedor)
-        payload.append(campo("59", nomeLoja));
+        // 60 - Merchant City
+        payload.append(campo("60", cidadeFormatada));
 
-        // ID 60: Merchant City (cidade do recebedor)
-        payload.append(campo("60", cidade));
-
-        // ID 62: Additional Data Field (TX ID para rastrear a transação)
-        String additionalData = campo("05", txId.isEmpty() ? "***" : txId);
+        // 62 - Additional Data Field Template (Txid)
+        String additionalData = campo("05", transacaoId.isEmpty() ? "***" : transacaoId);
         payload.append(campo("62", additionalData));
 
-        // ID 63: CRC16 — checksum calculado sobre todo o payload + "6304"
-        // Os 4 últimos caracteres são o CRC, então adicionamos o campo vazio
-        // e calculamos o CRC sobre o payload completo incluindo "6304"
+        // 63 - CRC16 (calculado sobre o payload + "6304")
         payload.append("6304");
         String crc = calcularCRC16(payload.toString());
-        payload.append(crc);
 
-        return payload.toString();
+        return payload + crc;
     }
 
-    // ── Formato de campo EMV ───────────────────────────────────────────────
-
     /**
-     * Formata um campo EMV no padrão ID + LENGTH + VALUE.
-     *
-     * Exemplo: campo("59", "Minha Loja") → "5910Minha Loja"
-     *   "59" = ID do campo
-     *   "10" = tamanho do valor em 2 dígitos
-     *   "Minha Loja" = valor
+     * Monta um campo no formato TLV (Tag-Length-Value) usado pelo padrão EMV.
+     * Ex.: campo("00", "01") → "000201"
      */
     private String campo(String id, String valor) {
-        return id + String.format("%02d", valor.length()) + valor;
+        String tamanho = String.format("%02d", valor.length());
+        return id + tamanho + valor;
     }
 
-    // ── CRC16/CCITT ────────────────────────────────────────────────────────
-
     /**
-     * Calcula o CRC16 no padrão CCITT-FALSE (polinômio 0x1021, valor inicial 0xFFFF).
-     * Exigido pelo Banco Central para validar a integridade do payload PIX.
-     *
-     * Retorna 4 caracteres hexadecimais em maiúsculas (ex: "A3F1").
+     * Calcula o CRC16-CCITT (polinômio 0x1021), exigido pelo padrão PIX.
+     * Retorna o valor em hexadecimal, 4 dígitos, maiúsculo.
      */
     private String calcularCRC16(String payload) {
-        int crc = 0xFFFF;                  // valor inicial
-        int polinomio = 0x1021;            // polinômio CRC-CCITT
+        int polinomio = 0x1021;
+        int resultado = 0xFFFF;
 
-        byte[] bytes = payload.getBytes();
+        byte[] bytes = payload.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
         for (byte b : bytes) {
+            resultado ^= (b << 8) & 0xFF00;
             for (int i = 0; i < 8; i++) {
-                boolean bit = ((b >> (7 - i) & 1) == 1);
-                boolean c15 = ((crc >> 15 & 1) == 1);
-                crc <<= 1;
-                if (c15 ^ bit) crc ^= polinomio;
+                if ((resultado & 0x8000) != 0) {
+                    resultado = (resultado << 1) ^ polinomio;
+                } else {
+                    resultado = resultado << 1;
+                }
+                resultado &= 0xFFFF;
             }
         }
 
-        crc &= 0xFFFF; // garante 16 bits
-
-        // Retorna 4 caracteres hexadecimais maiúsculos com zeros à esquerda
-        return String.format("%04X", crc);
+        return String.format("%04X", resultado);
     }
 
-    // ── Sanitização ────────────────────────────────────────────────────────
+    /**
+     * Remove acentos e caracteres especiais (o padrão PIX exige apenas
+     * caracteres ASCII no nome/cidade do beneficiário).
+     */
+    private String normalizar(String texto) {
+        if (texto == null) return "";
+        String normalizado = java.text.Normalizer.normalize(texto, java.text.Normalizer.Form.NFD);
+        return normalizado.replaceAll("[^\\p{ASCII}]", "");
+    }
 
     /**
-     * Remove caracteres especiais e acentos do texto (o payload PIX aceita
-     * apenas caracteres ASCII imprimíveis) e limita o tamanho.
+     * Remove caracteres inválidos do txId (apenas alfanuméricos são permitidos).
      */
-    private String sanitizar(String texto, int tamanhoMax) {
-        if (texto == null) return "";
-        String sanitizado = texto
-            .replaceAll("[áàãâä]", "a").replaceAll("[ÁÀÃÂÄ]", "A")
-            .replaceAll("[éèêë]", "e").replaceAll("[ÉÈÊË]", "E")
-            .replaceAll("[íìîï]", "i").replaceAll("[ÍÌÎÏ]", "I")
-            .replaceAll("[óòõôö]", "o").replaceAll("[ÓÒÕÔÖ]", "O")
-            .replaceAll("[úùûü]", "u").replaceAll("[ÚÙÛÜ]", "U")
-            .replaceAll("[ç]", "c").replaceAll("[Ç]", "C")
-            .replaceAll("[^\\x20-\\x7E]", ""); // remove tudo fora do ASCII imprimível
+    private String normalizarTxId(String txId) {
+        if (txId == null) return "";
+        return txId.replaceAll("[^a-zA-Z0-9]", "");
+    }
 
-        return sanitizado.length() > tamanhoMax
-            ? sanitizado.substring(0, tamanhoMax)
-            : sanitizado;
+    private String limitarTamanho(String texto, int max) {
+        if (texto == null) return "";
+        return texto.length() > max ? texto.substring(0, max) : texto;
     }
 }
