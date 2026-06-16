@@ -7,7 +7,10 @@ import com.royaleconcursos.dto.Response;
 import com.royaleconcursos.model.User;
 import com.royaleconcursos.repository.UserRepository;
 import com.royaleconcursos.security.Token;
+import com.royaleconcursos.dto.AlterarSenhaDTO;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,4 +64,25 @@ public class UserService {
 
         return new Response(user.getName(), token);
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public void alterarSenha(String email, AlterarSenhaDTO dto) {
+ 
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+ 
+    if (!passwordEncoder.matches(dto.getSenhaAtual(), user.getPassword())) {
+        throw new RuntimeException("Senha atual incorreta");
+    }
+ 
+    if (!dto.getNovaSenha().equals(dto.getConfirmarSenha())) {
+        throw new RuntimeException("As senhas não coincidem");
+    }
+ 
+    user.setPassword(passwordEncoder.encode(dto.getNovaSenha()));
+    userRepository.save(user);
+}
+
 }
