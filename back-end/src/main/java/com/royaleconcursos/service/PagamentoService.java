@@ -4,9 +4,9 @@ import com.royaleconcursos.dto.PagamentoDTO.*;
 import com.royaleconcursos.enums.MetodoPagamento;
 import com.royaleconcursos.enums.StatusPagamento;
 import com.royaleconcursos.model.Pagamento;
-import com.royaleconcursos.model.Usuario;
+import com.royaleconcursos.model.User;
 import com.royaleconcursos.repository.PagamentoRepository;
-import com.royaleconcursos.repository.UsuarioRepository;
+import com.royaleconcursos.repository.UserRepository;
 import com.royaleconcursos.service.pix.PixService;
 import com.royaleconcursos.validator.CartaoValidator;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class PagamentoService {
 
     private final PagamentoRepository pagamentoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
     private final CartaoValidator cartaoValidator;
     private final PixService pixService;
     private final PlanoService planoService;
@@ -47,7 +47,7 @@ public class PagamentoService {
      */
     @Transactional
     public PagamentoResponse criarPagamento(CriarPagamentoRequest request) {
-        Usuario usuarioAtual = getUsuarioAutenticado();
+        User usuarioAtual = getUsuarioAutenticado();
 
         // 1. Valida cartão ANTES de criar qualquer registro no banco
         // Lança IllegalArgumentException se algum dado for inválido
@@ -87,7 +87,7 @@ public class PagamentoService {
      * Para cartão: o CartaoValidator já validou, aqui aprovamos (em prod: chamaria gateway).
      * Para carteira digital: verifica se o ID foi informado.
      */
-    private Pagamento processarPagamento(Pagamento pagamento, CriarPagamentoRequest request, Usuario usuario) {
+    private Pagamento processarPagamento(Pagamento pagamento, CriarPagamentoRequest request, User usuario) {
         pagamento.setStatus(StatusPagamento.PROCESSANDO);
         String txId = "PAY" + pagamento.getId();
 
@@ -130,7 +130,7 @@ public class PagamentoService {
     /**
      * Ativa o plano correto após o pagamento ser aprovado.
      */
-    private void ativarPlanoAposCompra(Long usuarioId, String tipoPlano) {
+    private void ativarPlanoAposCompra(String usuarioId, String tipoPlano) {
         switch (tipoPlano.toUpperCase()) {
             case "MENSAL"    -> planoService.ativarPlanoMensal(usuarioId);
             case "VITALICIO" -> planoService.ativarPlanoVitalicio(usuarioId);
@@ -139,7 +139,7 @@ public class PagamentoService {
     }
 
     public List<PagamentoResponse> listarMeusPagamentos() {
-        Usuario usuarioAtual = getUsuarioAutenticado();
+        User usuarioAtual = getUsuarioAutenticado();
         return pagamentoRepository.findByUsuarioId(usuarioAtual.getId())
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
@@ -147,7 +147,7 @@ public class PagamentoService {
     public PagamentoResponse buscarPorId(Long id) {
         Pagamento pagamento = pagamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pagamento não encontrado: " + id));
-        Usuario usuarioAtual = getUsuarioAutenticado();
+        User usuarioAtual = getUsuarioAutenticado();
         if (!pagamento.getUsuario().getId().equals(usuarioAtual.getId())) {
             throw new SecurityException("Acesso negado ao pagamento " + id);
         }
@@ -165,9 +165,9 @@ public class PagamentoService {
         return toResponse(pagamentoRepository.save(pagamento));
     }
 
-    private Usuario getUsuarioAutenticado() {
+    private User getUsuarioAutenticado() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return usuarioRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
@@ -182,7 +182,7 @@ public class PagamentoService {
         response.setPixPayload(p.getPixPayload());
         response.setCriadoEm(p.getCriadoEm());
         response.setAtualizadoEm(p.getAtualizadoEm());
-        response.setNomeUsuario(p.getUsuario().getNome());
+        response.setNomeUsuario(p.getUsuario().getName());
         return response;
     }
 }
