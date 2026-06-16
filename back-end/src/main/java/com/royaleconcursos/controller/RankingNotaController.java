@@ -18,19 +18,26 @@ public class RankingNotaController {
         this.service = service;
     }
 
-    // Salva nota — retorna 409 se nome duplicado
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody RankingNotaDTO dto) {
         try {
             return ResponseEntity.ok(service.salvar(dto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(409).body(e.getMessage());
+        } catch (SecurityException e) {
+            return ResponseEntity.status(403).body(e.getMessage());
         }
     }
 
-    // Retorna ranking de um concurso ordenado por nota
     @GetMapping("/{concursoId}")
     public ResponseEntity<List<RankingNotaDTO>> listar(@PathVariable Long concursoId) {
         return ResponseEntity.ok(service.listarPorConcurso(concursoId));
+    }
+
+    @GetMapping("/{concursoId}/pesquisar")
+    public ResponseEntity<List<RankingNotaDTO>> pesquisar(
+            @PathVariable Long concursoId,
+            @RequestParam String nome) {
+        return ResponseEntity.ok(service.pesquisar(concursoId, nome));
     }
 }

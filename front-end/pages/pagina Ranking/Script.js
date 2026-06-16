@@ -1,67 +1,125 @@
-// ─── URLs do back-end ─────────────────────────────────────────────────────────
 const API_CONCURSOS = 'http://localhost:8080/api/concursos';
 const API_RANKING   = 'http://localhost:8080/api/ranking';
 
-// ─── Elementos ────────────────────────────────────────────────────────────────
-const form              = document.getElementById('userForm');
-const selectContest     = document.getElementById('contest');
-const loadingConcursos  = document.getElementById('loadingConcursos');
-const erroMsg           = document.getElementById('erroMsg');
-const rankingTableBody  = document.querySelector('#rankingTable tbody');
-const top3Div           = document.getElementById('top3Users');
-const fotoInput         = document.getElementById('foto');
+const form                   = document.getElementById('userForm');
+const selectContest          = document.getElementById('contest');
+const loadingConcursos       = document.getElementById('loadingConcursos');
+const erroMsg                = document.getElementById('erroMsg');
+const rankingTableBody       = document.getElementById('rankingTableBody');
+const top3Div                = document.getElementById('top3Users');
+const fotoInput              = document.getElementById('foto');
+const inputPesquisaConcurso  = document.getElementById('inputPesquisaConcurso');
+const dropdownConcurso       = document.getElementById('dropdownConcurso');
+const concursoEscolhido      = document.getElementById('concursoEscolhido');
+const nomeConcursoEscolhido  = document.getElementById('nomeConcursoEscolhido');
+const btnTrocarConcurso      = document.getElementById('btnTrocarConcurso');
 
-let fotoBase64      = null;
-let totalConcursos  = 0;
+let fotoBase64       = null;
+let totalConcursos   = 0;
+let listaConcursos   = [];
+let concursoAtual    = null;
 
-// ─── 1. Carregar concursos da API e popular o <select> ───────────────────────
 async function carregarConcursos() {
   loadingConcursos.style.display = 'inline';
   try {
     const res = await fetch(API_CONCURSOS);
     if (!res.ok) throw new Error();
-    const lista = await res.json();
-    totalConcursos = lista.length;
+    listaConcursos = await res.json();
+    totalConcursos = listaConcursos.length;
     document.getElementById('valConcursos').textContent = totalConcursos;
 
-    lista.forEach(c => {
+    listaConcursos.forEach(c => {
       const opt = document.createElement('option');
       opt.value = c.id;
       opt.textContent = `${c.orgao} — ${(c.uf || '').toUpperCase()}`;
       selectContest.appendChild(opt);
     });
   } catch {
-    const opt = document.createElement('option');
-    opt.disabled = true;
-    opt.textContent = 'Erro ao carregar concursos';
-    selectContest.appendChild(opt);
+    inputPesquisaConcurso.placeholder = 'Erro ao carregar concursos';
+    inputPesquisaConcurso.disabled = true;
   } finally {
     loadingConcursos.style.display = 'none';
   }
 }
 
-// ─── 2. Carregar ranking do concurso selecionado ──────────────────────────────
+inputPesquisaConcurso.addEventListener('input', () => {
+  const q = inputPesquisaConcurso.value.toLowerCase().trim();
+
+  const filtrados = q.length === 0
+    ? listaConcursos.slice(0, 30)
+    : listaConcursos.filter(c =>
+        (c.orgao || '').toLowerCase().includes(q) ||
+        (c.uf    || '').toLowerCase().includes(q)
+      ).slice(0, 40);
+
+  if (filtrados.length === 0) {
+    dropdownConcurso.innerHTML = '<div class="dropdown-vazio">Nenhum concurso encontrado</div>';
+  } else {
+    dropdownConcurso.innerHTML = filtrados.map(c => `
+      <div class="dropdown-item-concurso" data-id="${c.id}" data-nome="${esc(c.orgao)}">
+        <span class="dropdown-orgao">${esc(c.orgao || 'Não informado')}</span>
+        <span class="dropdown-uf">${(c.uf || '').toUpperCase()}</span>
+      </div>
+    `).join('');
+
+    dropdownConcurso.querySelectorAll('.dropdown-item-concurso').forEach(item => {
+      item.addEventListener('click', () => selecionarConcurso(
+        parseInt(item.dataset.id),
+        item.dataset.nome
+      ));
+    });
+  }
+
+  dropdownConcurso.style.display = 'block';
+});
+
+inputPesquisaConcurso.addEventListener('focus', () => {
+  if (listaConcursos.length > 0) inputPesquisaConcurso.dispatchEvent(new Event('input'));
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.pesquisa-concurso')) {
+    dropdownConcurso.style.display = 'none';
+  }
+});
+
+function selecionarConcurso(id, nome) {
+  concursoAtual = { id, nome };
+
+  selectContest.value = id;
+
+  nomeConcursoEscolhido.textContent = nome;
+  concursoEscolhido.style.display = 'flex';
+  inputPesquisaConcurso.style.display = 'none';
+  dropdownConcurso.style.display = 'none';
+
+  carregarRanking(id, nome);
+}
+
+btnTrocarConcurso.addEventListener('click', () => {
+  concursoAtual = null;
+  selectContest.value = '';
+  concursoEscolhido.style.display = 'none';
+  inputPesquisaConcurso.style.display = 'block';
+  inputPesquisaConcurso.value = '';
+  inputPesquisaConcurso.focus();
+  rankingTableBody.innerHTML = '';
+  top3Div.innerHTML = '';
+});
+
 async function carregarRanking(concursoId, concursoNome) {
   try {
     const res = await fetch(`${API_RANKING}/${concursoId}`);
     if (!res.ok) throw new Error();
-    const entries = await res.json(); // ordenado por nota desc pelo backend
+    const entries = await res.json();
     renderizarTabela(entries, concursoNome);
     renderizarTop3(entries);
     atualizarCards(entries);
   } catch {
-    rankingTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#aaa;">Erro ao carregar ranking.</td></tr>';
+    rankingTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#aaa;">Erro ao carregar ranking.</td></tr>';
   }
 }
 
-// ─── 3. Quando o usuário muda o select ───────────────────────────────────────
-selectContest.addEventListener('change', () => {
-  const id   = selectContest.value;
-  const nome = selectContest.options[selectContest.selectedIndex]?.text || '';
-  if (id) carregarRanking(id, nome);
-});
-
-// ─── 4. Capturar foto em base64 ───────────────────────────────────────────────
 fotoInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) { fotoBase64 = null; return; }
@@ -70,18 +128,15 @@ fotoInput.addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
-// ─── 5. Submeter nota ao back-end ─────────────────────────────────────────────
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   erroMsg.style.display = 'none';
 
   const concursoId   = selectContest.value;
-  const concursoNome = selectContest.options[selectContest.selectedIndex]?.text || '';
-  const nome         = form.username.value.trim();
+  const concursoNome = concursoAtual?.nome || '';
   const nota         = parseFloat(parseFloat(form.score.value).toFixed(2));
 
   if (!concursoId) { mostrarErro('Selecione um concurso.'); return; }
-  if (!nome)       { mostrarErro('Informe seu nome.');      return; }
   if (isNaN(nota)) { mostrarErro('Informe uma nota válida.'); return; }
 
   const btnSubmit = form.querySelector('button[type="submit"]');
@@ -92,21 +147,26 @@ form.addEventListener('submit', async (e) => {
     const res = await fetch(API_RANKING, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ concursoId: parseInt(concursoId), nome, nota, fotoUrl: fotoBase64 || null })
+      body: JSON.stringify({ concursoId: parseInt(concursoId), nota, fotoUrl: fotoBase64 || null })
     });
 
-    // Duplicata bloqueada pelo back-end
     if (res.status === 409) {
       const msg = await res.text();
-      mostrarErro(msg || `"${nome}" já está cadastrado neste concurso.`);
+      mostrarErro(msg || 'Você já está cadastrado neste concurso.');
+      return;
+    }
+
+    if (res.status === 403) {
+      const msg = await res.text();
+      mostrarErro(msg || 'Plano FREE permite nota em apenas 1 concurso. Faça upgrade!');
       return;
     }
 
     if (!res.ok) throw new Error();
 
-    form.reset();
-    fotoBase64 = null;
-    // Recarregar ranking do concurso atual
+    form.score.value = '';
+    fotoInput.value  = '';
+    fotoBase64       = null;
     await carregarRanking(concursoId, concursoNome);
 
   } catch {
@@ -117,10 +177,9 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// ─── 6. Renderizar tabela ────────────────────────────────────────────────────
 function renderizarTabela(entries, concursoNome) {
   if (entries.length === 0) {
-    rankingTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#aaa;">Nenhuma nota cadastrada ainda. Seja o primeiro!</td></tr>';
+    rankingTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#aaa;">Nenhuma nota cadastrada ainda. Seja o primeiro!</td></tr>';
     return;
   }
 
@@ -139,11 +198,11 @@ function renderizarTabela(entries, concursoNome) {
         <td>${avatarHtml} ${esc(u.nome)}</td>
         <td>${esc(concursoNome)}</td>
         <td class="score">${u.nota.toFixed(2)}</td>
+        <td>${u.cpfMascarado || ''}</td>
       </tr>`;
   }).join('');
 }
 
-// ─── 7. Renderizar Top 3 ─────────────────────────────────────────────────────
 function renderizarTop3(entries) {
   const top3   = entries.slice(0, 3);
   const medals = ['🏅', '🥈', '🥉'];
@@ -175,7 +234,6 @@ function renderizarTop3(entries) {
   }).join('');
 }
 
-// ─── 8. Atualizar cards de resumo ─────────────────────────────────────────────
 function atualizarCards(entries) {
   document.getElementById('valTotal').textContent = entries.length;
   if (entries.length > 0) {
@@ -187,7 +245,6 @@ function atualizarCards(entries) {
   }
 }
 
-// ─── Utilitários ──────────────────────────────────────────────────────────────
 function iniciais(nome) {
   return (nome || '?').split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
 }
@@ -201,5 +258,4 @@ function mostrarErro(msg) {
   erroMsg.style.display = 'block';
 }
 
-// ─── Iniciar ──────────────────────────────────────────────────────────────────
 carregarConcursos();

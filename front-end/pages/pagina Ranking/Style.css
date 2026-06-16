@@ -5,7 +5,6 @@
   font-family: "DM Sans", sans-serif;
 }
 
-/* ─── MENU ────────────────────────────────────────────────────────────────── */
 .menu-lateral {
   position: fixed;
   top: 0;
@@ -89,14 +88,12 @@
   opacity: 1;
 }
 
-/* ─── CONTAINER ───────────────────────────────────────────────────────────── */
 .container {
   max-width: 1200px;
   margin: 30px auto 60px;
   padding: 0 20px;
 }
 
-/* ─── FORMULÁRIO ──────────────────────────────────────────────────────────── */
 .formulario {
   background-color: #ffffff;
   border-radius: 8px;
@@ -137,7 +134,6 @@
   cursor: pointer;
 }
 
-/* ─── BOTÃO ───────────────────────────────────────────────────────────────── */
 .add-ranking {
   background: linear-gradient(to left, #293ab4, #3e70db);
   color: #ffffff;
@@ -155,7 +151,6 @@
 .add-ranking:hover:not(:disabled) { opacity: 0.88; }
 .add-ranking:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ─── RANKING ─────────────────────────────────────────────────────────────── */
 .ranking-cont {
   display: flex;
   gap: 20px;
@@ -224,7 +219,6 @@ tbody td {
   vertical-align: middle;
 }
 
-/* NOVO: foto real na tabela */
 .avatar-img {
   width: 32px;
   height: 32px;
@@ -237,7 +231,6 @@ tbody td {
 
 .score { font-weight: 700; color: white; }
 
-/* ─── TOP 3 ───────────────────────────────────────────────────────────────── */
 .top-3 {
   width: 28%;
   background-color: #1c1c1c;
@@ -282,7 +275,6 @@ tbody td {
   margin: 10px auto 8px;
 }
 
-/* NOVO: foto real no top 3 */
 .avatar-large-img {
   width: 62px;
   height: 62px;
@@ -325,7 +317,6 @@ tbody td {
 
 .top-3 small { color: #ffffff; }
 
-/* ─── CARDS RESUMO ────────────────────────────────────────────────────────── */
 .summary-cards {
   margin-top: 40px;
   width: 100%;
@@ -361,7 +352,6 @@ tbody td {
   font-weight: 700;
 }
 
-/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
 footer {
   margin-left: 0;
   width: 100%;
@@ -419,7 +409,6 @@ footer {
   display: flex; align-items: center; justify-content: center; padding: 1rem;
 }
 
-/* ─── RESPONSIVO ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .ranking-cont { flex-direction: column; }
   .top-3 { width: 100%; min-width: unset; }
@@ -438,3 +427,143 @@ footer {
   .card { min-width: unset; width: 100%; }
   #content-footer { grid-template-columns: 1fr; padding: 2rem 1.2rem; gap: 2rem; }
 }
+
+.pesquisa-ranking {
+  width: 100%;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.pesquisa-ranking i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.pesquisa-ranking input {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  border-radius: 4px;
+  border: 2px solid rgb(133, 133, 133);
+  font-size: 0.9rem;
+  background-color: #1c1c1c;
+  color: #ffffff;
+}
+
+.pesquisa-ranking input::placeholder { color: #777; }
+
+.pesquisa-ranking input:focus {
+  outline: none;
+  border-color: #3e70db;
+}
+
+.pesquisa-concurso {
+  position: relative;
+}
+
+.pesquisa-concurso i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.pesquisa-concurso input {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  border-radius: 4px;
+  border: 2px solid rgb(133, 133, 133);
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.pesquisa-concurso input:focus {
+  outline: none;
+  border-color: #3e70db;
+}
+
+.dropdown-concurso {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.dropdown-item-concurso {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.dropdown-item-concurso:last-child { border-bottom: none; }
+.dropdown-item-concurso:hover { background: #f0f4ff; }
+
+.dropdown-orgao {
+  font-size: 0.88rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.dropdown-uf {
+  font-size: 0.75rem;
+  background: #e5e7eb;
+  color: #374151;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.dropdown-vazio {
+  padding: 14px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.88rem;
+}
+
+.concurso-escolhido {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f4ff;
+  border: 2px solid #3e70db;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+.concurso-escolhido i { color: #3e70db; }
+
+.concurso-escolhido button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 15px;
+  padding: 0 2px;
+  transition: color 0.15s;
+}
+
+.concurso-escolhido button:hover { color: #ef4444; }

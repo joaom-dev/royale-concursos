@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "ranking_notas")
+@Table(name = "ranking_notas",
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"concurso_id", "cpf"},
+        name = "uq_ranking_cpf_concurso"
+    )
+)
 public class RankingNota {
 
     @Id
@@ -16,6 +21,12 @@ public class RankingNota {
 
     @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false, length = 14)
+    private String cpf;
+
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(nullable = false)
     private Double nota;
@@ -31,6 +42,10 @@ public class RankingNota {
     public void setConcursoId(Long concursoId) { this.concursoId = concursoId; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
     public Double getNota() { return nota; }
     public void setNota(Double nota) { this.nota = nota; }
     public String getFotoUrl() { return fotoUrl; }

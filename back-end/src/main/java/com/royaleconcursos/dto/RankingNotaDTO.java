@@ -7,20 +7,24 @@ public class RankingNotaDTO {
     private Long id;
     private Long concursoId;
     private String nome;
+    private String cpfMascarado;
+    private String userId;
     private Double nota;
     private String fotoUrl;
     private LocalDateTime criadoEm;
 
     public RankingNotaDTO() {}
 
-    public RankingNotaDTO(Long id, Long concursoId, String nome,
-                          Double nota, String fotoUrl, LocalDateTime criadoEm) {
-        this.id         = id;
-        this.concursoId = concursoId;
-        this.nome       = nome;
-        this.nota       = nota;
-        this.fotoUrl    = fotoUrl;
-        this.criadoEm   = criadoEm;
+    public RankingNotaDTO(Long id, Long concursoId, String nome, String cpfMascarado,
+                          String userId, Double nota, String fotoUrl, LocalDateTime criadoEm) {
+        this.id            = id;
+        this.concursoId    = concursoId;
+        this.nome          = nome;
+        this.cpfMascarado  = cpfMascarado;
+        this.userId        = userId;
+        this.nota          = nota;
+        this.fotoUrl       = fotoUrl;
+        this.criadoEm      = criadoEm;
     }
 
     public Long getId() { return id; }
@@ -29,6 +33,10 @@ public class RankingNotaDTO {
     public void setConcursoId(Long concursoId) { this.concursoId = concursoId; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
+    public String getCpfMascarado() { return cpfMascarado; }
+    public void setCpfMascarado(String cpfMascarado) { this.cpfMascarado = cpfMascarado; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
     public Double getNota() { return nota; }
     public void setNota(Double nota) { this.nota = nota; }
     public String getFotoUrl() { return fotoUrl; }
