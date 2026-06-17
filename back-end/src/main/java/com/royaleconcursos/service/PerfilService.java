@@ -1,54 +1,84 @@
 package com.royaleconcursos.service;
 
+import com.royaleconcursos.dto.AtualizarPerfilDTO;
 import com.royaleconcursos.dto.PerfilDTO;
 import com.royaleconcursos.model.User;
 import com.royaleconcursos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.UUID;
 
 @Service
 public class PerfilService {
-    private static final String UPLOAD_DIR = "upload/fotos/";
 
     @Autowired
     private UserRepository userRepository;
 
-    public PerfilDTO buscarPerfil (String email) {
+    // Busca e retorna os dados do perfil do usuário pelo e-mail
+    public PerfilDTO buscarPerfil(String email) {
         User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
-        return new PerfilDTO(user.getId(), user.getName(),
-         user.getEmail(), user.getFoto());
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        return new PerfilDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getFoto()
+        );
     }
 
-    public String salvarFoto (String email, MultipartFile arquivo) throws IOException { 
+    // Atualiza nome e/ou e-mail do usuário
+    public void atualizarPerfil(String emailAtual, AtualizarPerfilDTO dto) {
+        User user = userRepository.findByEmail(emailAtual)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Atualiza o nome se foi informado
+        if (dto.getName() != null && !dto.getName().isBlank()) {
+            user.setName(dto.getName());
+        }
+
+        // Atualiza o e-mail se foi informado e é diferente do atual
+        if (dto.getEmail() != null && !dto.getEmail().isBlank()
+                && !dto.getEmail().equalsIgnoreCase(emailAtual)) {
+
+            // Verifica se o novo e-mail já está em uso por outro usuário
+            boolean emailEmUso = userRepository.findByEmail(dto.getEmail()).isPresent();
+            if (emailEmUso) {
+                throw new RuntimeException("Este e-mail já está em uso por outro usuário");
+            }
+            user.setEmail(dto.getEmail());
+        }
+
+        userRepository.save(user);
+    }
+
+    // Salva a foto de perfil em disco e atualiza o caminho no banco
+    public String salvarFoto(String email, MultipartFile arquivo) throws IOException {
         User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String nomeOriginal = arquivo.getOriginalFilename();
-        if (nomeOriginal == null || !nomeOriginal.contains(".")) {
-            throw new RuntimeException("Arquivo Inválido");
+        // Cria o diretório de upload se não existir
+        String diretorio = "upload/fotos/";
+        File dir = new File(diretorio);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
 
-        if (arquivo.isEmpty()) {
-                    throw new RuntimeException("Arquivo Vazio");
-        }
+        // Gera um nome único para o arquivo
+        String nomeArquivo = UUID.randomUUID() + "_" + arquivo.getOriginalFilename();
+        String caminhoCompleto = diretorio + nomeArquivo;
 
-        String extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf("."));
+        arquivo.transferTo(new File(caminhoCompleto));
 
-        String nomeArquivo = UUID.randomUUID().toString() + extensao;
-
-        
-        Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
-        Files.createDirectories(caminho.getParent());
-        Files.write(caminho, arquivo.getBytes());
-
-        user.setFoto("/fotos/" + nomeArquivo);
+        // Salva a URL pública no banco (servida pelo ResourceHandler)
+        String urlPublica = "/fotos/" + nomeArquivo;
+        user.setFoto(urlPublica);
         userRepository.save(user);
 
-        return "/fotos/" + nomeArquivo;
+        return urlPublica;
     }
 }

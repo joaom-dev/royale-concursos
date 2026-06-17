@@ -1,22 +1,20 @@
 package com.royaleconcursos.dto;
 
 public class PerfilDTO {
-    private long id;
-    private String nome;
+    private String id;
+    private String name;
     private String email;
-    private String foto_perfil;
+    private String foto;
 
-    public PerfilDTO(long id,String nome, String email, String foto_perfil) {
+    public PerfilDTO(String id, String nome, String email, String foto) {
+        this.id = id;
+        this.name = nome;
         this.email = email;
-        this.foto_perfil = foto_perfil;
-        this.id = id; 
-        this.nome = nome;
+        this.foto = foto;
     }
 
-    public long getId() {return id;}
-    public String getNome() {return nome;}
-    public String getEmail() {return email;}
-    public String getFoto_perfil() {return foto_perfil;}
-
-
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getFoto() { return foto; }
 }

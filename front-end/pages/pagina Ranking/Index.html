@@ -17,12 +17,13 @@
     <div class="menu-itens">
       <a href="../telaInicial/index.html"><p>Inicial</p></a>
       <a href="../pagina sobre/index.html"><p>Sobre</p></a>
+      <a href="/front-end/pages/tela de concursos/index.html"><p>Concursos</p></a>
       <a href="/front-end/pages/pagina Ranking/Index.html"><p>Ranking</p></a>
       <a href="/front-end/pages/paginaMeusConcursos/PgMc.html"><p>Salvos</p></a>
       <a href="../pagina assinatura/index.html"><p>Assinatura</p></a>
     </div>
     <div class="menu-inferior">
-      <a href="../configuraçoes/perfil/configperfil.html">
+      <a href="../configuracoes/perfil/configperfil.html">
         <i class="fa-solid fa-gear"></i>
         <span class="tooltip-texto">Configurações</span>
       </a>
@@ -31,25 +32,30 @@
 
   <main class="container">
 
-    <!-- FORMULARIO PARA INSERÇÃO -->
+    <!-- FORMULÁRIO -->
     <section class="formulario">
       <h2>Adicionar Notas ao Ranking</h2>
       <form id="userForm">
 
+        <!-- Campo de busca de concurso -->
+        <div class="formulario-grupo">
+          <label for="searchConcurso">Pesquisar concurso:</label>
+          <input
+            type="text"
+            id="searchConcurso"
+            placeholder="Digite o órgão ou estado..."
+            autocomplete="off"
+          />
+        </div>
+
         <div class="formulario-grupo">
           <label for="contest">Concurso:</label>
-          <!-- Select preenchido dinamicamente pelo JS -->
           <select id="contest" name="contest" required>
             <option value="">Selecione</option>
           </select>
           <small id="loadingConcursos" style="display:none; color:#aaa;">
             <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando concursos...
           </small>
-        </div>
-
-        <div class="formulario-grupo">
-          <label for="username">Nome:</label>
-          <input type="text" id="username" name="username" placeholder="Seu nome completo" required maxlength="100" />
         </div>
 
         <div class="formulario-grupo">
@@ -62,7 +68,6 @@
           <input type="file" id="foto" name="foto" accept="image/*" />
         </div>
 
-        <!-- Mensagem de erro (duplicata, etc.) -->
         <p id="erroMsg" style="display:none; color:#ff6b6b; font-size:0.85rem; margin-bottom:8px;"></p>
 
         <button type="submit" class="add-ranking">Adicionar ao Ranking</button>
@@ -80,9 +85,7 @@
             <th>Nota</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Linhas inseridas pelo JS -->
-        </tbody>
+        <tbody></tbody>
       </table>
 
       <aside class="top-3">
@@ -92,17 +95,17 @@
     </section>
 
     <section class="summary-cards">
-      <div class="card" id="posicaoAtualCard">
+      <div class="card">
         <small>Maior Nota do Ranking</small>
         <h3 id="valMelhorNota">--</h3>
         <small id="lblMelhorNota">--</small>
       </div>
-      <div class="card" id="melhorPontuacaoCard">
+      <div class="card">
         <small>Total de Participantes</small>
         <h3 id="valTotal">--</h3>
         <small>Neste concurso</small>
       </div>
-      <div class="card" id="concursosParticipadosCard">
+      <div class="card">
         <small>Concursos Disponíveis</small>
         <h3 id="valConcursos">--</h3>
         <small>Carregados da API</small>

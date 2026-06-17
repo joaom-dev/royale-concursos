@@ -438,3 +438,22 @@ footer {
   .card { min-width: unset; width: 100%; }
   #content-footer { grid-template-columns: 1fr; padding: 2rem 1.2rem; gap: 2rem; }
 }
+/* ─── CAMPO DE BUSCA DE CONCURSO ──────────────────────────────────────────── */
+#searchConcurso {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 4px;
+  border: 2px solid rgb(41, 58, 180);
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #000000;
+  transition: border-color 0.2s;
+}
+
+#searchConcurso:focus {
+  outline: none;
+  border-color: #3e70db;
+  box-shadow: 0 0 0 3px rgba(41,58,180,0.15);
+}
+
+#searchConcurso::placeholder { color: #999; }

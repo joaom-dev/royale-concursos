@@ -1,4 +1,3 @@
-
 package com.royaleconcursos.service;
 
 import com.royaleconcursos.dto.LoginRequest;
@@ -10,7 +9,6 @@ import com.royaleconcursos.security.Token;
 import com.royaleconcursos.dto.AlterarSenhaDTO;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class UserService {
 
     private final UserRepository repository;
@@ -65,24 +62,21 @@ public class UserService {
         return new Response(user.getName(), token);
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     public void alterarSenha(String email, AlterarSenhaDTO dto) {
- 
-    User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
- 
-    if (!passwordEncoder.matches(dto.getSenhaAtual(), user.getPassword())) {
-        throw new RuntimeException("Senha atual incorreta");
+
+        User user = repository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+
+        if (!passwordEncoder.matches(dto.getSenhaAtual(), user.getPassword())) {
+            throw new RuntimeException("Senha atual incorreta");
+        }
+
+        if (!dto.getNovaSenha().equals(dto.getConfirmarSenha())) {
+            throw new RuntimeException("As senhas não coincidem");
+        }
+
+        user.setPassword(passwordEncoder.encode(dto.getNovaSenha()));
+        repository.save(user);
     }
- 
-    if (!dto.getNovaSenha().equals(dto.getConfirmarSenha())) {
-        throw new RuntimeException("As senhas não coincidem");
-    }
- 
-    user.setPassword(passwordEncoder.encode(dto.getNovaSenha()));
-    userRepository.save(user);
-}
 
 }

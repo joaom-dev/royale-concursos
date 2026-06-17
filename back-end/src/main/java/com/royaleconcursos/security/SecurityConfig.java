@@ -29,7 +29,6 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .cors(Customizer.withDefaults())
-            // Sessão STATELESS para JWT, mas OAuth2 precisa de sessão temporária
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             )
@@ -37,7 +36,10 @@ public class SecurityConfig {
 
                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.GET,"/anuncios/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/anuncios/**").permitAll()
+
+                // GET do ranking é público (visualizar), POST exige autenticação (controle de uso grátis)
+                .requestMatchers(HttpMethod.GET, "/api/ranking/**").permitAll()
 
                 // Rotas públicas
                 .requestMatchers(
@@ -46,17 +48,15 @@ public class SecurityConfig {
                     "/login**",
                     "/error**",
                     "/oauth2/**",
-                    "/api/concursos/**",   // leitura pública dos concursos
+                    "/api/concursos/**",
                     "/fotos/**"
                 ).permitAll()
                 .anyRequest().authenticated()
 
             )
-            // Login com Google
             .oauth2Login(oauth2 -> oauth2
                 .defaultSuccessUrl("/auth/oauth2/success", true)
             )
-            // Filtro JWT para rotas normais
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -75,7 +75,6 @@ public class SecurityConfig {
     @Bean
     public WebMvcConfigurer resourceHandler() {
         return new WebMvcConfigurer() {
-
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/fotos/**")

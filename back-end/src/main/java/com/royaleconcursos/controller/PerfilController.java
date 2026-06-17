@@ -1,6 +1,7 @@
 package com.royaleconcursos.controller;
 
 import com.royaleconcursos.dto.PerfilDTO;
+import com.royaleconcursos.dto.AtualizarPerfilDTO;
 import com.royaleconcursos.service.PerfilService;
 import com.royaleconcursos.dto.AlterarSenhaDTO;
 import com.royaleconcursos.service.UserService;
@@ -20,28 +21,43 @@ public class PerfilController {
     @Autowired
     private UserService userService;
 
-
+    // Busca os dados do perfil do usuário autenticado
     @GetMapping
-    public ResponseEntity<PerfilDTO> getPerfil (Authentication auth) {
+    public ResponseEntity<PerfilDTO> getPerfil(Authentication auth) {
         String email = auth.getName();
         return ResponseEntity.ok(perfilService.buscarPerfil(email));
     }
 
-    @PostMapping
-    public ResponseEntity<String> uploadFoto (
-        @RequestParam("/foto") MultipartFile arquivo,
-        Authentication auth) throws Exception {
+    // Upload de foto de perfil
+    @PostMapping("/foto")
+    public ResponseEntity<String> uploadFoto(
+            @RequestParam("foto") MultipartFile arquivo,
+            Authentication auth) throws Exception {
         String url = perfilService.salvarFoto(auth.getName(), arquivo);
         return ResponseEntity.ok(url);
     }
 
-    @PutMapping("/senha")
-    public ResponseEntity<String> alterarSenha (
-        @RequestBody AlterarSenhaDTO dto,
-        Authentication auth) {
+    // Atualiza nome e/ou email do usuário
+    @PutMapping
+    public ResponseEntity<String> atualizarPerfil(
+            @RequestBody AtualizarPerfilDTO dto,
+            Authentication auth) {
         try {
-            userService.alterarSenha (auth.getName(), dto);
-            return ResponseEntity.ok("Senha altrada com sucesso");
+            perfilService.atualizarPerfil(auth.getName(), dto);
+            return ResponseEntity.ok("Perfil atualizado com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Altera a senha do usuário
+    @PutMapping("/senha")
+    public ResponseEntity<String> alterarSenha(
+            @RequestBody AlterarSenhaDTO dto,
+            Authentication auth) {
+        try {
+            userService.alterarSenha(auth.getName(), dto);
+            return ResponseEntity.ok("Senha alterada com sucesso");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
