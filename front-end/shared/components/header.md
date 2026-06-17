@@ -21,6 +21,11 @@
                 <!-- <i class="fa-solid fa-trophy"></i> -->
                 <!-- <span class="tooltip-texto">Ranking</span> -->
             </a>
+            <a href="/front-end/pages/tela de concursos/PgMc.html">
+                <p>Concursos</p>
+                <!-- <i class="fa-solid fa-bookmark"></i> -->
+                <!-- <span class="tooltip-texto">Salvos</span> -->
+            </a>
             <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
                 <p>Salvos</p>
                 <!-- <i class="fa-solid fa-bookmark"></i> -->

@@ -6,7 +6,6 @@ import com.royaleconcursos.model.RankingNota;
 import com.royaleconcursos.model.User;
 import com.royaleconcursos.repository.RankingNotaRepository;
 import com.royaleconcursos.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,53 +16,36 @@ public class RankingNotaService {
 
     private final RankingNotaRepository repository;
     private final UserRepository userRepository;
-    private final PlanoService planoService;
 
-    public RankingNotaService(RankingNotaRepository repository,
-                              UserRepository userRepository,
-                              PlanoService planoService) {
-        this.repository    = repository;
+    public RankingNotaService(RankingNotaRepository repository, UserRepository userRepository) {
+        this.repository = repository;
         this.userRepository = userRepository;
-        this.planoService  = planoService;
     }
 
-    public RankingNotaDTO salvar(RankingNotaDTO dto) {
+    public RankingNotaDTO salvar(String email, RankingNotaDTO dto) {
 
-        String email = SecurityContextHolder.getContext()
-                           .getAuthentication().getName();
-        User usuario = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String cpf = usuario.getCpf();
-
-        boolean jaExisteNesseConcurso = repository
-                .findByConcursoIdAndCpf(dto.getConcursoId(), cpf)
-                .isPresent();
-
-        if (jaExisteNesseConcurso) {
-            throw new IllegalArgumentException(
-                "Você já possui uma nota cadastrada neste concurso."
-            );
-        }
-
-        Plano plano = planoService.getPlanoEfetivo(usuario);
-        boolean isPremium = plano == Plano.MENSAL || plano == Plano.VITALICIO;
-
-        if (!isPremium) {
-            long totalConcursos = repository.countConcursosDistintosByCpf(cpf);
-            if (totalConcursos >= 1) {
-                throw new SecurityException(
-                    "Plano FREE permite nota em apenas 1 concurso. " +
-                    "Faça upgrade para adicionar em mais concursos."
+        // Plano FREE: só 1 participação no total, identificado pelo CPF do User
+        boolean isFree = user.getPlano() == null || user.getPlano() == Plano.FREE;
+        if (isFree) {
+            long totalUsos = repository.countParticipacoesByCpf(user.getCpf());
+            if (totalUsos >= 1) {
+                throw new IllegalStateException(
+                    "Seu plano FREE permite apenas 1 participação no ranking. Assine para participar ilimitadamente!"
                 );
             }
         }
 
+        // Bloqueia mesmo usuário no mesmo concurso
+        if (repository.existsByConcursoIdAndNomeIgnoreCase(dto.getConcursoId(), user.getName())) {
+            throw new IllegalArgumentException("Você já cadastrou uma nota neste concurso.");
+        }
+
         RankingNota entidade = new RankingNota();
         entidade.setConcursoId(dto.getConcursoId());
-        entidade.setNome(usuario.getName());
-        entidade.setCpf(cpf);
-        entidade.setUserId(usuario.getId());
+        entidade.setNome(user.getName());
         entidade.setNota(dto.getNota());
         entidade.setFotoUrl(dto.getFotoUrl());
 
@@ -71,20 +53,11 @@ public class RankingNotaService {
     }
 
     public List<RankingNotaDTO> listarPorConcurso(Long concursoId) {
-        return repository.findByConcursoIdOrderByNotaDesc(concursoId)
-                .stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    public List<RankingNotaDTO> pesquisar(Long concursoId, String nome) {
         return repository
-            .findByConcursoIdAndNomeContainingIgnoreCaseOrderByNotaDesc(concursoId, nome)
-            .stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    private String mascararCpf(String cpf) {
-        if (cpf == null || cpf.length() < 11) return "***.***.***-**";
-        String limpo = cpf.replaceAll("[^0-9]", "");
-        return "***." + limpo.substring(3, 6) + "." + limpo.substring(6, 9) + "-**";
+            .findByConcursoIdOrderByNotaDesc(concursoId)
+            .stream()
+            .map(this::toDTO)
+            .collect(Collectors.toList());
     }
 
     private RankingNotaDTO toDTO(RankingNota r) {
@@ -92,8 +65,6 @@ public class RankingNotaService {
             r.getId(),
             r.getConcursoId(),
             r.getNome(),
-            mascararCpf(r.getCpf()),
-            r.getUserId(),
             r.getNota(),
             r.getFotoUrl(),
             r.getCriadoEm()

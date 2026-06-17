@@ -15,13 +15,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
 
     <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
     <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
@@ -31,7 +29,8 @@
 
     <div class="menu-lateral">
         <div class="menu-topo">
-            <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+            <!-- Foto do usuário no header/menu lateral — atualizada pelo JS -->
+            <img id="fotoMenuLateral" src="/front-end/assets/images/foto-padrao.webp" alt="Foto de perfil">
         </div>
 
         <div class="menu-itens">
@@ -60,50 +59,41 @@
             </a>
         </div>
     </div>
+
     <header>
-        <p id="nome">Configuraçoes</p>
+        <p id="nome">Configurações</p>
     </header>
 
-
     <div class="config-layout">
-
-        <!-- VERSAO ANTIGA
-        <ul class="links-category">
-            <li>
-                <a href="../perfil/configperfil.html">
-                    <i class="fa-solid fa-user"></i>
-                    Perfil
-                </a>
-            </li>
-
-            <li>
-                <a href="../seguranca/configsecu.html">
-                    <i class="fa-solid fa-shield"></i>
-                    Privacidade e segurança
-                </a>
-            </li>
-
-
-
-        </ul> -->
-
         <div class="perfil-container">
             <div class="perfil-card">
                 <h2><i class="fa-solid fa-user"></i> Perfil</h2>
 
                 <div class="foto-area">
-                    <img id="fotoPerfil" src="./foto-padrao.webp">
-                    <input type="file" accept="image/*" id="inputFoto">
+                    <img id="fotoPerfil" src="/front-end/assets/images/foto-padrao.webp" alt="Foto de perfil">
+                    <!-- Label estilizado que abre o input de arquivo -->
+                    <label for="inputFoto" class="btn-foto">
+                        <i class="fa-solid fa-camera"></i> Alterar foto
+                    </label>
+                    <input type="file" accept="image/*" id="inputFoto" style="display:none;">
                 </div>
 
+                <!-- Nome do usuário pré-preenchido pelo JS -->
                 <div class="input-group">
                     <i class="fa-solid fa-user"></i>
                     <input type="text" id="full-name" placeholder="Digite seu nome completo..." required>
                 </div>
 
+                <!-- E-mail do usuário pré-preenchido pelo JS -->
                 <div class="input-group">
                     <i class="fa-solid fa-at"></i>
-                    <input type="text" id="nickname" placeholder="Digite seu nome de user..." required>
+                    <input type="email" id="email-usuario" placeholder="Digite seu e-mail..." required>
+                </div>
+
+                <!-- Nickname / username (somente local por enquanto) -->
+                <div class="input-group">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <input type="text" id="nickname" placeholder="Digite seu nome de usuário...">
                 </div>
             </div>
 
@@ -125,16 +115,13 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-
             </div>
 
             <div class="saves">
-                <button id="salvar">Salvar alteracoes</button>
+                <button id="salvar">Salvar alterações</button>
             </div>
         </div>
-
     </div>
-
 
 </body>
 

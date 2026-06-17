@@ -21,15 +21,15 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
-
+    <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
 </head>
 
 <body>
     <div class="config-layout">
         <div class="menu-lateral">
             <div class="menu-topo">
-                <img src="/front-end/assets/images/lebron bb.jpg" alt="">
+                <!-- id adicionado para o JS sincronizar a foto do usuário -->
+                <img id="fotoMenuLateral" src="/front-end/assets/images/foto-padrao.webp" alt="Foto de perfil">
             </div>
 
             <div class="menu-itens">
@@ -58,31 +58,11 @@
                 </a>
             </div>
         </div>
+
         <div class="pagina-conteudo">
             <header>
-                <p id="nome">Configuraçoes</p>
+                <p id="nome">Configurações</p>
             </header>
-
-
-            <!-- VERSAO ANTIGA
-    <ul class="links-category">
-        <li>
-            <a href="../perfil/configperfil.html">
-                <i class="fa-solid fa-user"></i>
-                Perfil
-            </a>
-        </li>
-
-        <li>
-            <a href="../seguranca/configsecu.html">
-                <i class="fa-solid fa-shield"></i>
-                Privacidade e segurança
-            </a>
-        </li>
-
-
-
-    </ul> -->
 
             <div class="security">
                 <div class="security-card">
@@ -132,7 +112,6 @@
                 <div class="saves">
                     <button id="salvar">Salvar alterações</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -140,18 +119,18 @@
     <dialog id="modal">
         <div class="modal-header">
             <p>Excluir Conta!</p>
-            <p id="text">Tem certeza que deseja continuar com esta açao?</p>
+            <p id="text">Tem certeza que deseja continuar com esta ação?</p>
         </div>
 
         <div class="modal-body">
-            <button id="sim"> Sim !</button>
-            <button id="closeModal" class="nao""> Nao !</button>
+            <button id="sim">Sim!</button>
+            <button id="closeModal" class="nao">Não!</button>
         </div>
     </dialog>
 
 </body>
 
-<script src=" script.js"></script>
+<script src="script.js"></script>
 <script src="/front-end/shared/js/tema.js"></script>
 
 </html>

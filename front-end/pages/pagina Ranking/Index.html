@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="Style.css">
   <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
 </head>
 <body>
   <div class="menu-lateral">
@@ -16,13 +17,13 @@
     <div class="menu-itens">
       <a href="../telaInicial/index.html"><p>Inicial</p></a>
       <a href="../pagina sobre/index.html"><p>Sobre</p></a>
+      <a href="/front-end/pages/tela de concursos/index.html"><p>Concursos</p></a>
       <a href="/front-end/pages/pagina Ranking/Index.html"><p>Ranking</p></a>
-      <a href="/front-end/pages/pagina de calendario/index.html"><p>Calendario</p></a>
       <a href="/front-end/pages/paginaMeusConcursos/PgMc.html"><p>Salvos</p></a>
       <a href="../pagina assinatura/index.html"><p>Assinatura</p></a>
     </div>
     <div class="menu-inferior">
-      <a href="../configuraçoes/perfil/configperfil.html">
+      <a href="../configuracoes/perfil/configperfil.html">
         <i class="fa-solid fa-gear"></i>
         <span class="tooltip-texto">Configurações</span>
       </a>
@@ -31,36 +32,27 @@
 
   <main class="container">
 
+    <!-- FORMULÁRIO -->
     <section class="formulario">
       <h2>Adicionar Notas ao Ranking</h2>
       <form id="userForm">
 
+        <!-- Campo de busca de concurso -->
+        <div class="formulario-grupo">
+          <label for="searchConcurso">Pesquisar concurso:</label>
+          <input
+            type="text"
+            id="searchConcurso"
+            placeholder="Digite o órgão ou estado..."
+            autocomplete="off"
+          />
+        </div>
+
         <div class="formulario-grupo">
           <label for="contest">Concurso:</label>
-
-          <div class="pesquisa-concurso">
-            <i class="fa-solid fa-search"></i>
-            <input
-              type="text"
-              id="inputPesquisaConcurso"
-              placeholder="Digite para buscar um concurso..."
-              autocomplete="off"
-            />
-            <div class="dropdown-concurso" id="dropdownConcurso" style="display:none;"></div>
-          </div>
-
-          <div id="concursoEscolhido" style="display:none;" class="concurso-escolhido">
-            <i class="fa-solid fa-circle-check"></i>
-            <span id="nomeConcursoEscolhido"></span>
-            <button type="button" id="btnTrocarConcurso" title="Trocar concurso">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-
-          <select id="contest" name="contest" style="display:none;" required>
+          <select id="contest" name="contest" required>
             <option value="">Selecione</option>
           </select>
-
           <small id="loadingConcursos" style="display:none; color:#aaa;">
             <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando concursos...
           </small>
@@ -82,6 +74,7 @@
       </form>
     </section>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <section class="ranking-cont">
       <table id="rankingTable">
         <thead>
@@ -90,11 +83,9 @@
             <th>Usuário</th>
             <th>Concurso</th>
             <th>Nota</th>
-            <th>CPF</th>
           </tr>
         </thead>
-        <tbody id="rankingTableBody">
-        </tbody>
+        <tbody></tbody>
       </table>
 
       <aside class="top-3">
@@ -151,6 +142,7 @@
     <div id="footer-copyright">&#169 2026 all rights reserved</div>
   </footer>
 
-  <script src="Script.js"></script>
 </body>
+<script src="Script.js"></script>
+<script src="/front-end/shared/js/tema.js"></script>
 </html>

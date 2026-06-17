@@ -43,6 +43,14 @@ public class User {
     @Column(name = "password_user")
     private String password;
 
+    @Column(name = "foto_perfil")
+    private String foto;
+
+    //  role admin para criar anuncios
+    
+    @Column(nullable = false)
+    private String role = "User";
+
     // ── Campos de plano (usados pelo PagamentoService/PlanoService) ─────────
 
     @Enumerated(EnumType.STRING)
