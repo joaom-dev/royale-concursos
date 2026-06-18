@@ -1,25 +1,48 @@
-// ─── Utilitário: pega o token salvo no localStorage ───────────────────────────
+// ─── Utilitário ───────────────────────────────────────────────────────────────
 function getToken() {
     return localStorage.getItem("token");
 }
 
-// ─── Foto no menu lateral (sincroniza com o que foi salvo em localStorage) ────
+const API_URL = "http://localhost:8080";
+
+// ─── Foto no menu lateral ─────────────────────────────────────────────────────
 const fotoMenuLateral = document.getElementById("fotoMenuLateral");
 if (fotoMenuLateral) {
     const fotoSalva = localStorage.getItem("fotoPerfil");
     if (fotoSalva) fotoMenuLateral.src = fotoSalva;
 }
 
-// ─── Toggle 2FA (preferência local) ──────────────────────────────────────────
+// ─── Elementos de email ───────────────────────────────────────────────────────
+const emailAtual = document.getElementById("email-atual");
+
+// ─── Toggle 2FA ───────────────────────────────────────────────────────────────
 const toggle2FA = document.getElementById("toggle-2fa");
 
-window.addEventListener("load", () => {
-    if (toggle2FA) toggle2FA.checked = localStorage.getItem("2fa") === "true";
-});
+// ─── Carregar email do perfil via API ─────────────────────────────────────────
+async function carregarEmail() {
+    const token = getToken();
+    if (!token) {
+        window.location.href = "/front-end/pages/tela de login/index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/perfil`, {
+            headers: { "Authorization": "Bearer " + token }
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar perfil");
+
+        const perfil = await response.json();
+        if (emailAtual) emailAtual.value = perfil.email || "";
+
+    } catch (err) {
+        console.error("Erro ao carregar email:", err);
+    }
+}
 
 // ─── Mostrar/ocultar senhas ───────────────────────────────────────────────────
 const eyeIcons = document.querySelectorAll(".eye-icon");
-
 eyeIcons.forEach(icon => {
     icon.addEventListener("click", () => {
         const input = icon.previousElementSibling;
@@ -28,52 +51,33 @@ eyeIcons.forEach(icon => {
     });
 });
 
-// ─── Salvar alterações de segurança ──────────────────────────────────────────
+// ─── Salvar ───────────────────────────────────────────────────────────────────
 document.getElementById("salvar").addEventListener("click", async () => {
     const token = getToken();
     if (!token) {
-        window.location.href = "/front-end/pages/login/index.html";
+        window.location.href = "/front-end/pages/tela de login/index.html";
         return;
     }
 
-    const senhaAtual      = document.getElementById("senha-atual").value;
-    const novaSenha       = document.getElementById("nova-senha").value;
-    const confirmarSenha  = document.getElementById("confirmar-senha").value;
+    const senhaAtual     = document.getElementById("senha-atual").value;
+    const novaSenha      = document.getElementById("nova-senha").value;
+    const confirmarSenha = document.getElementById("confirmar-senha").value;
 
-    // Só tenta alterar a senha se o usuário preencheu algum campo
-    const algumaSenhaPreenchida = senhaAtual || novaSenha || confirmarSenha;
-
-    if (algumasSenhaPreenchida()) {
-        // Validações básicas no front antes de chamar a API
-        if (!senhaAtual) {
-            alert("Informe a senha atual.");
-            return;
-        }
-        if (!novaSenha) {
-            alert("Informe a nova senha.");
-            return;
-        }
-        if (novaSenha !== confirmarSenha) {
-            alert("A nova senha e a confirmação não coincidem.");
-            return;
-        }
-        if (novaSenha.length < 6) {
-            alert("A nova senha deve ter pelo menos 6 caracteres.");
-            return;
-        }
+    // Só chama o backend se algum campo de senha foi preenchido
+    if (senhaAtual || novaSenha || confirmarSenha) {
+        if (!senhaAtual) { alert("Informe a senha atual."); return; }
+        if (!novaSenha)  { alert("Informe a nova senha."); return; }
+        if (novaSenha !== confirmarSenha) { alert("A nova senha e a confirmação não coincidem."); return; }
+        if (novaSenha.length < 6) { alert("A nova senha deve ter pelo menos 6 caracteres."); return; }
 
         try {
-            const response = await fetch("/perfil/senha", {
+            const response = await fetch(`${API_URL}/perfil/senha`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + token
                 },
-                body: JSON.stringify({
-                    senhaAtual:      senhaAtual,
-                    novaSenha:       novaSenha,
-                    confirmarSenha:  confirmarSenha
-                })
+                body: JSON.stringify({ senhaAtual, novaSenha, confirmarSenha })
             });
 
             if (!response.ok) {
@@ -82,7 +86,6 @@ document.getElementById("salvar").addEventListener("click", async () => {
                 return;
             }
 
-            // Limpa os campos após sucesso
             document.getElementById("senha-atual").value     = "";
             document.getElementById("nova-senha").value      = "";
             document.getElementById("confirmar-senha").value = "";
@@ -93,20 +96,13 @@ document.getElementById("salvar").addEventListener("click", async () => {
         }
     }
 
-    // Salva preferência 2FA no localStorage
     if (toggle2FA) localStorage.setItem("2fa", toggle2FA.checked);
-
     alert("Configurações de segurança salvas!");
-
-    // Helper interno
-    function algumasSenhaPreenchida() {
-        return senhaAtual || novaSenha || confirmarSenha;
-    }
 });
 
-// ─── Modal de exclusão de conta ───────────────────────────────────────────────
-const modal      = document.getElementById("modal");
-const openModal  = document.getElementById("openModal");
+// ─── Modal de exclusão ────────────────────────────────────────────────────────
+const modal     = document.getElementById("modal");
+const openModal = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 
 openModal.addEventListener("click", () => {
@@ -117,4 +113,10 @@ openModal.addEventListener("click", () => {
 closeModal.addEventListener("click", () => {
     modal.close();
     document.body.classList.remove("modal-open");
+});
+
+// ─── Inicialização ────────────────────────────────────────────────────────────
+window.addEventListener("load", () => {
+    if (toggle2FA) toggle2FA.checked = localStorage.getItem("2fa") === "true";
+    carregarEmail();
 });

@@ -374,3 +374,25 @@ h2 {
             width: 30%;
         }
 }
+/* Label acima dos campos de nome */
+.label-campo {
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 6px;
+    margin-left: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Campo somente leitura (nome atual) */
+.input-readonly {
+    background: #f5f5f5;
+}
+
+.input-readonly input {
+    background: transparent;
+    color: #555;
+    font-style: italic;
+    cursor: default;
+}
