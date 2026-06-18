@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Entidade Pagamento — representa uma transação (PIX, cartão ou carteira digital).
- */
 @Entity
 @Table(name = "pagamentos")
 @Data
@@ -40,14 +37,8 @@ public class Pagamento {
 
     private String descricao;
 
-    /**
-     * ID externo da transação (gateway de pagamento, PIX txId, etc.)
-     */
     private String idTransacaoExterna;
 
-    /**
-     * Payload PIX "copia e cola" (apenas quando metodoPagamento == PIX).
-     */
     @Column(columnDefinition = "TEXT")
     private String pixPayload;
 

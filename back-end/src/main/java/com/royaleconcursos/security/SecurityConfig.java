@@ -60,7 +60,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Permite requisições do Live Server (5500) e localhost durante desenvolvimento
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();

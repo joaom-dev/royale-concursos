@@ -62,7 +62,6 @@ public class PerfilService {
         return urlPublica;
     }
 
-    // Exclui permanentemente a conta do usuário
     public void excluirConta(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));

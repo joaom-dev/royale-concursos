@@ -19,12 +19,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Serviço de pagamentos atualizado:
- *   - Valida dados de cartão via CartaoValidator (algoritmo de Luhn)
- *   - Gera payload PIX via PixService
- *   - Ativa planos via PlanoService após pagamento aprovado
- */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,21 +30,10 @@ public class PagamentoService {
     private final PixService pixService;
     private final PlanoService planoService;
 
-    /**
-     * Cria e processa um pagamento.
-     *
-     * Fluxo:
-     *   1. Valida os dados do cartão (se for cartão)
-     *   2. Cria o registro no banco com status PENDENTE
-     *   3. Processa pelo método de pagamento
-     *   4. Se aprovado e for pagamento de PLANO, ativa o plano
-     */
     @Transactional
     public PagamentoResponse criarPagamento(CriarPagamentoRequest request) {
         User usuarioAtual = getUsuarioAutenticado();
 
-        // 1. Valida cartão ANTES de criar qualquer registro no banco
-        // Lança IllegalArgumentException se algum dado for inválido
         cartaoValidator.validar(
             request.getNumeroCartao(),
             request.getValidadeCartao(),
@@ -58,7 +41,6 @@ public class PagamentoService {
             request.getMetodoPagamento()
         );
 
-        // 2. Cria o pagamento no banco
         Pagamento pagamento = Pagamento.builder()
                 .valor(request.getValor())
                 .metodoPagamento(request.getMetodoPagamento())
@@ -68,11 +50,9 @@ public class PagamentoService {
         pagamento = pagamentoRepository.save(pagamento);
         log.info("Pagamento criado: id={}, valor={}, método={}", pagamento.getId(), pagamento.getValor(), pagamento.getMetodoPagamento());
 
-        // 3. Processa e atualiza o status
         pagamento = processarPagamento(pagamento, request, usuarioAtual);
         pagamento = pagamentoRepository.save(pagamento);
 
-        // 4. Se aprovado e for pagamento de plano, ativa o plano
         if (pagamento.getStatus() == StatusPagamento.APROVADO && request.getTipoPlano() != null) {
             ativarPlanoAposCompra(usuarioAtual.getId(), request.getTipoPlano());
         }
@@ -80,13 +60,6 @@ public class PagamentoService {
         return toResponse(pagamento);
     }
 
-    /**
-     * Processa o pagamento de acordo com o método escolhido.
-     *
-     * Para PIX: gera o payload e armazena no campo pixPayload da resposta.
-     * Para cartão: o CartaoValidator já validou, aqui aprovamos (em prod: chamaria gateway).
-     * Para carteira digital: verifica se o ID foi informado.
-     */
     private Pagamento processarPagamento(Pagamento pagamento, CriarPagamentoRequest request, User usuario) {
         pagamento.setStatus(StatusPagamento.PROCESSANDO);
         String txId = "PAY" + pagamento.getId();
@@ -94,9 +67,8 @@ public class PagamentoService {
         if (pagamento.getMetodoPagamento() == MetodoPagamento.PIX) {
             log.info("Gerando payload PIX para pagamento id={}", pagamento.getId());
 
-            // Gera o payload PIX real (padrão BACEN)
             String payload = pixService.gerarPayload(
-                "sua-chave-pix@email.com", // substitua pela chave PIX da sua conta
+                "sua-chave-pix@email.com",
                 "Minha Loja",
                 "Sao Paulo",
                 pagamento.getValor(),
@@ -104,13 +76,11 @@ public class PagamentoService {
             );
 
             pagamento.setIdTransacaoExterna("PIX-" + txId);
-            pagamento.setPixPayload(payload);        // payload "copia e cola"
-            pagamento.setStatus(StatusPagamento.PENDENTE); // PIX fica PENDENTE até confirmação do BACEN
+            pagamento.setPixPayload(payload);       
+            pagamento.setStatus(StatusPagamento.PENDENTE); 
 
         } else if (pagamento.getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO
                 || pagamento.getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO) {
-            // Cartão já foi validado pelo CartaoValidator antes de chegar aqui
-            // Em produção: chame o SDK do gateway (Mercado Pago, Stripe, etc.)
             log.info("Processando cartão para pagamento id={}", pagamento.getId());
             pagamento.setIdTransacaoExterna("CARD-" + UUID.randomUUID());
             pagamento.setStatus(StatusPagamento.APROVADO);
@@ -127,9 +97,6 @@ public class PagamentoService {
         return pagamento;
     }
 
-    /**
-     * Ativa o plano correto após o pagamento ser aprovado.
-     */
     private void ativarPlanoAposCompra(String usuarioId, String tipoPlano) {
         switch (tipoPlano.toUpperCase()) {
             case "MENSAL"    -> planoService.ativarPlanoMensal(usuarioId);

@@ -29,7 +29,6 @@ public class RankingNotaService {
 
         String cpf = user.getCpf();
 
-        // 1. Bloqueia duplicata: mesmo CPF no mesmo concurso
         boolean jaExisteNesseConcurso = repository
             .findByConcursoIdAndCpf(dto.getConcursoId(), cpf)
             .isPresent();
@@ -38,7 +37,6 @@ public class RankingNotaService {
             throw new IllegalArgumentException("Você já cadastrou uma nota neste concurso.");
         }
 
-        // 2. Plano FREE: só pode ter nota em 1 concurso no total
         boolean isFree = user.getPlano() == null || user.getPlano() == Plano.FREE;
         if (isFree) {
             long totalConcursos = repository.countByCpf(cpf);
@@ -49,7 +47,6 @@ public class RankingNotaService {
             }
         }
 
-        // 3. Salva
         RankingNota entidade = new RankingNota();
         entidade.setConcursoId(dto.getConcursoId());
         entidade.setNome(user.getName());
@@ -77,7 +74,6 @@ public class RankingNotaService {
             .collect(Collectors.toList());
     }
 
-    // Máscara: 123.456.789-00 → ***.456.789-**
     private String mascararCpf(String cpf) {
         if (cpf == null || cpf.length() < 11) return "***.***.***-**";
         String limpo = cpf.replaceAll("[^0-9]", "");
