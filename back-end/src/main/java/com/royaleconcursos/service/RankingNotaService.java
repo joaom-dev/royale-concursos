@@ -27,25 +27,34 @@ public class RankingNotaService {
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        // Plano FREE: só 1 participação no total, identificado pelo CPF do User
+        String cpf = user.getCpf();
+
+        // 1. Bloqueia duplicata: mesmo CPF no mesmo concurso
+        boolean jaExisteNesseConcurso = repository
+            .findByConcursoIdAndCpf(dto.getConcursoId(), cpf)
+            .isPresent();
+
+        if (jaExisteNesseConcurso) {
+            throw new IllegalArgumentException("Você já cadastrou uma nota neste concurso.");
+        }
+
+        // 2. Plano FREE: só pode ter nota em 1 concurso no total
         boolean isFree = user.getPlano() == null || user.getPlano() == Plano.FREE;
         if (isFree) {
-            long totalUsos = repository.countParticipacoesByCpf(user.getCpf());
-            if (totalUsos >= 1) {
+            long totalConcursos = repository.countByCpf(cpf);
+            if (totalConcursos >= 1) {
                 throw new IllegalStateException(
                     "Seu plano FREE permite apenas 1 participação no ranking. Assine para participar ilimitadamente!"
                 );
             }
         }
 
-        // Bloqueia mesmo usuário no mesmo concurso
-        if (repository.existsByConcursoIdAndNomeIgnoreCase(dto.getConcursoId(), user.getName())) {
-            throw new IllegalArgumentException("Você já cadastrou uma nota neste concurso.");
-        }
-
+        // 3. Salva
         RankingNota entidade = new RankingNota();
         entidade.setConcursoId(dto.getConcursoId());
         entidade.setNome(user.getName());
+        entidade.setCpf(cpf);
+        entidade.setUserId(user.getId());
         entidade.setNota(dto.getNota());
         entidade.setFotoUrl(dto.getFotoUrl());
 
@@ -60,11 +69,29 @@ public class RankingNotaService {
             .collect(Collectors.toList());
     }
 
+    public List<RankingNotaDTO> pesquisar(Long concursoId, String nome) {
+        return repository
+            .findByConcursoIdAndNomeContainingIgnoreCaseOrderByNotaDesc(concursoId, nome)
+            .stream()
+            .map(this::toDTO)
+            .collect(Collectors.toList());
+    }
+
+    // Máscara: 123.456.789-00 → ***.456.789-**
+    private String mascararCpf(String cpf) {
+        if (cpf == null || cpf.length() < 11) return "***.***.***-**";
+        String limpo = cpf.replaceAll("[^0-9]", "");
+        if (limpo.length() < 9) return "***.***.***-**";
+        return "***." + limpo.substring(3, 6) + "." + limpo.substring(6, 9) + "-**";
+    }
+
     private RankingNotaDTO toDTO(RankingNota r) {
         return new RankingNotaDTO(
             r.getId(),
             r.getConcursoId(),
             r.getNome(),
+            mascararCpf(r.getCpf()),
+            r.getUserId(),
             r.getNota(),
             r.getFotoUrl(),
             r.getCriadoEm()
