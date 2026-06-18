@@ -1,9 +1,8 @@
-// ─── Utilitário ───────────────────────────────────────────────────────────────
+const API_URL = "http://localhost:8080";
+
 function getToken() {
     return localStorage.getItem("token");
 }
-
-const API_URL = "http://localhost:8080";
 
 // ─── Foto no menu lateral ─────────────────────────────────────────────────────
 const fotoMenuLateral = document.getElementById("fotoMenuLateral");
@@ -12,38 +11,45 @@ if (fotoMenuLateral) {
     if (fotoSalva) fotoMenuLateral.src = fotoSalva;
 }
 
-// ─── Elementos de email ───────────────────────────────────────────────────────
-const emailAtual = document.getElementById("email-atual");
-
-// ─── Toggle 2FA ───────────────────────────────────────────────────────────────
-const toggle2FA = document.getElementById("toggle-2fa");
-
-// ─── Carregar email do perfil via API ─────────────────────────────────────────
+// ─── Carregar email do perfil ─────────────────────────────────────────────────
 async function carregarEmail() {
     const token = getToken();
     if (!token) {
         window.location.href = "/front-end/pages/tela de login/index.html";
         return;
     }
-
     try {
-        const response = await fetch(`${API_URL}/perfil`, {
+        const res = await fetch(`${API_URL}/perfil`, {
             headers: { "Authorization": "Bearer " + token }
         });
-
-        if (!response.ok) throw new Error("Erro ao buscar perfil");
-
-        const perfil = await response.json();
+        if (!res.ok) throw new Error();
+        const perfil = await res.json();
         if (emailAtual) emailAtual.value = perfil.email || "";
-
-    } catch (err) {
-        console.error("Erro ao carregar email:", err);
+    } catch {
+        console.error("Erro ao carregar email");
     }
 }
 
+// ─── Elementos ────────────────────────────────────────────────────────────────
+const emailAtual        = document.getElementById("email-atual");
+const toggle2FA         = document.getElementById("toggle-2fa");
+const btnAbrirEmail     = document.getElementById("btnAbrirEmail");
+const secaoAlterarEmail = document.getElementById("secaoAlterarEmail");
+
+// ─── Toggle seção alterar email ───────────────────────────────────────────────
+btnAbrirEmail.addEventListener("click", () => {
+    const aberto = secaoAlterarEmail.classList.toggle("aberto");
+    btnAbrirEmail.innerHTML = aberto
+        ? '<i class="fa-solid fa-xmark"></i> Cancelar'
+        : '<i class="fa-solid fa-pen"></i> Alterar email';
+    if (!aberto) {
+        document.getElementById("novo-email").value = "";
+        document.getElementById("confirmar-email").value = "";
+    }
+});
+
 // ─── Mostrar/ocultar senhas ───────────────────────────────────────────────────
-const eyeIcons = document.querySelectorAll(".eye-icon");
-eyeIcons.forEach(icon => {
+document.querySelectorAll(".eye-icon").forEach(icon => {
     icon.addEventListener("click", () => {
         const input = icon.previousElementSibling;
         input.type = input.type === "password" ? "text" : "password";
@@ -51,7 +57,7 @@ eyeIcons.forEach(icon => {
     });
 });
 
-// ─── Salvar ───────────────────────────────────────────────────────────────────
+// ─── Salvar alterações ────────────────────────────────────────────────────────
 document.getElementById("salvar").addEventListener("click", async () => {
     const token = getToken();
     if (!token) {
@@ -59,19 +65,58 @@ document.getElementById("salvar").addEventListener("click", async () => {
         return;
     }
 
+    let sucesso = true;
+
+    // — Alterar email —
+    const novoEmail      = document.getElementById("novo-email").value.trim();
+    const confirmarEmail = document.getElementById("confirmar-email").value.trim();
+
+    if (novoEmail || confirmarEmail) {
+        if (!novoEmail) { alert("Informe o novo email."); return; }
+        if (novoEmail !== confirmarEmail) { alert("Os emails não coincidem."); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) { alert("Email inválido."); return; }
+
+        try {
+            const res = await fetch(`${API_URL}/perfil`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ email: novoEmail })
+            });
+
+            if (!res.ok) {
+                const msg = await res.text();
+                alert("Erro ao alterar email: " + (msg || "Tente novamente."));
+                sucesso = false;
+            } else {
+                // Atualiza o campo de exibição e fecha a seção
+                emailAtual.value = novoEmail;
+                secaoAlterarEmail.classList.remove("aberto");
+                btnAbrirEmail.innerHTML = '<i class="fa-solid fa-pen"></i> Alterar email';
+                document.getElementById("novo-email").value = "";
+                document.getElementById("confirmar-email").value = "";
+            }
+        } catch {
+            alert("Erro de conexão ao alterar email.");
+            sucesso = false;
+        }
+    }
+
+    // — Alterar senha —
     const senhaAtual     = document.getElementById("senha-atual").value;
     const novaSenha      = document.getElementById("nova-senha").value;
     const confirmarSenha = document.getElementById("confirmar-senha").value;
 
-    // Só chama o backend se algum campo de senha foi preenchido
     if (senhaAtual || novaSenha || confirmarSenha) {
-        if (!senhaAtual) { alert("Informe a senha atual."); return; }
-        if (!novaSenha)  { alert("Informe a nova senha."); return; }
+        if (!senhaAtual)  { alert("Informe a senha atual."); return; }
+        if (!novaSenha)   { alert("Informe a nova senha."); return; }
         if (novaSenha !== confirmarSenha) { alert("A nova senha e a confirmação não coincidem."); return; }
         if (novaSenha.length < 6) { alert("A nova senha deve ter pelo menos 6 caracteres."); return; }
 
         try {
-            const response = await fetch(`${API_URL}/perfil/senha`, {
+            const res = await fetch(`${API_URL}/perfil/senha`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -80,29 +125,28 @@ document.getElementById("salvar").addEventListener("click", async () => {
                 body: JSON.stringify({ senhaAtual, novaSenha, confirmarSenha })
             });
 
-            if (!response.ok) {
-                const msg = await response.text();
-                alert("Erro: " + (msg || "Não foi possível alterar a senha."));
-                return;
+            if (!res.ok) {
+                const msg = await res.text();
+                alert("Erro ao alterar senha: " + (msg || "Tente novamente."));
+                sucesso = false;
+            } else {
+                document.getElementById("senha-atual").value     = "";
+                document.getElementById("nova-senha").value      = "";
+                document.getElementById("confirmar-senha").value = "";
             }
-
-            document.getElementById("senha-atual").value     = "";
-            document.getElementById("nova-senha").value      = "";
-            document.getElementById("confirmar-senha").value = "";
-
-        } catch (err) {
-            alert("Erro de conexão ao tentar alterar a senha.");
-            return;
+        } catch {
+            alert("Erro de conexão ao alterar a senha.");
+            sucesso = false;
         }
     }
 
     if (toggle2FA) localStorage.setItem("2fa", toggle2FA.checked);
-    alert("Configurações de segurança salvas!");
+    if (sucesso) alert("Configurações salvas com sucesso!");
 });
 
-// ─── Modal de exclusão ────────────────────────────────────────────────────────
-const modal     = document.getElementById("modal");
-const openModal = document.getElementById("openModal");
+// ─── Modal excluir conta ──────────────────────────────────────────────────────
+const modal      = document.getElementById("modal");
+const openModal  = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 
 openModal.addEventListener("click", () => {
@@ -113,6 +157,36 @@ openModal.addEventListener("click", () => {
 closeModal.addEventListener("click", () => {
     modal.close();
     document.body.classList.remove("modal-open");
+});
+
+document.getElementById("sim").addEventListener("click", async () => {
+    const token = getToken();
+    if (!token) return;
+
+    const btnSim = document.getElementById("sim");
+    btnSim.disabled = true;
+    btnSim.textContent = "Excluindo...";
+
+    try {
+        const res = await fetch(`${API_URL}/perfil`, {
+            method: "DELETE",
+            headers: { "Authorization": "Bearer " + token }
+        });
+
+        if (!res.ok) throw new Error();
+
+        // Limpa dados locais e redireciona para login
+        localStorage.clear();
+        sessionStorage.clear();
+        modal.close();
+        alert("Conta excluída com sucesso.");
+        window.location.href = "/front-end/pages/tela de login/index.html";
+
+    } catch {
+        alert("Erro ao excluir conta. Tente novamente.");
+        btnSim.disabled = false;
+        btnSim.textContent = "Sim, excluir";
+    }
 });
 
 // ─── Inicialização ────────────────────────────────────────────────────────────

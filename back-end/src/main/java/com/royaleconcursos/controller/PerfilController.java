@@ -5,7 +5,6 @@ import com.royaleconcursos.dto.AtualizarPerfilDTO;
 import com.royaleconcursos.service.PerfilService;
 import com.royaleconcursos.dto.AlterarSenhaDTO;
 import com.royaleconcursos.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class PerfilController {
 
     private final PerfilService perfilService;
-
     private final UserService userService;
 
     PerfilController(UserService userService, PerfilService perfilService) {
@@ -24,14 +22,11 @@ public class PerfilController {
         this.perfilService = perfilService;
     }
 
-    // Busca os dados do perfil do usuário autenticado
     @GetMapping
     public ResponseEntity<PerfilDTO> getPerfil(Authentication auth) {
-        String email = auth.getName();
-        return ResponseEntity.ok(perfilService.buscarPerfil(email));
+        return ResponseEntity.ok(perfilService.buscarPerfil(auth.getName()));
     }
 
-    // Upload de foto de perfil
     @PostMapping("/foto")
     public ResponseEntity<String> uploadFoto(
             @RequestParam("foto") MultipartFile arquivo,
@@ -40,7 +35,6 @@ public class PerfilController {
         return ResponseEntity.ok(url);
     }
 
-    // Atualiza nome e/ou email do usuário
     @PutMapping
     public ResponseEntity<String> atualizarPerfil(
             @RequestBody AtualizarPerfilDTO dto,
@@ -53,7 +47,6 @@ public class PerfilController {
         }
     }
 
-    // Altera a senha do usuário
     @PutMapping("/senha")
     public ResponseEntity<String> alterarSenha(
             @RequestBody AlterarSenhaDTO dto,
@@ -61,6 +54,17 @@ public class PerfilController {
         try {
             userService.alterarSenha(auth.getName(), dto);
             return ResponseEntity.ok("Senha alterada com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Exclui a conta do usuário autenticado permanentemente
+    @DeleteMapping
+    public ResponseEntity<String> excluirConta(Authentication auth) {
+        try {
+            perfilService.excluirConta(auth.getName());
+            return ResponseEntity.ok("Conta excluída com sucesso");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

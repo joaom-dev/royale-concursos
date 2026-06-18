@@ -428,3 +428,37 @@ body.modal-open {
     font-style: italic;
     cursor: default;
 }
+/* ─── BOTÃO EXPANDIR EMAIL ────────────────────────────────────────────────── */
+.btn-expandir {
+    background: none;
+    border: 1px solid #293ab4;
+    color: #293ab4;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    margin-top: 4px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-expandir:hover {
+    background: #293ab4;
+    color: white;
+}
+
+/* ─── SEÇÃO EXPANSÍVEL ────────────────────────────────────────────────────── */
+.secao-expansivel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.secao-expansivel.aberto {
+    max-height: 300px;
+    opacity: 1;
+}
