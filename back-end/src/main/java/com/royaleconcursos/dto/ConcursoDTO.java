@@ -2,9 +2,6 @@ package com.royaleconcursos.dto;
 
 import java.time.LocalDateTime;
 
-// DTO usado para retornar os dados de concurso ao front-end.
-// Evita expor a entidade JPA diretamente.
-
 public class ConcursoDTO {
 
     private Long id;
@@ -27,10 +24,8 @@ public class ConcursoDTO {
     private String observacao;
     private LocalDateTime atualizadoEm;
 
-    // Construtor vazio
     public ConcursoDTO() {}
 
-    // Construtor completo
     public ConcursoDTO(Long id, String orgao, String situacao, String uf,
                        String estado, String tipo, String vagas, String link,
                        String editalUrl, String periodoInscricao, String nivel,
@@ -57,8 +52,6 @@ public class ConcursoDTO {
         this.observacao       = observacao;
         this.atualizadoEm     = atualizadoEm;
     }
-
-    // ─── Getters e Setters ────────────────────────────────────────────────────
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -113,7 +106,7 @@ public class ConcursoDTO {
 
     public String getObservacao() { return observacao; }
     public void setObservacao(String observacao) { this.observacao = observacao; }
-
+    
     public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
     public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
 }

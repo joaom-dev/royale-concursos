@@ -7,25 +7,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Validador de dados de cartão de crédito/débito.
- *
- * Realiza três validações:
- *   1. Algoritmo de Luhn — verifica se o número do cartão é matematicamente válido
- *   2. Validade — verifica se o cartão não está expirado
- *   3. CVV — verifica o formato do código de segurança
- *
- * IMPORTANTE: Estas validações checam o FORMATO dos dados, não se o cartão
- * realmente existe ou tem saldo. Essa segunda verificação é feita pelo
- * gateway de pagamento (Mercado Pago, Stripe, etc.).
- */
 @Component
 public class CartaoValidator {
 
-    /**
-     * Valida todos os dados do cartão de uma vez.
-     * Lança IllegalArgumentException com mensagem clara se algum dado for inválido.
-     */
     public void validar(String numeroCartao, String validade, String cvv, MetodoPagamento metodo) {
         if (metodo != MetodoPagamento.CARTAO_CREDITO && metodo != MetodoPagamento.CARTAO_DEBITO) {
             return; // Não é cartão, não precisa validar
@@ -36,30 +20,13 @@ public class CartaoValidator {
         validarCvv(cvv);
     }
 
-    // ── Validação do número (Algoritmo de Luhn) ────────────────────────────
-
-    /**
-     * O Algoritmo de Luhn é um padrão internacional (ISO/IEC 7812) usado por
-     * todas as bandeiras (Visa, Mastercard, Elo, etc.) para validar números de cartão.
-     *
-     * Como funciona:
-     *   1. Remove espaços e hífens do número
-     *   2. A partir do penúltimo dígito, vai para a esquerda dobrando dígitos alternados
-     *   3. Se o dígito dobrado for > 9, subtrai 9
-     *   4. Soma todos os dígitos
-     *   5. Se a soma for divisível por 10, o número é válido
-     *
-     * Exemplo: 4532015112830366 (cartão Visa de teste)
-     */
     public void validarNumero(String numeroCartao) {
         if (numeroCartao == null || numeroCartao.isBlank()) {
             throw new IllegalArgumentException("Número do cartão é obrigatório");
         }
 
-        // Remove espaços e hífens (ex: "4532 0151 1283 0366" → "4532015112830366")
         String numero = numeroCartao.replaceAll("[\\s-]", "");
 
-        // Cartões têm entre 13 e 19 dígitos
         if (!numero.matches("\\d{13,19}")) {
             throw new IllegalArgumentException("Número do cartão inválido: deve conter entre 13 e 19 dígitos numéricos");
         }
@@ -69,39 +36,30 @@ public class CartaoValidator {
         }
     }
 
-    /**
-     * Implementação do Algoritmo de Luhn.
-     * Retorna true se o número for válido, false caso contrário.
-     */
     private boolean luhn(String numero) {
         int soma = 0;
         boolean dobrar = false;
 
-        // Percorre o número da DIREITA para a ESQUERDA
         for (int i = numero.length() - 1; i >= 0; i--) {
             int digito = Character.getNumericValue(numero.charAt(i));
 
             if (dobrar) {
                 digito *= 2;
                 if (digito > 9) {
-                    digito -= 9; // Equivale a somar os dois dígitos do resultado
+                    digito -= 9; 
                 }
             }
 
             soma += digito;
-            dobrar = !dobrar; // Alterna a cada dígito
+            dobrar = !dobrar;
         }
 
         return soma % 10 == 0;
     }
 
-    // ── Validação da validade ──────────────────────────────────────────────
 
     /**
-     * Valida a data de validade no formato MM/AA.
-     * O cartão não pode estar vencido.
-     *
-     * @param validade string no formato "MM/AA" (ex: "12/27")
+     * @param validade
      */
     public void validarValidade(String validade) {
         if (validade == null || validade.isBlank()) {
@@ -113,7 +71,6 @@ public class CartaoValidator {
         }
 
         try {
-            // Converte "12/27" para YearMonth para comparação
             YearMonth expiracao = YearMonth.parse(validade, DateTimeFormatter.ofPattern("MM/yy"));
             YearMonth hoje = YearMonth.now();
 
@@ -125,15 +82,6 @@ public class CartaoValidator {
         }
     }
 
-    // ── Validação do CVV ───────────────────────────────────────────────────
-
-    /**
-     * Valida o CVV (Card Verification Value).
-     *
-     * A maioria das bandeiras usa 3 dígitos (Visa, Mastercard, Elo).
-     * American Express usa 4 dígitos.
-     * Por isso aceitamos 3 ou 4 dígitos.
-     */
     public void validarCvv(String cvv) {
         if (cvv == null || cvv.isBlank()) {
             throw new IllegalArgumentException("CVV é obrigatório");
@@ -144,14 +92,6 @@ public class CartaoValidator {
         }
     }
 
-    // ── Identificação de bandeira (bônus) ─────────────────────────────────
-
-    /**
-     * Identifica a bandeira do cartão pelo prefixo do número.
-     * Útil para exibir o ícone correto no front-end.
-     *
-     * Não é exaustivo — cobre as principais bandeiras do Brasil.
-     */
     public String identificarBandeira(String numeroCartao) {
         String numero = numeroCartao.replaceAll("[\\s-]", "");
 

@@ -21,13 +21,11 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncioService.listarAtivos());
     }
 
-    // adimin crir anuncios
     @PostMapping("/admin/anuncios")
     public ResponseEntity<Anuncio> criar (@RequestBody AnuncioDTO dto) {
         return ResponseEntity.ok(anuncioService.criar(dto));
     }
 
-    // ativar/desativar
     @PatchMapping("/admin/anuncios/{id}/toggle")
     public ResponseEntity<Void> toggle (@PathVariable Long id) {
         anuncioService.toggleAtivo(id);

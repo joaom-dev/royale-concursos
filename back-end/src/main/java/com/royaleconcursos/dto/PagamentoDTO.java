@@ -9,18 +9,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * DTOs relacionados ao módulo de pagamentos.
- *
- * Classes:
- *   - CriarPagamentoRequest: dados enviados pelo front-end para criar um pagamento
- *   - PagamentoResponse: dados retornados ao front-end após criar/consultar pagamento
- */
 public class PagamentoDTO {
 
-    /**
-     * Requisição para criação de pagamento.
-     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -32,25 +22,16 @@ public class PagamentoDTO {
 
         private String descricao;
 
-        /**
-         * Tipo de plano sendo comprado: "MENSAL" ou "VITALICIO".
-         * Pode ser null se o pagamento não estiver relacionado a um plano.
-         */
         private String tipoPlano;
 
-        // ── Campos de cartão (obrigatórios apenas se metodoPagamento for cartão) ──
         private String numeroCartao;
-        private String validadeCartao; // formato MM/AA
+        private String validadeCartao; 
         private String cvv;
         private String nomeTitular;
 
-        // ── Campo de carteira digital ──
         private String idCarteiraDigital;
     }
 
-    /**
-     * Resposta com os dados do pagamento.
-     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

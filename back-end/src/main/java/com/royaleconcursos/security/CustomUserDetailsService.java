@@ -1,5 +1,3 @@
-//classe para consultar os usuarios
-
 package com.royaleconcursos.security;
 
 import com.royaleconcursos.model.User;

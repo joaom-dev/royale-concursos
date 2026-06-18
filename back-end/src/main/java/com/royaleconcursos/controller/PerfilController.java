@@ -58,8 +58,7 @@ public class PerfilController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    // Exclui a conta do usuário autenticado permanentemente
+    
     @DeleteMapping
     public ResponseEntity<String> excluirConta(Authentication auth) {
         try {

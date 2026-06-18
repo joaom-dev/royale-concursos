@@ -23,15 +23,13 @@ public class Token {
     
     public String gerarToken(User user){
 
-        //tratamento de exceçao
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret); //tipo de criptografia do token e senha de acesso
+            Algorithm algorithm = Algorithm.HMAC256(secret); 
 
-            //criaçao do token
             String token = JWT.create()
-                        .withIssuer("royale-concursos") //quem ta emitindo esse token
-                        .withSubject(user.getEmail()) //quem ta ganhando o token
-                        .withExpiresAt(expirationToken()) //expiraçao do token
+                        .withIssuer("royale-concursos") 
+                        .withSubject(user.getEmail()) 
+                        .withExpiresAt(expirationToken())
                         .sign(algorithm);
 
                     return token;
@@ -40,7 +38,7 @@ public class Token {
             throw new RuntimeException("Erro ao se autenticar");
         }        
     }
-    //validaçao do token
+
     public String validateToken(String token){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -55,7 +53,6 @@ public class Token {
         }
     }
 
-    //tempo de expiraçao do token
     private Instant expirationToken(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
