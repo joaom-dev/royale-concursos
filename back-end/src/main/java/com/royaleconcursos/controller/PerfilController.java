@@ -15,11 +15,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/perfil")
 public class PerfilController {
 
-    @Autowired
-    private PerfilService perfilService;
+    private final PerfilService perfilService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    PerfilController(UserService userService, PerfilService perfilService) {
+        this.userService = userService;
+        this.perfilService = perfilService;
+    }
 
     // Busca os dados do perfil do usuário autenticado
     @GetMapping

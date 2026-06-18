@@ -7,20 +7,15 @@
     <title>Configuracoes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Konkhmer+Sleokchher&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Konkhmer+Sleokchher&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="configperfil.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
     <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
 </head>
@@ -29,7 +24,6 @@
 
     <div class="menu-lateral">
         <div class="menu-topo">
-            <!-- Foto do usuário no header/menu lateral — atualizada pelo JS -->
             <img id="fotoMenuLateral" src="/front-end/assets/images/foto-padrao.webp" alt="Foto de perfil">
         </div>
 
@@ -53,7 +47,7 @@
         </div>
 
         <div class="menu-inferior">
-            <a href="../configuraçoes/perfil/configperfil.html">
+            <a href="../configuracoes/perfil/configperfil.html">
                 <i class="fa-solid fa-gear"></i>
                 <span class="tooltip-texto">Configurações</span>
             </a>
@@ -71,29 +65,24 @@
 
                 <div class="foto-area">
                     <img id="fotoPerfil" src="/front-end/assets/images/foto-padrao.webp" alt="Foto de perfil">
-                    <!-- Label estilizado que abre o input de arquivo -->
                     <label for="inputFoto" class="btn-foto">
                         <i class="fa-solid fa-camera"></i> Alterar foto
                     </label>
                     <input type="file" accept="image/*" id="inputFoto" style="display:none;">
                 </div>
 
-                <!-- Nome do usuário pré-preenchido pelo JS -->
-                <div class="input-group">
+                <!-- Nome atual do usuário (somente leitura) -->
+                <p class="label-campo">Nome atual</p>
+                <div class="input-group input-readonly">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" id="full-name" placeholder="Digite seu nome completo..." required>
+                    <input type="text" id="nome-atual" disabled placeholder="Carregando...">
                 </div>
 
-                <!-- E-mail do usuário pré-preenchido pelo JS -->
+                <!-- Campo para digitar o novo nome -->
+                <p class="label-campo">Novo nome</p>
                 <div class="input-group">
-                    <i class="fa-solid fa-at"></i>
-                    <input type="email" id="email-usuario" placeholder="Digite seu e-mail..." required>
-                </div>
-
-                <!-- Nickname / username (somente local por enquanto) -->
-                <div class="input-group">
-                    <i class="fa-solid fa-id-badge"></i>
-                    <input type="text" id="nickname" placeholder="Digite seu nome de usuário...">
+                    <i class="fa-solid fa-pen"></i>
+                    <input type="text" id="full-name" placeholder="Digite o novo nome...">
                 </div>
             </div>
 
