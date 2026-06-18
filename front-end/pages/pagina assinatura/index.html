@@ -1,69 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assinatura</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="shortcut icon" href="/front-end/assets/images/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-<link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
+    <link rel="stylesheet" href="/front-end/shared/css/temaEscuro.css">
+    <!-- QR Code lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
-
 <body>
     <div class="menu-lateral">
         <div class="menu-topo">
             <img id="fotoHeader" src="/front-end/assets/images/lebron bb.jpg" alt="Foto de perfil">
         </div>
-
         <div class="menu-itens">
-            <a href="../telaInicial/index.html">
-                <p>Inicial</p>
-                <!-- <i class="fa-solid fa-house ativo"></i> -->
-                <!-- <span class="tooltip-texto">Página inicial</span> -->
-            </a>
-            <a href="../pagina sobre/index.html">
-                <p>Sobre</p>
-                <!-- <i class="fa-regular fa-compass"></i> -->
-                <!-- <span class="tooltip-texto">Sobre</span> -->
-            </a>
-            <a href="/front-end/pages/tela de concursos/index.html">
-                <p>Concursos</p>
-                <!-- <i class="fa-solid fa-bookmark"></i> -->
-                <!-- <span class="tooltip-texto">Salvos</span> -->
-            </a>
-            <a href="/front-end/pages/pagina Ranking/Index.html">
-                <p>Ranking</p>
-                <!-- <i class="fa-solid fa-trophy"></i> -->
-                <!-- <span class="tooltip-texto">Ranking</span> -->
-            </a>
-            <a href="/front-end/pages/paginaMeusConcursos/PgMc.html">
-                <p>Salvos</p>
-                <!-- <i class="fa-solid fa-bookmark"></i> -->
-                <!-- <span class="tooltip-texto">Salvos</span> -->
-            </a>
-            <a href="/front-end/pages/pagina assinatura/index.html">
-                <p>Assinatura</p>
-                <!-- <i class="fa-solid fa-credit-card"></i> -->
-                <!-- <span class="tooltip-texto">Assinaturas</span> -->
-            </a>
+            <a href="../telaInicial/index.html"><p>Inicial</p></a>
+            <a href="../pagina sobre/index.html"><p>Sobre</p></a>
+            <a href="/front-end/pages/tela de concursos/index.html"><p>Concursos</p></a>
+            <a href="/front-end/pages/pagina Ranking/Index.html"><p>Ranking</p></a>
+            <a href="/front-end/pages/paginaMeusConcursos/PgMc.html"><p>Salvos</p></a>
+            <a href="/front-end/pages/pagina assinatura/index.html"><p>Assinatura</p></a>
         </div>
-
         <div class="menu-inferior">
             <a href="../configuracoes/perfil/configperfil.html">
                 <i class="fa-solid fa-gear"></i>
@@ -76,16 +39,22 @@
         <p id="nome">Assinaturas</p>
     </header>
 
+    <!-- Badge do plano atual -->
+    <div class="plano-atual-wrapper">
+        <span id="badge-plano-atual" class="badge-plano-atual" style="display:none;"></span>
+        <span id="plano-expiracao" class="plano-expiracao" style="display:none;"></span>
+    </div>
 
     <div class="centralizar">
         <div class="plans-wrapper">
 
+            <!-- PLANO MENSAL -->
             <div class="plan-card light">
                 <span class="plan-badge badge-light">Mensal</span>
                 <h2 class="plan-name">Plano mensal</h2>
                 <p class="plan-desc">Ideal para quem quer experimentar a plataforma sem compromisso de longo prazo.</p>
                 <div class="plan-price-block">
-                    <p class="plan-price">R$17,90</p>
+                    <p class="plan-price preco-mensal">--</p>
                     <p class="plan-price-sub">/mês · cancele quando quiser</p>
                 </div>
                 <div class="plan-divider"></div>
@@ -98,13 +67,13 @@
                 <button class="plan-btn btn-light" id="openModal">Adquirir plano</button>
             </div>
 
+            <!-- PLANO VITALÍCIO -->
             <div class="plan-card dark">
                 <span class="plan-badge badge-dark">Mais completo</span>
                 <h2 class="plan-name">Plano vitalício</h2>
-                <p class="plan-desc">Acesso completo para sempre com um único pagamento. A melhor relação
-                    custo-benefício.</p>
+                <p class="plan-desc">Acesso completo para sempre com um único pagamento. A melhor relação custo-benefício.</p>
                 <div class="plan-price-block">
-                    <p class="plan-price">R$64,90</p>
+                    <p class="plan-price preco-vita">--</p>
                     <p class="plan-price-sub">único pagamento · acesso vitalício</p>
                 </div>
                 <div class="plan-divider dark-divider"></div>
@@ -115,12 +84,13 @@
                     </li>
                     <li>
                         <span class="feat-icon feat-yes"><i class="fa-solid fa-check"></i></span>
-                        Ranking
+                        Ranking ilimitado
                     </li>
                 </ul>
                 <button class="plan-btn btn-dark" id="openModal2">Adquirir plano</button>
             </div>
 
+            <!-- ── MODAL MENSAL ─────────────────────────────────────── -->
             <dialog id="modal-mensal">
                 <div class="header-mensal">
                     <p>MENSAL</p>
@@ -128,120 +98,115 @@
                         <button id="closeModalMensal"><i class="fa-solid fa-x"></i></button>
                     </div>
                 </div>
-
                 <div class="linha1"></div>
 
                 <div class="centralizar2">
                     <div class="pagamento-header">
                         <h1>Pagamento</h1>
                         <p>Escolha como prefere pagar!</p>
-
                         <div class="box-preco">
                             <p>Total a pagar!</p>
-                            <span>R$17,90</span>
+                            <span class="preco-mensal">--</span>
                         </div>
-
                         <div class="box-metodos-mensal">
-                            <div class="metodo-mensal ativo" data-metodo="pix"
-                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
-                                <i class="fa-brands fa-pix"></i>
-                                <p>PIX</p>
+                            <div class="metodo-mensal ativo" data-metodo="pix" onclick="selecionarMetodo(this,'.box-metodos-mensal','mensal')">
+                                <i class="fa-brands fa-pix"></i><p>PIX</p>
                             </div>
-                            <div class="metodo-mensal" data-metodo="credito"
-                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
-                                <i class="fa-solid fa-credit-card"></i>
-                                <p>CRÉDITO</p>
+                            <div class="metodo-mensal" data-metodo="credito" onclick="selecionarMetodo(this,'.box-metodos-mensal','mensal')">
+                                <i class="fa-solid fa-credit-card"></i><p>CRÉDITO</p>
                             </div>
-                            <div class="metodo-mensal" data-metodo="debito"
-                                onclick="selecionarMetodo(this, '.box-metodos-mensal', 'mensal')">
-                                <i class="fa-solid fa-credit-card"></i>
-                                <p>DÉBITO</p>
+                            <div class="metodo-mensal" data-metodo="debito" onclick="selecionarMetodo(this,'.box-metodos-mensal','mensal')">
+                                <i class="fa-solid fa-credit-card"></i><p>DÉBITO</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pagamento-pix" id="mensal-pix">
+                    <!-- Mensagem de feedback -->
+                    <p id="msg-mensal" style="display:none;text-align:center;padding:0 60px;font-size:14px;font-weight:600;"></p>
+
+                    <!-- PIX -->
+                    <div id="mensal-pix">
                         <div class="card-box pix-box">
                             <div class="alerta">
                                 <i class="fa-brands fa-pix"></i>
                                 <p>Escaneie o QR Code abaixo ou copie a chave PIX para pagar.</p>
                             </div>
                             <div class="qrcode-wrapper">
-                                <div class="qrcode-placeholder">
+                                <div id="qr-mensal" class="qrcode-placeholder">
                                     <i class="fa-brands fa-pix"></i>
                                 </div>
                                 <p class="qrcode-label">QR Code PIX</p>
                             </div>
+                            <!-- Payload completo oculto para copiar -->
+                            <span id="pix-payload-mensal" style="display:none;"></span>
                             <div class="pix-chave-box">
-                                <span class="pix-chave-texto">royaleconcursosJPL@gmail.com</span>
+                                <span class="pix-chave-texto">olivercmd250@gmail.com</span>
                                 <button class="btn-copiar" onclick="copiarChave(this)">
                                     <i class="fa-regular fa-copy"></i> Copiar
                                 </button>
                             </div>
-                            <button class="btn-pagar" style="margin-top:8px">
-                                <i class="fa-solid fa-check"></i>
-                                Já realizei o pagamento
+                            <button class="btn-copiar" id="btn-copiar-payload-mensal" style="width:100%;margin-top:4px;" onclick="copiarPayloadPix('mensal')">
+                                <i class="fa-regular fa-copy"></i> Copiar código PIX completo
+                            </button>
+                            <button class="btn-pagar" style="margin-top:8px;" onclick="confirmarPix('mensal')">
+                                <i class="fa-solid fa-check"></i> Já realizei o pagamento
                             </button>
                         </div>
                     </div>
 
-                    <div class="pagamento-credito" id="mensal-credito">
+                    <!-- CRÉDITO -->
+                    <div id="mensal-credito">
                         <div class="card-box">
                             <label>Número do cartão</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <input class="input-num-cartao" id="mensal-num-cartao" type="text" placeholder="0000 0000 0000 0000" maxlength="19">
                             <label>Nome impresso no cartão</label>
-                            <input type="text" placeholder="Como aparece no cartão">
+                            <input id="mensal-nome-cartao" type="text" placeholder="Como aparece no cartão">
                             <div class="linha-cartao">
                                 <div>
                                     <label>Validade</label>
-                                    <input type="text" placeholder="MM/AA">
+                                    <input class="input-validade" id="mensal-validade" type="text" placeholder="MM/AA" maxlength="5">
                                 </div>
                                 <div>
                                     <label>CVV</label>
-                                    <input type="text" placeholder="123">
+                                    <input id="mensal-cvv" type="text" placeholder="123" maxlength="4">
                                 </div>
                             </div>
-                            <label>CPF do titular (opcional, para nota fiscal)</label>
-                            <input type="text" placeholder="000.000.000-00">
-                            <button class="btn-pagar">
-                                <i class="fa-solid fa-lock"></i>
-                                Pagar R$ 17,90
+                            <button class="btn-pagar" id="btn-pagar-mensal" onclick="pagarCartao('mensal')">
+                                <i class="fa-solid fa-lock"></i> Pagar R$ 17,90
                             </button>
                         </div>
                     </div>
 
-                    <div class="pagamento-debito" id="mensal-debito">
+                    <!-- DÉBITO -->
+                    <div id="mensal-debito">
                         <div class="card-box">
                             <div class="alerta">
                                 <i class="fa-solid fa-circle-info"></i>
-                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app
-                                    do banco.</p>
+                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app do banco.</p>
                             </div>
                             <label>Número do cartão</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <input class="input-num-cartao" id="mensal-num-cartao-deb" type="text" placeholder="0000 0000 0000 0000" maxlength="19">
                             <label>Nome impresso no cartão</label>
-                            <input type="text" placeholder="Como aparece no cartão">
+                            <input id="mensal-nome-cartao-deb" type="text" placeholder="Como aparece no cartão">
                             <div class="linha-cartao">
                                 <div>
                                     <label>Validade</label>
-                                    <input type="text" placeholder="MM/AA">
+                                    <input class="input-validade" id="mensal-validade-deb" type="text" placeholder="MM/AA" maxlength="5">
                                 </div>
                                 <div>
                                     <label>CVV</label>
-                                    <input type="text" placeholder="123">
+                                    <input id="mensal-cvv-deb" type="text" placeholder="123" maxlength="4">
                                 </div>
                             </div>
-                            <label>CPF do titular (opcional, para nota fiscal)</label>
-                            <input type="text" placeholder="000.000.000-00">
-                            <button class="btn-pagar">
-                                <i class="fa-solid fa-lock"></i>
-                                Pagar R$ 17,90
+                            <button class="btn-pagar" id="btn-pagar-mensal-deb" onclick="pagarCartaoDebito('mensal')">
+                                <i class="fa-solid fa-lock"></i> Pagar R$ 17,90
                             </button>
                         </div>
                     </div>
                 </div>
             </dialog>
 
+            <!-- ── MODAL VITALÍCIO ──────────────────────────────────── -->
             <dialog id="modal-vita" class="modal-dark">
                 <div class="header-vita">
                     <p>VITALÍCIO</p>
@@ -249,123 +214,113 @@
                         <button id="closeModalVita"><i class="fa-solid fa-x"></i></button>
                     </div>
                 </div>
-
                 <div class="linha1"></div>
 
                 <div class="centralizar3">
                     <div class="pagamento-header">
                         <h1>Pagamento</h1>
                         <p>Escolha como prefere pagar!</p>
-
                         <div class="box-preco">
                             <p>Total a pagar!</p>
-                            <span>R$64,90</span>
+                            <span class="preco-vita">--</span>
                         </div>
-
                         <div class="box-metodos-vita">
-                            <div class="metodo-vita ativo" data-metodo="pix"
-                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
-                                <i class="fa-brands fa-pix"></i>
-                                <p>PIX</p>
+                            <div class="metodo-vita ativo" data-metodo="pix" onclick="selecionarMetodo(this,'.box-metodos-vita','vita')">
+                                <i class="fa-brands fa-pix"></i><p>PIX</p>
                             </div>
-                            <div class="metodo-vita" data-metodo="credito"
-                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
-                                <i class="fa-solid fa-credit-card"></i>
-                                <p>CRÉDITO</p>
+                            <div class="metodo-vita" data-metodo="credito" onclick="selecionarMetodo(this,'.box-metodos-vita','vita')">
+                                <i class="fa-solid fa-credit-card"></i><p>CRÉDITO</p>
                             </div>
-                            <div class="metodo-vita" data-metodo="debito"
-                                onclick="selecionarMetodo(this, '.box-metodos-vita', 'vita')">
-                                <i class="fa-solid fa-credit-card"></i>
-                                <p>DÉBITO</p>
+                            <div class="metodo-vita" data-metodo="debito" onclick="selecionarMetodo(this,'.box-metodos-vita','vita')">
+                                <i class="fa-solid fa-credit-card"></i><p>DÉBITO</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pagamento-pix" id="vita-pix">
+                    <p id="msg-vita" style="display:none;text-align:center;padding:0 60px;font-size:14px;font-weight:600;"></p>
+
+                    <!-- PIX -->
+                    <div id="vita-pix">
                         <div class="card-box pix-box">
-                            <div class="alerta" style="background:#1e3a2f; color:#4ade80;">
+                            <div class="alerta" style="background:#1e3a2f;color:#4ade80;">
                                 <i class="fa-brands fa-pix"></i>
                                 <p>Escaneie o QR Code abaixo ou copie a chave PIX para pagar.</p>
                             </div>
                             <div class="qrcode-wrapper">
-                                <div class="qrcode-placeholder" style="border-color:#333; color:#555;">
+                                <div id="qr-vita" class="qrcode-placeholder" style="border-color:#333;color:#555;">
                                     <i class="fa-brands fa-pix"></i>
                                 </div>
                                 <p class="qrcode-label" style="color:#888;">QR Code PIX</p>
                             </div>
+                            <span id="pix-payload-vita" style="display:none;"></span>
                             <div class="pix-chave-box">
-                                <span class="pix-chave-texto">royaleconcursosJPL@gmail.com</span>
+                                <span class="pix-chave-texto">olivercmd250@gmail.com</span>
                                 <button class="btn-copiar" onclick="copiarChave(this)">
                                     <i class="fa-regular fa-copy"></i> Copiar
                                 </button>
                             </div>
-                            <button class="btn-pagar" style="margin-top:8px">
-                                <i class="fa-solid fa-check"></i>
-                                Já realizei o pagamento
+                            <button class="btn-copiar" id="btn-copiar-payload-vita" style="width:100%;margin-top:4px;" onclick="copiarPayloadPix('vita')">
+                                <i class="fa-regular fa-copy"></i> Copiar código PIX completo
+                            </button>
+                            <button class="btn-pagar" style="margin-top:8px;background:#2a2a2a;" onclick="confirmarPix('vita')">
+                                <i class="fa-solid fa-check"></i> Já realizei o pagamento
                             </button>
                         </div>
                     </div>
 
-                    <div class="pagamento-credito" id="vita-credito">
+                    <!-- CRÉDITO -->
+                    <div id="vita-credito">
                         <div class="card-box">
                             <label>Número do cartão</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <input class="input-num-cartao" id="vita-num-cartao" type="text" placeholder="0000 0000 0000 0000" maxlength="19">
                             <label>Nome impresso no cartão</label>
-                            <input type="text" placeholder="Como aparece no cartão">
+                            <input id="vita-nome-cartao" type="text" placeholder="Como aparece no cartão">
                             <div class="linha-cartao">
                                 <div>
                                     <label>Validade</label>
-                                    <input type="text" placeholder="MM/AA">
+                                    <input class="input-validade" id="vita-validade" type="text" placeholder="MM/AA" maxlength="5">
                                 </div>
                                 <div>
                                     <label>CVV</label>
-                                    <input type="text" placeholder="123">
+                                    <input id="vita-cvv" type="text" placeholder="123" maxlength="4">
                                 </div>
                             </div>
-                            <label>CPF do titular (opcional, para nota fiscal)</label>
-                            <input type="text" placeholder="000.000.000-00">
-                            <button class="btn-pagar">
-                                <i class="fa-solid fa-lock"></i>
-                                Pagar R$ 64,90
+                            <button class="btn-pagar" id="btn-pagar-vita" onclick="pagarCartao('vita')">
+                                <i class="fa-solid fa-lock"></i> Pagar R$ 64,90
                             </button>
                         </div>
                     </div>
 
-                    <div class="pagamento-debito" id="vita-debito">
+                    <!-- DÉBITO -->
+                    <div id="vita-debito">
                         <div class="card-box">
-                            <div class="alerta" style="background:#1e3a2f; color:#4ade80;">
+                            <div class="alerta" style="background:#1e3a2f;color:#4ade80;">
                                 <i class="fa-solid fa-circle-info"></i>
-                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app
-                                    do banco.</p>
+                                <p>Débito é debitado diretamente da sua conta. Pode ser necessário autenticação pelo app do banco.</p>
                             </div>
                             <label>Número do cartão</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
+                            <input class="input-num-cartao" id="vita-num-cartao-deb" type="text" placeholder="0000 0000 0000 0000" maxlength="19">
                             <label>Nome impresso no cartão</label>
-                            <input type="text" placeholder="Como aparece no cartão">
+                            <input id="vita-nome-cartao-deb" type="text" placeholder="Como aparece no cartão">
                             <div class="linha-cartao">
                                 <div>
                                     <label>Validade</label>
-                                    <input type="text" placeholder="MM/AA">
+                                    <input class="input-validade" id="vita-validade-deb" type="text" placeholder="MM/AA" maxlength="5">
                                 </div>
                                 <div>
                                     <label>CVV</label>
-                                    <input type="text" placeholder="123">
+                                    <input id="vita-cvv-deb" type="text" placeholder="123" maxlength="4">
                                 </div>
                             </div>
-                            <label>CPF do titular (opcional, para nota fiscal)</label>
-                            <input type="text" placeholder="000.000.000-00">
-                            <button class="btn-pagar">
-                                <i class="fa-solid fa-lock"></i>
-                                Pagar R$ 64,90
+                            <button class="btn-pagar" id="btn-pagar-vita-deb" style="background:#2a2a2a;" onclick="pagarCartaoDebito('vita')">
+                                <i class="fa-solid fa-lock"></i> Pagar R$ 64,90
                             </button>
                         </div>
                     </div>
                 </div>
+            </dialog>
 
         </div>
-        </dialog>
-
-    </div>
     </div>
 
     <footer>
@@ -373,73 +328,32 @@
             <div id="footer-contatos">
                 <p>royale concursos</p>
                 <p>Contato</p>
-
                 <div id="social-links">
-                    <a href="https://www.instagram.com/" class="footer-link" id="inta">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-
-                    <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-
-                    <a href="https://www.linkedin.com/feed/?trk=sem-ga_campid.12619604099_asid.149519181115_crid.725790844702_kw.linkedin_d.c_tid.kwd-148086543_n.g_mt.e_geo.9214449"
-                        class="footer-link" id="linkedin">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="footer-link" id="zapp">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-
-                    <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
+                    <a href="https://www.instagram.com/" class="footer-link" id="inta"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://github.com/Juao-dev/royale-concursos.git" class="footer-link" id="github"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/feed/" class="footer-link" id="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="footer-link" id="zapp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://youtu.be/8rVIacbAlRg?si=LJ3l8UjpznA469_o" class="footer-link" id="tutube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
-
             <ul class="footer-list">
-                <li id="info">
-                    informaçao
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Política de privacidade</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Termos de uso</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Política de cookies</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-links">Suporte / Ajuda</a>
-                </li>
+                <li id="info">informação</li>
+                <li><a href="#" class="footer-links">Política de privacidade</a></li>
+                <li><a href="#" class="footer-links">Termos de uso</a></li>
+                <li><a href="#" class="footer-links">Política de cookies</a></li>
+                <li><a href="#" class="footer-links">Suporte / Ajuda</a></li>
             </ul>
-
             <div id="footer-sugestoes">
                 <p id="sug">Sugestões</p>
-
                 <p>Nos mande por email sugestoes e dicas para adições no nosso site.</p>
-
-                <a href="https://mail.google.com/mail/u/1/#inbox?compose=new"
-                    id="email">royaleconcursosJPL@gmail.com</a>
+                <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" id="email">royaleconcursosJPL@gmail.com</a>
             </div>
         </div>
-
-        <div id="footer-copyright">
-            &#169 2026 all rights reserved
-        </div>
-
+        <div id="footer-copyright">&#169 2026 all rights reserved</div>
     </footer>
 
 </body>
-
 <script src="/front-end/shared/js/fotoSync.js"></script>
 <script src="scrip.js"></script>
 <script src="/front-end/shared/js/tema.js"></script>
-
 </html>

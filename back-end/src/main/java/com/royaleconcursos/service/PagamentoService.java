@@ -15,16 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Serviço de pagamentos atualizado:
- *   - Valida dados de cartão via CartaoValidator (algoritmo de Luhn)
- *   - Gera payload PIX via PixService
- *   - Ativa planos via PlanoService após pagamento aprovado
- */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,21 +32,36 @@ public class PagamentoService {
     private final PixService pixService;
     private final PlanoService planoService;
 
+    // ── Preços definidos SOMENTE no backend ───────────────────────────────────
+    private static final Map<String, BigDecimal> PRECOS_PLANO = Map.of(
+        "MENSAL",    new BigDecimal("2"),
+        "VITALICIO", new BigDecimal("64.90")
+    );
+
     /**
-     * Cria e processa um pagamento.
-     *
-     * Fluxo:
-     *   1. Valida os dados do cartão (se for cartão)
-     *   2. Cria o registro no banco com status PENDENTE
-     *   3. Processa pelo método de pagamento
-     *   4. Se aprovado e for pagamento de PLANO, ativa o plano
+     * Retorna os preços dos planos para exibição no frontend (somente leitura).
+     * O frontend exibe, mas NÃO envia de volta — o backend sempre usa PRECOS_PLANO.
      */
+    public Map<String, BigDecimal> getPrecos() {
+        return PRECOS_PLANO;
+    }
+
     @Transactional
     public PagamentoResponse criarPagamento(CriarPagamentoRequest request) {
         User usuarioAtual = getUsuarioAutenticado();
 
-        // 1. Valida cartão ANTES de criar qualquer registro no banco
-        // Lança IllegalArgumentException se algum dado for inválido
+        // Valida que o tipoPlano foi informado
+        if (request.getTipoPlano() == null || request.getTipoPlano().isBlank()) {
+            throw new IllegalArgumentException("Tipo de plano é obrigatório.");
+        }
+
+        // ── Valor definido pelo BACKEND, ignorando qualquer valor enviado pelo frontend ──
+        BigDecimal valorReal = PRECOS_PLANO.get(request.getTipoPlano().toUpperCase());
+        if (valorReal == null) {
+            throw new IllegalArgumentException("Plano inválido: " + request.getTipoPlano());
+        }
+
+        // Valida cartão ANTES de criar registro
         cartaoValidator.validar(
             request.getNumeroCartao(),
             request.getValidadeCartao(),
@@ -58,60 +69,44 @@ public class PagamentoService {
             request.getMetodoPagamento()
         );
 
-        // 2. Cria o pagamento no banco
+        // Cria o pagamento com o valor REAL do backend
         Pagamento pagamento = Pagamento.builder()
-                .valor(request.getValor())
+                .valor(valorReal)
                 .metodoPagamento(request.getMetodoPagamento())
-                .descricao(request.getDescricao())
+                .descricao("Plano " + request.getTipoPlano() + " - Royale Concursos")
                 .usuario(usuarioAtual)
                 .build();
         pagamento = pagamentoRepository.save(pagamento);
-        log.info("Pagamento criado: id={}, valor={}, método={}", pagamento.getId(), pagamento.getValor(), pagamento.getMetodoPagamento());
+        log.info("Pagamento criado: id={}, valor={}, plano={}", pagamento.getId(), valorReal, request.getTipoPlano());
 
-        // 3. Processa e atualiza o status
         pagamento = processarPagamento(pagamento, request, usuarioAtual);
         pagamento = pagamentoRepository.save(pagamento);
 
-        // 4. Se aprovado e for pagamento de plano, ativa o plano
-        if (pagamento.getStatus() == StatusPagamento.APROVADO && request.getTipoPlano() != null) {
+        if (pagamento.getStatus() == StatusPagamento.APROVADO) {
             ativarPlanoAposCompra(usuarioAtual.getId(), request.getTipoPlano());
         }
 
         return toResponse(pagamento);
     }
 
-    /**
-     * Processa o pagamento de acordo com o método escolhido.
-     *
-     * Para PIX: gera o payload e armazena no campo pixPayload da resposta.
-     * Para cartão: o CartaoValidator já validou, aqui aprovamos (em prod: chamaria gateway).
-     * Para carteira digital: verifica se o ID foi informado.
-     */
     private Pagamento processarPagamento(Pagamento pagamento, CriarPagamentoRequest request, User usuario) {
         pagamento.setStatus(StatusPagamento.PROCESSANDO);
         String txId = "PAY" + pagamento.getId();
 
         if (pagamento.getMetodoPagamento() == MetodoPagamento.PIX) {
-            log.info("Gerando payload PIX para pagamento id={}", pagamento.getId());
-
-            // Gera o payload PIX real (padrão BACEN)
             String payload = pixService.gerarPayload(
-                "sua-chave-pix@email.com", // substitua pela chave PIX da sua conta
-                "Minha Loja",
-                "Sao Paulo",
+                "olivercmd250@gmail.com",
+                "Joao Marcos Marques Silva",
+                "Novo Gama",
                 pagamento.getValor(),
                 txId
             );
-
             pagamento.setIdTransacaoExterna("PIX-" + txId);
-            pagamento.setPixPayload(payload);        // payload "copia e cola"
-            pagamento.setStatus(StatusPagamento.PENDENTE); // PIX fica PENDENTE até confirmação do BACEN
+            pagamento.setPixPayload(payload);
+            pagamento.setStatus(StatusPagamento.PENDENTE);
 
         } else if (pagamento.getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO
                 || pagamento.getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO) {
-            // Cartão já foi validado pelo CartaoValidator antes de chegar aqui
-            // Em produção: chame o SDK do gateway (Mercado Pago, Stripe, etc.)
-            log.info("Processando cartão para pagamento id={}", pagamento.getId());
             pagamento.setIdTransacaoExterna("CARD-" + UUID.randomUUID());
             pagamento.setStatus(StatusPagamento.APROVADO);
 
@@ -127,9 +122,6 @@ public class PagamentoService {
         return pagamento;
     }
 
-    /**
-     * Ativa o plano correto após o pagamento ser aprovado.
-     */
     private void ativarPlanoAposCompra(String usuarioId, String tipoPlano) {
         switch (tipoPlano.toUpperCase()) {
             case "MENSAL"    -> planoService.ativarPlanoMensal(usuarioId);
@@ -163,6 +155,35 @@ public class PagamentoService {
         }
         pagamento.setStatus(StatusPagamento.CANCELADO);
         return toResponse(pagamentoRepository.save(pagamento));
+    }
+
+    @Transactional
+    public PagamentoResponse confirmarPix(Long id) {
+        Pagamento pagamento = pagamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pagamento não encontrado: " + id));
+
+        User usuarioAtual = getUsuarioAutenticado();
+        if (!pagamento.getUsuario().getId().equals(usuarioAtual.getId())) {
+            throw new SecurityException("Acesso negado ao pagamento " + id);
+        }
+
+        if (pagamento.getStatus() != StatusPagamento.PENDENTE) {
+            throw new IllegalStateException("Apenas pagamentos pendentes podem ser confirmados.");
+        }
+
+        pagamento.setStatus(StatusPagamento.APROVADO);
+        pagamento = pagamentoRepository.save(pagamento);
+
+        // Descobre o plano pela descrição do pagamento
+        String desc = pagamento.getDescricao() != null ? pagamento.getDescricao().toUpperCase() : "";
+        if (desc.contains("VITALICIO") || desc.contains("VITALÍCIO")) {
+            planoService.ativarPlanoVitalicio(usuarioAtual.getId());
+        } else if (desc.contains("MENSAL")) {
+            planoService.ativarPlanoMensal(usuarioAtual.getId());
+        }
+
+        log.info("PIX confirmado: pagamento id={}, usuário={}", id, usuarioAtual.getEmail());
+        return toResponse(pagamento);
     }
 
     private User getUsuarioAutenticado() {

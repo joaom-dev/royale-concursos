@@ -938,3 +938,64 @@ footer {
         gap: 2rem;
     }
 }
+/* ─── BADGE PLANO ATUAL ───────────────────────────────────────────────────── */
+.plano-atual-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.badge-plano-atual {
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.plano-expiracao {
+    font-size: 13px;
+    color: #888;
+}
+
+/* ─── CARD PLANO ATIVO ────────────────────────────────────────────────────── */
+.plan-card.plano-ativo {
+    outline: 3px solid #293ab4;
+    outline-offset: 3px;
+    position: relative;
+}
+
+.plan-card.plano-ativo::after {
+    content: "✓ Seu plano atual";
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #293ab4;
+    white-space: nowrap;
+}
+
+.plan-card.dark.plano-ativo::after {
+    color: #93c5fd;
+}
+
+/* ─── QR CODE dentro do modal ─────────────────────────────────────────────── */
+#qr-mensal img,
+#qr-vita img {
+    border-radius: 8px;
+}
+
+#qr-mensal,
+#qr-vita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    min-height: 160px;
+}
