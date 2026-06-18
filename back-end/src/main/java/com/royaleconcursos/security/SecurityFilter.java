@@ -31,25 +31,37 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-
         if (path.startsWith("/auth")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String token = recoverToken(request);
+        System.out.println("[DEBUG] TOKEN RECEBIDO: " + token);
 
         if (token != null) {
             String login = tokenService.validateToken(token);
+            System.out.println("[DEBUG] LOGIN EXTRAIDO DO TOKEN: " + login);
 
             if (login != null) {
                 User user = userRepository.findByEmail(login)
                         .orElseThrow(() -> new RuntimeException("User Not Found"));
 
-                var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+                System.out.println("[DEBUG] ROLE NO BANCO: [" + user.getRole() + "]");
+
+                String role = "ROLE_" + user.getRole().toUpperCase();
+                System.out.println("[DEBUG] AUTHORITY GERADA: " + role);
+
+                var authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
                 var authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                System.out.println("[DEBUG] AUTENTICACAO SETADA COM SUCESSO PARA: " + user.getEmail());
+            } else {
+                System.out.println("[DEBUG] TOKEN INVALIDO OU EXPIRADO - login veio null");
             }
+        } else {
+            System.out.println("[DEBUG] NENHUM TOKEN ENCONTRADO NO HEADER AUTHORIZATION");
         }
 
         filterChain.doFilter(request, response);

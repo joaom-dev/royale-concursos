@@ -34,7 +34,7 @@ public class PagamentoService {
 
     // ── Preços definidos SOMENTE no backend ───────────────────────────────────
     private static final Map<String, BigDecimal> PRECOS_PLANO = Map.of(
-        "MENSAL",    new BigDecimal("2"),
+        "MENSAL",    new BigDecimal("17.90"),
         "VITALICIO", new BigDecimal("64.90")
     );
 

@@ -3,7 +3,6 @@ package com.royaleconcursos.service;
 import com.royaleconcursos.dto.AnuncioDTO;
 import com.royaleconcursos.model.Anuncio;
 import com.royaleconcursos.repository.AnuncioRepository;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +11,15 @@ import java.util.List;
 
 @Service
 public class AnuncioService {
-    
+
     @Autowired
     private AnuncioRepository anuncioRepository;
 
-    public List<Anuncio> listarAtivos () {
+    public List<Anuncio> listarAtivos() {
         return anuncioRepository.findAnunciosAtivos(LocalDateTime.now());
     }
 
-    public Anuncio criar (AnuncioDTO dto) {
-
+    public Anuncio criar(AnuncioDTO dto) {
         Anuncio a = new Anuncio();
         a.setTitulo(dto.getTitulo());
         a.setDescricao(dto.getDescricao());
@@ -30,18 +28,18 @@ public class AnuncioService {
         a.setPosicao(dto.getPosicao());
         a.setDataInicio(dto.getDataInicio());
         a.setDataFim(dto.getDataFim());
-        a.setAtivo(true);
+        a.setAtivo(dto.isAtivo()); // ✅ respeita o valor enviado pelo cliente
         return anuncioRepository.save(a);
     }
 
-    public void toggleAtivo (Long id){
+    public void toggleAtivo(Long id) {
         Anuncio a = anuncioRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Anuncio não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Anuncio não encontrado: " + id));
         a.setAtivo(!a.isAtivo());
         anuncioRepository.save(a);
     }
 
-    public void deletar (Long id) {
+    public void deletar(Long id) {
         anuncioRepository.deleteById(id);
     }
 }

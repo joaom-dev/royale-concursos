@@ -17,6 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.http.HttpMethod;
 
@@ -32,38 +35,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .cors(Customizer.withDefaults())
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .authorizeHttpRequests(auth -> auth
-
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-
-                .requestMatchers(HttpMethod.GET, "/anuncios/**").permitAll()
-
-                // GET do ranking é público (visualizar), POST exige autenticação (controle de uso grátis)
-                .requestMatchers(HttpMethod.GET, "/api/ranking/**").permitAll()
-
-                // Rotas públicas
-                .requestMatchers(
-                    "/auth/login",
-                    "/auth/register",
-                    "/login**",
-                    "/error**",
-                    "/oauth2/**",
-                    "/api/concursos/**",
-                    "/api/pagamentos/precos",  // preços públicos para exibição
-                    "/fotos/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .defaultSuccessUrl("/auth/oauth2/success", true)
-            )
-            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // ← Adicione isso: retorna 401 em vez de redirecionar para o Google
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("Não autorizado");
+                        }))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/anuncios/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/ranking/**").permitAll()
+                        .requestMatchers(
+                                "/auth/login",
+                                "/auth/register",
+                                "/login**",
+                                "/error**",
+                                "/oauth2/**",
+                                "/api/concursos/**",
+                                "/api/pagamentos/precos",
+                                "/fotos/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/auth/oauth2/success", true))
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -72,9 +71,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-            "http://localhost:5500",
-            "http://127.0.0.1:5500"
-        ));
+                "http://localhost:5500",
+                "http://127.0.0.1:5500"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
@@ -90,7 +88,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -100,7 +99,7 @@ public class SecurityConfig {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/fotos/**")
-                .addResourceLocations("file:upload/fotos/");
+                        .addResourceLocations("file:upload/fotos/");
             }
         };
     }
