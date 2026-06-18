@@ -12,7 +12,6 @@
 </head>
 <body>
 
- 
   <div class="menu-lateral">
     <div class="menu-topo">
       <img id="fotoHeader" src="/front-end/assets/images/lebron bb.jpg" alt="Foto de perfil">
@@ -40,6 +39,7 @@
       <h2>Adicionar Notas ao Ranking</h2>
       <form id="userForm">
 
+        <!-- CAMPO DE BUSCA -->
         <div class="formulario-grupo">
           <label for="searchConcurso">Pesquisar concurso:</label>
           <input
@@ -50,10 +50,15 @@
           />
         </div>
 
-        
+        <!-- SELECT DE CONCURSO (estava faltando no HTML original) -->
+        <div class="formulario-grupo">
+          <label for="contest">Concurso:</label>
           <small id="loadingConcursos" style="display:none; color:#aaa;">
             <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando concursos...
           </small>
+          <select id="contest" required>
+            <option value="">-- Selecione um concurso --</option>
+          </select>
         </div>
 
         <div class="formulario-grupo">
@@ -140,10 +145,10 @@
     <div id="footer-copyright">&#169 2026 all rights reserved</div>
   </footer>
 
-  <!-- ── Anúncio lateral (card fixo à direita) ── -->
-    <div id="anuncio-lateral"></div>
+  <div id="anuncio-lateral"></div>
+
+  <script src="Script.js"></script>
+  <script src="/front-end/shared/js/tema.js"></script>
+  <script src="/front-end/shared/js/fotoSync.js"></script>
 </body>
-<script src="Script.js"></script>
-<script src="/front-end/shared/js/tema.js"></script>
-<script src="/front-end/shared/js/fotoSync.js"></script>
 </html>

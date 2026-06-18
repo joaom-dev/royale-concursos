@@ -35,4 +35,11 @@ public class RankingNotaController {
     public ResponseEntity<List<RankingNotaDTO>> listar(@PathVariable Long concursoId) {
         return ResponseEntity.ok(service.listarPorConcurso(concursoId));
     }
+
+    @GetMapping("/{concursoId}/pesquisar")
+    public ResponseEntity<List<RankingNotaDTO>> pesquisar(
+            @PathVariable Long concursoId,
+            @RequestParam String nome) {
+        return ResponseEntity.ok(service.pesquisar(concursoId, nome));
+    }
 }

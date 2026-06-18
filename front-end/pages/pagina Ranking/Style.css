@@ -325,7 +325,6 @@ tbody td {
 
 .top-3 small { color: #ffffff; }
 
-/* ─── CARDS RESUMO ────────────────────────────────────────────────────────── */
 .summary-cards {
   margin-top: 40px;
   width: 100%;
@@ -361,7 +360,6 @@ tbody td {
   font-weight: 700;
 }
 
-/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
 footer {
   margin-left: 0;
   width: 100%;
@@ -419,7 +417,6 @@ footer {
   display: flex; align-items: center; justify-content: center; padding: 1rem;
 }
 
-/* ─── RESPONSIVO ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .ranking-cont { flex-direction: column; }
   .top-3 { width: 100%; min-width: unset; }
@@ -438,7 +435,6 @@ footer {
   .card { min-width: unset; width: 100%; }
   #content-footer { grid-template-columns: 1fr; padding: 2rem 1.2rem; gap: 2rem; }
 }
-/* ─── CAMPO DE BUSCA DE CONCURSO ──────────────────────────────────────────── */
 #searchConcurso {
   width: 100%;
   padding: 9px 12px;
